@@ -1,0 +1,71 @@
+html {
+  font-size: 10px;
+}
+
+body:before {
+  content: '';
+  display: block;
+  background:
+    linear-gradient(45deg, hsla(190, 95%, 43%, 1) 0%, hsla(190, 95%, 43%, 0) 70%),
+    linear-gradient(135deg, hsla(219, 93%, 48%, 1) 10%, hsla(219, 93%, 48%, 0) 80%),
+    linear-gradient(315deg, hsla(130, 96%, 45%, 1) 100%, hsla(130, 96%, 45%, 0) 70%);
+  height: 10px;
+  width: 100%;
+}
+
+
+.inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+@media all and (max-width: 900px) {
+  .inner {
+    padding: 1rem;
+  }
+}
+
+.inner--flashes {
+  padding: 0;
+}
+
+.svg,
+svg {
+  /* fill: $blackText; */
+  width: 40px;
+  height: 40px;
+}
+
+.main {
+  width: 100%;
+  margin: 10px auto;
+  padding: 10px;
+  border: none;
+  /* background: $whiteSmoke; */  
+}
+
+.main:hover {
+  transform: scale(1.005);
+}
+
+a.main {
+  overflow-x: hidden;
+  height: 100%;
+  display: inline-block;
+}
+
+.main > span {
+  padding-left: 8px;
+}
+
+/* @media all and (min-width: 768px) {
+  .main {
+    font-size: $medium;
+  }
+}
+
+@media all and (min-width: 1920px) {
+  .main {
+    font-size: $large;
+  }
+} */

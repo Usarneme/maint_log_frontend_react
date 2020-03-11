@@ -1,0 +1,83 @@
+.nav {
+  width: 100%;
+  margin: 0;
+  display: inline-grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: #010010;
+  /* background: $black; */
+  padding: 2px;
+  transition: transform 0.25s;
+}
+
+.navItem {
+  background: #303030;
+  /* background: $navBlack; */
+  min-height: 20px;
+  margin: 1px;
+}
+
+.navItem:hover,
+.navLink--active {
+  border-bottom-color: rgba(0,0,0,0.2);
+  border-right-color: rgba(0,0,0,0.05);
+  background: linear-gradient(90deg, #48ded4 0%, hsla(219, 93%, 48%, 1) 10%, hsla(130, 96%, 45%, 1) 100%) fixed;
+}
+
+.navItem > img {
+  transform: scale(1.2)
+}
+
+.nav > a,
+.nav > div > a {
+  color: #eee;
+  /* color: $navText; */
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  text-align: center;
+  padding: 4px 0;
+}
+
+a.navLink > img,
+a.navLink > img > g {
+  fill: #eee;
+  /* fill: $navText; */
+  padding: 5px;
+  margin: 1px;
+  max-width: 30px;
+  max-height: 30px;  
+}
+
+@media all and (min-width: 550px) {
+  nav.nav {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  a.navLink > img,
+  a.navLink > img > g {
+    max-width: 40px;
+    max-height: 40px;
+  }
+  .nav > a,
+  .nav > div > a {
+    flex-direction: column;
+  }
+}
+
+@media all and (min-width: 768px) {
+  a.navLink > img,
+  a.navLink > img > g {
+    max-width: 45px;
+    max-height: 45px;
+    padding: 4px;
+    margin: 2px;
+  }
+}
+
+@media all and (min-width: 1200px) {
+  .nav > a,
+  .nav > div > a {
+    flex-direction: row;
+  }
+}
