@@ -69,3 +69,88 @@ a.main {
     font-size: $large;
   }
 } */
+
+.button {
+  cursor: pointer;
+  border: 0;
+  color: #E8E8E8;
+  background-color: #004c7d;
+  border: 1px solid #004c7d;
+  font-family: 'Panama';
+  font-weight: 600;
+  padding: 10px;
+  margin: 10px 0 10px 0;
+}
+
+input, select, textarea {
+  background: #AAA;
+  /* background: $formInput; */
+  width: 100%;
+  /* border: 1px solid $grey; */
+  border: 1px solid #AAA;
+  padding: 5px 35px 5px 5px;
+  height: 40px;
+  &.input {
+    &--error {
+      border-color: red;
+    }
+  }
+}
+
+textarea {
+  min-height: 80px;
+}
+
+textarea {
+  padding: 8px;
+}
+
+label {
+  padding: 10px 0;
+  display: block;
+}
+
+.form {
+  /* background: $white; */
+  background: #FFF;
+  padding: 2rem;
+  box-shadow: 0px 0px 10px -3px #222;
+  margin: 1rem 0 2rem 0;
+  /* box-shadow: $grad; */
+}
+
+.form > h2 {
+  margin: 0;
+  font-size: 2rem;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  /* border-bottom: 1px solid $grey; */
+  border-bottom: 1px solid #AAA;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* background: url('../images/icons/add.svg') 99% / 6% no-repeat $formInput; */
+  background: url('../images/add.svg') 99% / 6% no-repeat #AAA;
+}
+
+@media all and (min-width: 768px) {
+  select {
+    /* background: url('../images/icons/add.svg') 99% / 4% no-repeat $formInput; */
+    background: url('../images/add.svg') 99% / 4% no-repeat #AAA;
+  }
+}
+
+select::-ms-expand {
+  display: none; /* Remove default arrow in Internet Explorer 10 and 11 */
+}
+
+/* Target Internet Explorer 9 to undo the custom arrow */
+@media screen and (min-width:0\0) {
+  select {
+    background: none\9;
+    padding: 5px\9;
+  }
+}

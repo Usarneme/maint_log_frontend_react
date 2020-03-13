@@ -1,48 +1,44 @@
-import React from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
+import React from 'react'
 
-import Nav from './components/Nav'
+import { authContext } from './contexts/authContext'
+import AppRouter from './AppRouter'
 
-import Account from './pages/Account'
-import Home from './pages/Home'
-import Log from './pages/Log'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import Todo from './pages/Todo'
-
-import './components/normalize.css';
+import './components/normalize.css'
 import './components/layout.css'
 
-function App() {
-  return (
-    <Router>
-      <Nav />
-      <Switch>
-        <Route path="/account">
-          <Account />
-        </Route>
-        <Route path="/log">
-          <Log />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/register">
-          <Register />
-        </Route>
-        <Route path="/todo">
-          <Todo />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
-    </Router>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.updateAuthState = (authObj) => {
+      this.setState({ auth: authObj })
+    }
+
+    this.state = {
+      auth: {
+        username: '', 
+        userID: '', 
+        sessionID: '', 
+        cookies: '',
+        email: ''
+      }, 
+      updateAuthState: this.updateAuthState
+    }
+  }
+
+  componentDidMount() {
+    // TODO - check localStorage for a valid user and set it to state
+  }
+
+  render() {
+    const context = { auth: this.state.auth, updateAuthState: this.state.updateAuthState }
+
+    return (
+      <authContext.Provider value={context}>
+        <AppRouter />
+      </authContext.Provider>
+    )
+  }
 }
 
-export default App;
+export default App

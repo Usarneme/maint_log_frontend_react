@@ -5,6 +5,7 @@ import Account from '../images/account.svg'
 import Home from '../images/home.svg'
 import Log from '../images/log.svg'
 import Login from '../images/login.svg'
+import Logout from '../images/logout.svg'
 import Register from '../images/register.svg'
 import Todo from '../images/todo.svg'
 
@@ -35,6 +36,12 @@ function Nav() {
         <NavLink exact to='/log' className='navLink' activeClassName='navLink--active'>
           <img src={Log} alt='log' description='log' className='svg' />
           <span>Log</span>
+        </NavLink>
+      </div>
+      <div className='navItem'>
+        <NavLink exact to='/logout' className='navLink' activeClassName='navLink--active'>
+          <img src={Logout} alt='logout' description='logout' className='svg' />
+          <span>Logout</span>
         </NavLink>
       </div>
       <div className='navItem'>
