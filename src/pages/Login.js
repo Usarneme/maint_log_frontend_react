@@ -38,7 +38,7 @@ class Login extends Component {
         const { user, sessionID, cookies } = res.data
         const userID = user._id
         const username = user.name
-        this.setState({ auth: { username, userID, sessionID, cookies, email}, password: undefined })
+        this.setState({ auth: { username, userID, sessionID, cookies, email }, password: '' })
         this.props.updateAuthState(this.state.auth)
         this.props.history.push('/')
       } else {

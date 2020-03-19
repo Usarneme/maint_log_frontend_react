@@ -18,8 +18,8 @@ function Nav(props) {
   console.log('Nav Component. Logged in user? '+isLoggedIn)
 
   return (
-    <div className="topNav">
-      <Link exact to='/' className='siteTitle'>
+    <div className='topNav'>
+      <Link to='/' className='siteTitle'>
         <h2>Vehicle Maintenance Log</h2>
       </Link>
       <nav className='nav'>
@@ -32,13 +32,13 @@ function Nav(props) {
             </NavLink>
           </div>
           <div className='navItem'>
-            <NavLink exact to='/register' className='navLink' activeClassName='navLink--active'>
+            <NavLink to='/register' className='navLink' activeClassName='navLink--active'>
               <img src={Register} alt='register' description='register' className='svg' />
               <span>Register</span>
             </NavLink>
           </div>
           <div className='navItem'>
-            <NavLink exact to='/login' className='navLink' activeClassName='navLink--active'>
+            <NavLink to='/login' className='navLink' activeClassName='navLink--active'>
               <img src={Login} alt='login' description='login' className='svg' />
               <span>Login</span>
             </NavLink>
@@ -48,37 +48,37 @@ function Nav(props) {
         { isLoggedIn && 
           <>
           <div className='navItem'>
-            <NavLink exact to='/log' className='navLink' activeClassName='navLink--active'>
+            <NavLink to='/log' className='navLink' activeClassName='navLink--active'>
               <img src={Log} alt='log' description='log' className='svg' />
               <span>Log</span>
             </NavLink>
           </div>
           <div className='navItem'>
-            <NavLink exact to='/add' className='navLink' activeClassName='navLink--active'>
+            <NavLink to='/add' className='navLink' activeClassName='navLink--active'>
               <img src={Add} alt='addNewLog' description='add a new log entry' className='svg' />
               <span>Add</span>
             </NavLink>
           </div>
           <div className='navItem'>
-            <NavLink exact to='/todo' className='navLink' activeClassName='navLink--active'>
+            <NavLink to='/todo' className='navLink' activeClassName='navLink--active'>
               <img src={Todo} alt='todo' description='todo' className='svg' />
               <span>Todo</span>
             </NavLink>
           </div>
           <div className='navItem'>
-            <NavLink exact to='/search' className='navLink' activeClassName='navLink--active'>
+            <NavLink to='/search' className='navLink' activeClassName='navLink--active'>
               <img src={Search} alt='search' description='search' className='svg' />
               <span>Search</span>
             </NavLink>
           </div>
           <div className='navItem'>
-            <NavLink exact to='/logout' className='navLink' activeClassName='navLink--active'>
+            <NavLink to='/logout' className='navLink' activeClassName='navLink--active'>
               <img src={Logout} alt='logout' description='logout' className='svg' />
               <span>Logout</span>
             </NavLink>
           </div>
           <div className='navItem'>
-            <NavLink exact to='/account' className='navLink' activeClassName='navLink--active'>
+            <NavLink to='/account' className='navLink' activeClassName='navLink--active'>
               <img src={Account} alt='account' description='account' className='svg' />
               <span>Account</span>
             </NavLink>
