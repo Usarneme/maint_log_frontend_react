@@ -15,6 +15,10 @@ const Logout = (props) => {
     .then(res => {
       if (res.status === 200) {
         console.log(`apiLogout handler returned success!`)
+        const emptyAuthObject = { username: '', userID: '', sessionID: '', cookies: '',email: ''}
+        // console.log(props.auth)
+        // console.log(emptyAuthObject)
+        props.updateAuthState(emptyAuthObject)
         return props.history.push('/')
       } else {
         const error = new Error(res.error)
@@ -32,7 +36,7 @@ const Logout = (props) => {
   })
 
   return (
-    <div className="loading">
+    <div className="inner loading">
       { !hasError && <p>Please wait while you are logged out...</p> }
       { hasError && `<div className="error"> ${JSON.stringify(hasError)}` }
     </div>

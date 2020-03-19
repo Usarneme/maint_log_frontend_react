@@ -3,8 +3,8 @@ import React from 'react'
 import { authContext } from './contexts/authContext'
 import AppRouter from './AppRouter'
 
-import './components/normalize.css'
-import './components/layout.css'
+import './styles/normalize.css'
+import './styles/layout.css'
 
 class App extends React.Component {
   constructor(props) {

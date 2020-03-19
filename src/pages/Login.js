@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
 
 const axios = require('axios')
 axios.defaults.withCredentials = true
@@ -41,7 +40,7 @@ class Login extends Component {
         const username = user.name
         this.setState({ auth: { username, userID, sessionID, cookies, email}, password: undefined })
         this.props.updateAuthState(this.state.auth)
-        // this.props.history.push('/')
+        this.props.history.push('/')
       } else {
         console.log('Response received but with status code: '+res.status)
         const error = new Error(res.error)
@@ -66,6 +65,7 @@ class Login extends Component {
     event.preventDefault()
     const { email } = this.state
     console.log(`/apiForgot handler: ${email}`)
+    // TODO - create back end route and handler
   }
 
   render() {

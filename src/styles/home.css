@@ -1,0 +1,39 @@
+.main {
+  width: 100%;
+  margin: 10px auto;
+  padding: 10px;
+  border: none;
+  /* background: $whiteSmoke; */  
+  background: #222;
+  display: inline-flex;
+}
+
+.main:hover {
+  transform: scale(1.01);
+}
+
+a.main {
+  overflow-x: hidden;
+  height: 100%;
+  display: inline-block;
+}
+
+.main > span {
+  padding-left: 8px;
+}
+
+.main > input {
+  margin-left: 6px;
+}
+
+/* @media all and (min-width: 768px) {
+  .main {
+    font-size: $medium;
+  }
+}
+
+@media all and (min-width: 1920px) {
+  .main {
+    font-size: $large;
+  }
+} */
