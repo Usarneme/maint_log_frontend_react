@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { getLogData } from '../helpers'
 
 const axios = require('axios')
 axios.defaults.withCredentials = true
@@ -9,7 +10,7 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      auth: {
+      user: {
         userID: '',
         username: '',
         sessionID: '',
@@ -25,40 +26,51 @@ class Login extends Component {
     })
   }
 
-  apiLogin = (event) => {
+  apiLogin = async (event) => {
     event.preventDefault()
     console.log(`/apiLogin handler. Axios posting to ${process.env.REACT_APP_API_DOMAIN}/api/login`)
 
     const { email, password } = this.state
-    axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/login`, { email, password })
-    .then(res => {
+    try {
+      const res = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/login`, { email, password })
+      // console.dir(res)
+
       if (res.status === 200) {
         console.log(`apiLogin handler returned success!`)
         // console.dir(res)
         const { user, sessionID, cookies } = res.data
         const userID = user._id
         const username = user.name
-        this.setState({ auth: { username, userID, sessionID, cookies, email }, password: '' })
-        this.props.updateAuthState(this.state.auth)
-        this.props.history.push('/')
+
+        // console.log('GETting log data...')
+        const logDataResult = await getLogData()
+        const logData = logDataResult.data
+        // console.log(`Found log data result of ${logData}`)
+
+        const { vehicle, log } = logData
+        console.log(`success! Returned #${log.length} log entries for vehicle ${vehicle[0]}.`)
+
+        this.setState({ user: { username, userID, sessionID, cookies, email, vehicle, log }, password: '' })
+        this.props.updateUserState(this.state.user)
+
+        // this.props.history.push('/')
       } else {
         console.log('Response received but with status code: '+res.status)
         const error = new Error(res.error)
         throw error
       }
-    })
-    .catch(err => {
-      console.log('Error posting to /api/login.')
-      // console.log(err)
-      // console.log(Object.keys(err))
-      console.log(err.message)
-      // console.log(err.config.validateStatus())
-      // console.log(err.request)
-      // console.log(err.response)
-      // console.log(err.isAxiosError)
-      console.dir(err.toJSON())
-      alert('Error logging in please try again')
-    })
+    } catch(err) {
+        console.log('Error posting to /api/login.')
+        console.dir(err)
+        // console.log(Object.keys(err))
+        // console.log(err.message)
+        // console.log(err.config.validateStatus())
+        // console.log(err.request)
+        // console.log(err.response)
+        // console.log(err.isAxiosError)
+        // console.dir(err.toJSON())
+        alert('Error logging in please try again')
+      }
   }
 
   apiForgot = (event) => {

@@ -1,18 +1,18 @@
-html, a {
+html {
   font-size: 10px;
+  box-sizing: border-box;
+}
+
+body, 
+a {
   color: #EEE;
   background: #111;
 }
 
 .inner {
   max-width: 900px;
-  margin: 0 auto;
-}
-
-@media all and (max-width: 900px) {
-  .inner {
-    padding: 1rem;
-  }
+  margin: 0 0 150px 0;
+  background: #222;
 }
 
 .inner--flashes {

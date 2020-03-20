@@ -14,7 +14,7 @@ import Todo from '../images/todo.svg'
 import '../styles/nav.css'
 
 function Nav(props) {
-  const isLoggedIn = (props.auth.cookies.length > 0)
+  const isLoggedIn = (props.user.cookies.length > 0)
   console.log('Nav Component. Logged in user? '+isLoggedIn)
 
   return (

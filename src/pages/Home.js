@@ -13,7 +13,7 @@ import '../styles/home.css'
 
 function Home(props) {
   // console.log(props)
-  const isLoggedIn = (props.auth.cookies.length > 0)
+  const isLoggedIn = (props.user.cookies.length > 0)
   // console.log('Home Component. Logged in user? '+isLoggedIn)
 
   return (

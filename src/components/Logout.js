@@ -15,8 +15,8 @@ const Logout = (props) => {
     .then(res => {
       if (res.status === 200) {
         console.log(`apiLogout handler returned success!`)
-        const emptyAuthObject = { username: '', userID: '', sessionID: '', cookies: '', email: ''}
-        props.updateAuthState(emptyAuthObject)
+        const userReset = { username: '', userID: '', sessionID: '', cookies: '', email: ''}
+        props.updateUserState(userReset)
         return props.history.push('/')
       } else {
         const error = new Error(res.error)

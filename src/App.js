@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { authContext } from './contexts/authContext'
+import { userContext } from './contexts/userContext'
 import AppRouter from './AppRouter'
 
 import './styles/normalize.css'
@@ -10,19 +10,21 @@ class App extends React.Component {
   constructor(props) {
     super(props)
 
-    this.updateAuthState = (authObj) => {
-      this.setState({ auth: authObj })
+    this.updateUserState = (user) => {
+      this.setState({ user })
     }
 
     this.state = {
-      auth: {
+      user: {
         username: '', 
         userID: '', 
         sessionID: '', 
         cookies: '',
-        email: ''
+        email: '',
+        vehicle: '',
+        log: ''
       }, 
-      updateAuthState: this.updateAuthState
+      updateUserState: this.updateUserState
     }
   }
 
@@ -31,12 +33,12 @@ class App extends React.Component {
   }
 
   render() {
-    const context = { auth: this.state.auth, updateAuthState: this.state.updateAuthState }
+    const context = { user: this.state.user, updateUserState: this.state.updateUserState }
 
     return (
-      <authContext.Provider value={context}>
+      <userContext.Provider value={context}>
         <AppRouter />
-      </authContext.Provider>
+      </userContext.Provider>
     )
   }
 }
