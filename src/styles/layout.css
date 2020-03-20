@@ -11,7 +11,9 @@ a {
 
 .inner {
   max-width: 900px;
-  margin: 0 0 150px 0;
+  min-height: 75vh;
+  padding: 5px;
+  margin: 0;
   background: #222;
 }
 
@@ -69,7 +71,7 @@ label {
 
 .form {
   /* background: $white; */
-  background: #222;
+  background: #111;
   padding: 2rem;
   margin: 1rem 0 2rem 0;
   /* box-shadow: $grad; */

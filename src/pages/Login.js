@@ -28,7 +28,7 @@ class Login extends Component {
 
   apiLogin = async (event) => {
     event.preventDefault()
-    console.log(`/apiLogin handler. Axios posting to ${process.env.REACT_APP_API_DOMAIN}/api/login`)
+    // console.log(`/apiLogin handler. Axios posting to ${process.env.REACT_APP_API_DOMAIN}/api/login`)
 
     const { email, password } = this.state
     try {
@@ -36,7 +36,7 @@ class Login extends Component {
       // console.dir(res)
 
       if (res.status === 200) {
-        console.log(`apiLogin handler returned success!`)
+        // console.log(`apiLogin handler returned success!`)
         // console.dir(res)
         const { user, sessionID, cookies } = res.data
         const userID = user._id
@@ -48,12 +48,12 @@ class Login extends Component {
         // console.log(`Found log data result of ${logData}`)
 
         const { vehicle, log } = logData
-        console.log(`success! Returned #${log.length} log entries for vehicle ${vehicle[0]}.`)
+        // console.log(`success! Returned #${log.length} log entries for vehicle ${vehicle[0]}.`)
 
         this.setState({ user: { username, userID, sessionID, cookies, email, vehicle, log }, password: '' })
         this.props.updateUserState(this.state.user)
 
-        // this.props.history.push('/')
+        this.props.history.push('/')
       } else {
         console.log('Response received but with status code: '+res.status)
         const error = new Error(res.error)

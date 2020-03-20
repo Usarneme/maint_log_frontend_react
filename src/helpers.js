@@ -1,13 +1,13 @@
 const axios = require('axios')
 
 export async function getLogData() {
-  console.log(`/api/getLogData handler. Axios getting from ${process.env.REACT_APP_API_DOMAIN}/api/getLogData`)
+  // console.log(`/api/getLogData handler. Axios getting from ${process.env.REACT_APP_API_DOMAIN}/api/getLogData`)
 
   try {
     const response = await axios.get(`${process.env.REACT_APP_API_DOMAIN}/api/getLogData`)
 
     if (response.status === 200) {
-      console.log(`getLogData handler returned success!`)
+      // console.log(`getLogData handler returned success!`)
       // console.dir(response)
       return response
     } else {
@@ -20,8 +20,4 @@ export async function getLogData() {
       console.dir(err)
       alert('Error getting log data please try again')
     }
-}
-
-export function print(json) {
-  return JSON.stringify(json)
 }

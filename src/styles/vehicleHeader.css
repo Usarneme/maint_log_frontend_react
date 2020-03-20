@@ -1,0 +1,10 @@
+.vehicleHeader {
+  margin: 1px;
+  padding: 7px;
+  display: flex;
+  flex-direction: column;
+}
+
+.vehicleHeader > span {
+  padding-bottom: 5px;
+}

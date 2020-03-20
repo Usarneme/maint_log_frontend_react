@@ -1,29 +1,27 @@
 .main {
   width: 100%;
-  margin: 5px;
+  margin: 5px 0;
   padding: 20px;
   border: none;
   /* background: $whiteSmoke; */  
   background: #0C0C0C;
-  display: inline-flex;
+  display: flex;
+  flex-direction: row;
+  border-radius: 50px;
+  justify-content: space-between;
+  align-items: center;
 }
 
+.main:focus,
+.main:focus-within,
 .main:hover {
-  transform: scale(1.01);
-}
-
-a.main {
-  overflow-x: hidden;
-  height: 100%;
-  display: inline-block;
-}
-
-.main > span {
-  padding-left: 8px;
+  transform: scale(1.02);
+  border-bottom: 4px solid #333;
 }
 
 .main > input {
-  margin-left: 6px;
+  margin: 0 auto;
+  width: 85%;
 }
 
 /* @media all and (min-width: 768px) {
