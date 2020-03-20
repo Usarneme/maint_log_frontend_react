@@ -2,7 +2,8 @@ import React from 'react'
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from "react-router-dom"
 
 import Nav from './components/Nav'
@@ -30,15 +31,40 @@ function AppRouter() {
         <userContext.Consumer>
           {({ user, updateUserState }) => 
           <>
-            <Route path="/account" render={props => <Account {...props} user={user} updateUserState={updateUserState} />} />
-            <Route path="/add" render={props => <Add {...props} user={user} updateUserState={updateUserState} />} />
-            <Route path="/" exact={true} render={props => <Home {...props} user={user} updateUserState={updateUserState} />} />
-            <Route path="/log" render={props => <Log {...props} user={user} updateUserState={updateUserState} />} />
-            <Route path="/login" render={props => <Login {...props} user={user} updateUserState={updateUserState} />} />
-            <Route path="/logout" render={props => <Logout {...props} user={user} updateUserState={updateUserState} />} />
-            <Route path="/register" render={props => <Register {...props} user={user} updateUserState={updateUserState} />} />
-            <Route path="/search" render={props => <Search {...props} user={user} updateUserState={updateUserState} />} />
-            <Route path="/todo" render={props => <Todo {...props} user={user} updateUserState={updateUserState} />} />
+            <Route path="/" exact={true} render={props => <Home {...props} user={user} updateUserState={updateUserState} /> }/>
+            <Route path="/login" render={props => <Login {...props} user={user} updateUserState={updateUserState} /> }/>
+            <Route path="/register" render={props => <Register {...props} user={user} updateUserState={updateUserState} /> }/>
+
+            <Route path="/account" render={props => {
+              if (user) return <Account {...props} user={user} updateUserState={updateUserState} /> 
+              return <Redirect to="/" />
+              } 
+            }/>
+            <Route path="/add" render={props => {
+              if (user) return <Add {...props} user={user} updateUserState={updateUserState} /> 
+              return <Redirect to="/" />
+              } 
+            }/>
+            <Route path="/log" render={props => {
+              if (user) return <Log {...props} user={user} updateUserState={updateUserState} /> 
+              return <Redirect to="/" />
+              } 
+            }/>
+            <Route path="/logout" render={props => {
+              if (user) return <Logout {...props} user={user} updateUserState={updateUserState} /> 
+              return <Redirect to="/" />
+              } 
+            }/>
+            <Route path="/search" render={props => {
+              if (user) return <Search {...props} user={user} updateUserState={updateUserState} /> 
+              return <Redirect to="/" />
+              } 
+            }/>
+            <Route path="/todo" render={props => {
+              if (user) return <Todo {...props} user={user} updateUserState={updateUserState} /> 
+              return <Redirect to="/" />
+              } 
+            }/>
           </>
           }
         </userContext.Consumer>

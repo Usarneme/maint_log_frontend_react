@@ -1,37 +1,37 @@
-.main {
+.home__actions {
   width: 100%;
   margin: 5px 0;
   padding: 20px;
   border: none;
   /* background: $whiteSmoke; */  
-  background: #0C0C0C;
+  background: #111;
   display: flex;
   flex-direction: row;
-  border-radius: 50px;
+  border-radius: 5px;
   justify-content: space-between;
   align-items: center;
 }
 
-.main:focus,
-.main:focus-within,
-.main:hover {
+.home__actions:focus,
+.home__actions:focus-within,
+.home__actions:hover {
   transform: scale(1.02);
-  border-bottom: 4px solid #333;
+  box-shadow: 0px 1px 9px -7px #AAA;
 }
 
-.main > input {
+.home__actions > input {
   margin: 0 auto;
   width: 85%;
 }
 
 /* @media all and (min-width: 768px) {
-  .main {
+  .home__actions {
     font-size: $medium;
   }
 }
 
 @media all and (min-width: 1920px) {
-  .main {
+  .home__actions {
     font-size: $large;
   }
 } */

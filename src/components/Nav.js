@@ -28,19 +28,19 @@ function Nav(props) {
           <div className='navItem'>
             <NavLink exact to='/' className='navLink' activeClassName='navLink--active'>
               <img src={Home} alt='home' description='home' className='svg' />
-              <span>Home</span>
+              <h3>Home</h3>
             </NavLink>
           </div>
           <div className='navItem'>
             <NavLink to='/register' className='navLink' activeClassName='navLink--active'>
               <img src={Register} alt='register' description='register' className='svg' />
-              <span>Register</span>
+              <h3>Register</h3>
             </NavLink>
           </div>
           <div className='navItem'>
             <NavLink to='/login' className='navLink' activeClassName='navLink--active'>
               <img src={Login} alt='login' description='login' className='svg' />
-              <span>Login</span>
+              <h3>Login</h3>
             </NavLink>
           </div>
           </>
@@ -50,37 +50,37 @@ function Nav(props) {
           <div className='navItem'>
             <NavLink to='/log' className='navLink' activeClassName='navLink--active'>
               <img src={Log} alt='log' description='log' className='svg' />
-              <span>Log</span>
+              <h3>Log</h3>
             </NavLink>
           </div>
           <div className='navItem'>
             <NavLink to='/add' className='navLink' activeClassName='navLink--active'>
               <img src={Add} alt='addNewLog' description='add a new log entry' className='svg' />
-              <span>Add</span>
+              <h3>Add</h3>
             </NavLink>
           </div>
           <div className='navItem'>
             <NavLink to='/todo' className='navLink' activeClassName='navLink--active'>
               <img src={Todo} alt='todo' description='todo' className='svg' />
-              <span>Todo</span>
+              <h3>Todo</h3>
             </NavLink>
           </div>
           <div className='navItem'>
             <NavLink to='/search' className='navLink' activeClassName='navLink--active'>
               <img src={Search} alt='search' description='search' className='svg' />
-              <span>Search</span>
+              <h3>Search</h3>
             </NavLink>
           </div>
           <div className='navItem'>
             <NavLink to='/logout' className='navLink' activeClassName='navLink--active'>
               <img src={Logout} alt='logout' description='logout' className='svg' />
-              <span>Logout</span>
+              <h3>Logout</h3>
             </NavLink>
           </div>
           <div className='navItem'>
             <NavLink to='/account' className='navLink' activeClassName='navLink--active'>
               <img src={Account} alt='account' description='account' className='svg' />
-              <span>Account</span>
+              <h3>Account</h3>
             </NavLink>
           </div>
           </>

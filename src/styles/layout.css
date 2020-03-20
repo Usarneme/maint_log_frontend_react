@@ -3,10 +3,14 @@ html {
   box-sizing: border-box;
 }
 
+body {
+  min-height: 90vh;
+  background: #111;
+}
+
 body, 
 a {
   color: #EEE;
-  background: #111;
 }
 
 .inner {
@@ -14,7 +18,7 @@ a {
   min-height: 75vh;
   padding: 5px;
   margin: 0;
-  background: #222;
+  background: #333;
 }
 
 .inner--flashes {
@@ -24,7 +28,7 @@ a {
 .svg,
 svg {
   /* fill: $blackText; */
-  fill: #AAA;
+  fill: #EEE;
   width: 40px;
   height: 40px;
 }
@@ -75,7 +79,7 @@ label {
   padding: 2rem;
   margin: 1rem 0 2rem 0;
   /* box-shadow: $grad; */
-  box-shadow: 0px 0px 10px -3px #333;
+  box-shadow: 0px 0px 10px -3px #111;
 }
 
 .form > h2 {

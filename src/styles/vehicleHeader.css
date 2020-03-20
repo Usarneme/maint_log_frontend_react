@@ -5,6 +5,10 @@
   flex-direction: column;
 }
 
-.vehicleHeader > span {
-  padding-bottom: 5px;
+.vehicle__details__update {
+  margin: 1px;
+  padding: 4px;
+  padding-left: 20px;
+  text-transform: uppercase;
+  text-decoration: underline;
 }

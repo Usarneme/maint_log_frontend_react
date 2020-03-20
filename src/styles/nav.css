@@ -34,14 +34,14 @@
   margin: 0;
   display: inline-grid;
   grid-template-columns: repeat(3, 1fr);
-  background: #010010;
+  background: #333;
   /* background: $black; */
   padding: 1px;
   transition: transform 0.25s;
 }
 
 .navItem {
-  background: #303030;
+  background: #111;
   /* background: $navBlack; */
   min-height: 20px;
   margin: 1px;

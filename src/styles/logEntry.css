@@ -1,0 +1,38 @@
+.log__entry {
+  margin: 5px 0;
+  padding: 10px;  
+  background: #111;
+}
+
+.log__details__container {
+  display: flex;
+}
+
+.log__details__container > * {
+  border-left: 1px solid #333;
+}
+
+.log__details {
+  display: flex;
+  flex-direction: column;
+  height: 60px;
+  padding: 1px 3px;
+}
+
+.log__details__service {
+  flex-basis: 65%;
+  border-left: none;
+  text-overflow: ellipsis;
+}
+
+.log__details__dates {
+  flex-basis: 17%;
+}
+
+.log__details__mileage {
+  flex-basis: 9%;
+}
+
+.log__details__costs {
+  flex-basis: 9%;
+}

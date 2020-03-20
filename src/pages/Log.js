@@ -1,16 +1,17 @@
 import React from 'react'
 
 import VehicleHeader from '../components/VehicleHeader'
-import LogAsTable from '../components/LogAsTable'
+import LogEntry from '../components/LogEntry'
 
 function Log(props) {
   const isLoggedIn = (props.user.cookies.length > 0)
+  const log = props.user.log
 
   if (isLoggedIn) {
     return (
       <div className="inner">
         <VehicleHeader vehicle={props.user.vehicle[0]}>
-          <LogAsTable log={props.user.log} />
+          {log && log.map(entry => <LogEntry key={entry._id} data={entry} />)}
         </VehicleHeader>
       </div>
     )

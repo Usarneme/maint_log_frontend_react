@@ -23,38 +23,52 @@ function Home(props) {
     <div className="inner">
       {!isLoggedIn &&
         <>
-          <Link className="main register" to="/register">
-            <img src={RegisterIcon} alt="register" description="register icon" className="svg" />
-            <span>Register to Start Your Maintenance Log</span>
+          <Link className="home__actions register" to="/register">
+            <div>
+              <img src={RegisterIcon} alt="register" description="register icon" className="svg" />
+            </div>
+            <h4>Register to Start Your Maintenance Log</h4>
           </Link>
-          <Link className="main login" to="/login">
-            <img src={LoginIcon} alt="login" description="login icon" className="svg" />
-            <span>Login to View Your Maintenance Log</span>
+          <Link className="home__actions login" to="/login">
+            <div>
+              <img src={LoginIcon} alt="login" description="login icon" className="svg" />
+            </div>
+            <h4>Login to View Your Maintenance Log</h4>
           </Link>
         </>
       }
       {isLoggedIn &&
         <VehicleHeader vehicle={vehicle} >
-          <div className="main search__main search">
-            <img src={SearchIcon} alt="search" description="search icon" className="svg" />
+          <div className="home__actions search__main search">
+            <div>
+              <img src={SearchIcon} alt="search" description="search icon" className="svg" />
+            </div>
             <input className="search__input" type="text" placeholder="Search by part, date, etc..." name="search" />
             <div className="search__results"></div>
           </div>
-          <Link className="main add" to="/add">
-            <img src={AddIcon} alt="add" description="add icon" className="svg" />
-            <span>Add New Log Entry</span>
+          <Link className="home__actions add" to="/add">
+            <div>
+              <img src={AddIcon} alt="add" description="add icon" className="svg" />
+            </div>
+            <h4>Add New Log Entry</h4>
           </Link>
-          <Link className="main todo upcoming-maintenance" to="/todo">
-            <img src={TodoIcon} alt="todo" description="upcoming maintenance icon" className="svg" />
-            <span>View Upcoming Scheduled Maintenance</span>
+          <Link className="home__actions todo upcoming-maintenance" to="/todo">
+            <div>
+              <img src={TodoIcon} alt="todo" description="upcoming maintenance icon" className="svg" />
+            </div>
+            <h4>View Upcoming Scheduled Maintenance</h4>
           </Link>
-          <Link className="main account" to="/account">
-            <img src={AccountIcon} alt="account" description="account icon" className="svg" />
-            <span>Add Your Vehicle and View Other Settings</span>
+          <Link className="home__actions account" to="/account">
+            <div>
+              <img src={AccountIcon} alt="account" description="account icon" className="svg" />
+            </div>
+            <h4>Add Your Vehicle and View Other Settings</h4>
           </Link>
-          <Link className="main history" to="/log">
-            <img src={LogIcon} alt="log" description="log icon" className="svg" />
-            <span>View Full Maintenance Log History</span>
+          <Link className="home__actions history" to="/log">
+            <div>
+              <img src={LogIcon} alt="log" description="log icon" className="svg" />
+            </div>
+            <h4>View Full Maintenance Log History</h4>
           </Link>
         </VehicleHeader>
       }
