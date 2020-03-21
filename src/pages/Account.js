@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
+
 import { getLogData } from '../helpers'
 
 const axios = require('axios')
@@ -19,7 +21,7 @@ class Account extends Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.setState({ user: this.props.user })
   }
 
@@ -78,31 +80,23 @@ class Account extends Component {
   }
 
   render() {
-    const isLoggedIn = (this.props.user.cookies.length > 0)
-
-    if (isLoggedIn) {
-      return (
-        <div className="inner">
-          <form className="form" onSubmit={this.updateAccount} method="POST">
-            <h2>Account</h2>
-            <label htmlFor="username">User Name</label>
-            <input type="text" name="username" placeholder="Enter username..." value={this.state.user.username} onChange={this.handleInputChange} />
-            <label htmlFor="email">Email Address</label>
-            <input type="email" name="email" placeholder="Enter email..." value={this.state.user.email} onChange={this.handleInputChange} />
-            {/* <label htmlFor="password">Password</label>
-            <input type="password" name="password" placeholder="Enter password..." value={this.state.password} onChange={this.handleInputChange} /> */}
-            <input className="button" type="submit" value="Update Account" />
-          </form>
-        </div>
-      )
-    }
+    const isLoggedIn = (this.state.user.cookies.length > 0)
+    if (!isLoggedIn) return <Redirect to="/welcome" />
   
     return (
       <div className="inner">
-        <h2>You must be logged in to view your account...</h2>
+        <form className="form" onSubmit={this.updateAccount} method="POST">
+          <h2>Account</h2>
+          <label htmlFor="username">User Name</label>
+          <input type="text" name="username" placeholder="Enter username..." value={this.state.user.username} onChange={this.handleInputChange} />
+          <label htmlFor="email">Email Address</label>
+          <input type="email" name="email" placeholder="Enter email..." value={this.state.user.email} onChange={this.handleInputChange} />
+          {/* <label htmlFor="password">Password</label>
+          <input type="password" name="password" placeholder="Enter password..." value={this.state.password} onChange={this.handleInputChange} /> */}
+          <input className="button" type="submit" value="Update Account" />
+        </form>
       </div>
-    )
-  
+    )  
   }
 }
 

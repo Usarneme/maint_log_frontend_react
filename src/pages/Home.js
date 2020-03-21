@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 import VehicleHeader from '../components/VehicleHeader'
 
@@ -16,6 +16,8 @@ import '../styles/home.css'
 function Home(props) {
   // console.log(props)
   const isLoggedIn = (props.user.cookies.length > 0)
+  if (!isLoggedIn) return <Redirect to="/welcome" />
+
   // console.log('Home Component. Logged in user? '+isLoggedIn)
   const vehicle = props.user.vehicle[0]
 

@@ -1,0 +1,33 @@
+.guest__options {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 5px;
+  padding: 5px;
+}
+
+.guest__option {
+  display: flex;
+  align-items: center;
+  background: #222;
+}
+
+.guest__option:nth-of-type(2) {
+  border-left: 1px solid #AAA;
+}
+
+.guest__option:nth-of-type(1) {
+  border-right: 1px solid #AAA;
+}
+
+.guest__option > h4 {
+  padding: 10px;
+}
+
+.guest__option__active {
+  transform: scale(1.02);
+  background: #111;
+}
+
+h2 {
+  text-align: center;
+}
