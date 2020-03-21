@@ -15,18 +15,26 @@
 }
 
 .log__sorter__service {
-  flex-basis: 64%;
+  flex-basis: 55%;
   border-left: none;
 }
 
 .log__sorter__dates {
-  flex-basis: 16%;
+  flex-basis: 20%;
 }
 
 .log__sorter__mileage {
-  flex-basis: 10%;
+  flex-basis: 14%;
 }
 
 .log__sorter__costs {
-  flex-basis: 10%;
+  flex-basis: 11%;
+}
+
+.log__sorter__arrow {
+  display: inline-block;
+}
+
+.log__sorter__arrow__selected {
+  transform: rotate(180deg);
 }
