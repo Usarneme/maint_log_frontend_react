@@ -1,4 +1,4 @@
-const axios = require('axios')
+import axios from 'axios'
 
 export async function getLogData() {
   // console.log(`/api/getLogData handler. Axios getting from ${process.env.REACT_APP_API_DOMAIN}/api/getLogData`)
