@@ -20,19 +20,19 @@
 }
 
 .log__details__service {
-  flex-basis: 55%;
+  flex-basis: 50%;
   border-left: none;
   text-overflow: ellipsis;
 }
 
 .log__details__dates {
-  flex-basis: 20%;
+  flex-basis: 15%;
 }
 
 .log__details__mileage {
-  flex-basis: 14%;
+  flex-basis: 20%;
 }
 
 .log__details__costs {
-  flex-basis: 11%;
+  flex-basis: 15%;
 }

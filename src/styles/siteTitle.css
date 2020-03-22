@@ -10,7 +10,7 @@
   background:
     linear-gradient(45deg, hsla(190, 95%, 43%, 1) 0%, hsla(190, 95%, 43%, 0) 70%),
     linear-gradient(135deg, hsla(219, 93%, 48%, 1) 10%, hsla(219, 93%, 48%, 0) 80%),
-    linear-gradient(315deg, hsla(130, 96%, 45%, 1) 100%, hsla(130, 96%, 45%, 0) 70%);
+    linear-gradient(315deg, #3bae37 100%, hsla(130, 96%, 45%, 0) 70%);
 }
 
 .siteTitle > h2 {

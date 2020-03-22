@@ -1,20 +1,14 @@
 import React from 'react'
+import { Redirect } from 'react-router-dom'
+
+import AddLogForm from '../components/AddLogForm'
 
 function Add(props) {
   const isLoggedIn = (props.user.cookies.length > 0)
-
-  if (isLoggedIn) {
-    return (
-      <div className="inner">
-        <h2>Add</h2>
-      </div>
-    )
-  }
+  if (!isLoggedIn) return <Redirect to="/welcome" />
 
   return (
-    <div className="inner">
-      <h2>You must be logged in to add to your log...</h2>
-    </div>
+    <AddLogForm />
   )
 }
 

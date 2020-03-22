@@ -4,7 +4,8 @@ html {
 }
 
 body {
-  min-height: 90vh;
+  font-size: 1.2rem;
+  min-height: 91vh;
   background: #111;
 }
 
@@ -15,8 +16,8 @@ a {
 
 .inner {
   max-width: 900px;
-  min-height: 75vh;
-  padding: 5px;
+  min-height: calc(100vh - 40px - 90px);
+  padding: 4px;
   margin: 0;
   background: #333;
 }
@@ -42,22 +43,23 @@ svg {
   font-family: 'Panama';
   font-weight: 600;
   padding: 10px;
-  margin: 10px 0 10px 0;
+  margin: 15px 0 10px 0;
+  border-radius: 5px;
 }
 
 input, select, textarea {
   /* background: $formInput; */
-  background: #AAA;
+  background: #BBB; 
   width: 100%;
   /* border: 1px solid $grey; */
   border: 1px solid #AAA;
-  padding: 5px 35px 5px 5px;
+  padding-left: 8px;
   height: 40px;
-  &.input {
-    &--error {
-      border-color: red;
-    }
-  }
+  border-radius: 5px;
+}
+
+.input--error {
+  border-color: red;
 }
 
 textarea {
@@ -76,8 +78,8 @@ label {
 .form {
   /* background: $white; */
   background: #111;
-  padding: 2rem;
-  margin: 1rem 0 2rem 0;
+  padding: 1.75rem;
+  margin: 1rem 5px 2rem 5px;
   /* box-shadow: $grad; */
   box-shadow: 0px 0px 10px -3px #111;
 }

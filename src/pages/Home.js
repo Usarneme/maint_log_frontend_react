@@ -29,13 +29,13 @@ function Home(props) {
             <div>
               <img src={RegisterIcon} alt="register" description="register icon" className="svg" />
             </div>
-            <h4>Register to Start Your Maintenance Log</h4>
+            <h4 className="button">Register to Start Your Maintenance Log</h4>
           </Link>
           <Link className="home__actions login" to="/login">
             <div>
               <img src={LoginIcon} alt="login" description="login icon" className="svg" />
             </div>
-            <h4>Login to View Your Maintenance Log</h4>
+            <h4 className="button">Login to View Your Maintenance Log</h4>
           </Link>
         </>
       }
@@ -52,25 +52,25 @@ function Home(props) {
             <div>
               <img src={AddIcon} alt="add" description="add icon" className="svg" />
             </div>
-            <h4>Add New Log Entry</h4>
+            <h4 className="button">Add New Log Entry</h4>
           </Link>
           <Link className="home__actions todo upcoming-maintenance" to="/todo">
             <div>
               <img src={TodoIcon} alt="todo" description="upcoming maintenance icon" className="svg" />
             </div>
-            <h4>View Upcoming Scheduled Maintenance</h4>
+            <h4 className="button">View Upcoming Scheduled Maintenance</h4>
           </Link>
           <Link className="home__actions account" to="/account">
             <div>
               <img src={AccountIcon} alt="account" description="account icon" className="svg" />
             </div>
-            <h4>Add Your Vehicle and View Other Settings</h4>
+            <h4 className="button">Add Your Vehicle and View Other Settings</h4>
           </Link>
           <Link className="home__actions history" to="/log">
             <div>
               <img src={LogIcon} alt="log" description="log icon" className="svg" />
             </div>
-            <h4>View Full Maintenance Log History</h4>
+            <h4 className="button">View Full Maintenance Log History</h4>
           </Link>
         </VehicleHeader>
       }

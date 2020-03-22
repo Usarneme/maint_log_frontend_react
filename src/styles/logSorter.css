@@ -15,20 +15,20 @@
 }
 
 .log__sorter__service {
-  flex-basis: 55%;
+  flex-basis: 50%;
   border-left: none;
 }
 
 .log__sorter__dates {
-  flex-basis: 20%;
+  flex-basis: 15%;
 }
 
 .log__sorter__mileage {
-  flex-basis: 14%;
+  flex-basis: 20%;
 }
 
 .log__sorter__costs {
-  flex-basis: 11%;
+  flex-basis: 15%;
 }
 
 .log__sorter__arrow {

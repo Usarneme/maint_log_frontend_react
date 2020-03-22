@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 
+import VLVin from '../components/VLVin'
+import VLManual from '../components/VLManual'
+import VLYMM from '../components/VLYMM'
 import { getLogData } from '../helpers'
 
 const axios = require('axios')
@@ -95,6 +98,15 @@ class Account extends Component {
           <input type="password" name="password" placeholder="Enter password..." value={this.state.password} onChange={this.handleInputChange} /> */}
           <input className="button" type="submit" value="Update Account" />
         </form>
+
+        <div class="lookupSwitcher">
+          <button class="button manualVehicleEntryButton selected" id="manualVehicleEntry">Enter Info Manually</button>
+          <button class="button vinLookupButton" id="searchByVin">Search by VIN</button>
+          <button class="button vehicleLookupButton" id="vehicleLookup">Search By Make &amp; Model</button>
+          <VLVin />
+          <VLManual />
+          <VLYMM />
+        </div>
       </div>
     )  
   }
