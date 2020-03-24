@@ -15,6 +15,7 @@ import Log from './pages/Log'
 import Logout from './components/Logout'
 import NotFound from './pages/NotFound'
 import Search from './pages/Search'
+import SingleLogEntry from './pages/SingleLogEntry'
 import SiteTitle from './components/SiteTitle'
 import Todo from './pages/Todo'
 
@@ -37,7 +38,8 @@ function AppRouter() {
             <Route path="/" exact={true} render={props => <Home {...props} user={user} updateUserState={updateUserState} /> }/>
             <Route path="/account" render={props => <Account {...props} user={user} updateUserState={updateUserState} />  }/>
             <Route path="/add" render={props => <Add {...props} user={user} updateUserState={updateUserState} />  }/>
-            <Route path="/log" render={props => <Log {...props} user={user} updateUserState={updateUserState} />  }/>
+            <Route path="/log" exact render={props => <Log {...props} user={user} updateUserState={updateUserState} />  }/>
+            <Route path="/log/:slug" render={props => <SingleLogEntry {...props} user={user} updateUserState={updateUserState} />  }/>
             <Route path="/logout" render={props => <Logout {...props} user={user} updateUserState={updateUserState} />  }/>
             <Route path="/search" render={props => <Search {...props} user={user} updateUserState={updateUserState} />  }/>
             <Route path="/todo" render={props => <Todo {...props} user={user} updateUserState={updateUserState} />  }/>

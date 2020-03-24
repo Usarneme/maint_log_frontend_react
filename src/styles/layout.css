@@ -14,6 +14,11 @@ a {
   color: #EEE;
 }
 
+h2 {
+  padding: 5px;
+  margin: 5px;
+}
+
 .inner {
   max-width: 900px;
   min-height: calc(100vh - 40px - 90px);

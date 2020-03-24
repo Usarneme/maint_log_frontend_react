@@ -1,5 +1,6 @@
 import React from 'react'
 import moment from 'moment'
+import { Link } from 'react-router-dom'
 
 import '../styles/logEntry.css'
 
@@ -11,7 +12,9 @@ function LogTableEntry(props) {
     <div>
       {log && 
         <div className="log__entry">
-          <h5>{log.name}</h5>
+          <Link to={`/log/${log.slug}`}>
+            <h5>{log.name}</h5>
+          </Link>
           <div className="log__details__container">
             <div className="log__details log__details__service">
               <span>{log.shortDescription}</span>

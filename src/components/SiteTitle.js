@@ -8,7 +8,7 @@ const SiteTitle = () => {
   return (
     <Link to='/' className='siteTitle'>
       <img src={Home} alt='home' description='home' className='svg' />
-      <h2>Vehicle Maintenance Log</h2>
+      <h1>Vehicle Maintenance Log</h1>
     </Link>
   )
 }
