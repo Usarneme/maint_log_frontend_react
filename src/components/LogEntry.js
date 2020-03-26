@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import '../styles/logEntry.css'
 
-function LogTableEntry(props) {
+function LogEntry(props) {
   const log = props.data
   if (!log) return ( <div>Error loading log data...</div> )
 
@@ -39,4 +39,4 @@ function LogTableEntry(props) {
   )
 }
 
-export default LogTableEntry
+export default LogEntry

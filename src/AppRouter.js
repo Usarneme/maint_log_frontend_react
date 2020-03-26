@@ -9,6 +9,7 @@ import Nav from './components/Nav'
 
 import Account from './pages/Account'
 import Add from './pages/Add'
+import Edit from './pages/Edit'
 import GuestHome from './pages/GuestHome'
 import Home from './pages/Home'
 import Log from './pages/Log'
@@ -39,7 +40,8 @@ function AppRouter() {
             <Route path="/account" render={props => <Account {...props} user={user} updateUserState={updateUserState} />  }/>
             <Route path="/add" render={props => <Add {...props} user={user} updateUserState={updateUserState} />  }/>
             <Route path="/log" exact render={props => <Log {...props} user={user} updateUserState={updateUserState} />  }/>
-            <Route path="/log/:slug" render={props => <SingleLogEntry {...props} user={user} updateUserState={updateUserState} />  }/>
+            <Route path="/log/:id/edit" exact render={props => <Edit {...props} user={user} updateUserState={updateUserState} />  }/>
+            <Route path="/log/:slug" exact render={props => <SingleLogEntry {...props} user={user} updateUserState={updateUserState} />  }/>
             <Route path="/logout" render={props => <Logout {...props} user={user} updateUserState={updateUserState} />  }/>
             <Route path="/search" render={props => <Search {...props} user={user} updateUserState={updateUserState} />  }/>
             <Route path="/todo" render={props => <Todo {...props} user={user} updateUserState={updateUserState} />  }/>

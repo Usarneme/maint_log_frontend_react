@@ -13,20 +13,20 @@ Project Description
 - [ ] Service Manual image to text file, user/client corrections, text file to upcoming/todo Log entries  
 - [ ] Color Scheme and abstraction  
 - [ ] Light Mode and switcher  
-- [ ] Adding/modifying a log entry  
 - [ ] Image gallery  
 - [ ] Image tagging, indexed for search  
 - [ ] Caching - vehicle lookups  
 - [ ] Search on homepage  
-- [ ] Search flow design  
 
 ### In Progress
 
 - [ ] Organization  
-- [ ] Individual log view (component modal or page?)  
-- [ ] Individual log item route - dynamic  
+- [ ] Search flow design  
+- [ ] Adding/modifying a log entry  
 
 ### Done ✓
 
+- [x] Individual log item route - dynamic  
+- [x] Individual log view (component modal or page?)  
 - [x] Routing  
 

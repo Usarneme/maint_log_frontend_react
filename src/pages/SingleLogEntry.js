@@ -13,8 +13,7 @@ function SingleLogEntry(props) {
   const isLoggedIn = (props.user.cookies.length > 0)
   if (!isLoggedIn) return <Redirect to="/welcome" />
 
-  console.dir(props)
-  console.log(`Displaying ${slug} log entry`)
+  console.log(`Displaying log entry: ${slug}`)
   const log = props.user.log.filter(entry => entry.slug === slug)
   const { id, shortDescription, longDescription, dateStarted, dateCompleted, dateEntered, dateDue, mileageDue, name, odometer, tools, parts, partsCost, laborCost, serviceLocation, photos, receipts } = log[0]
 
@@ -75,7 +74,7 @@ function SingleLogEntry(props) {
           <strong>Odometer: </strong>
           <span>{Number(odometer).toLocaleString()}</span>
         </p>
-        <Link className="button editPencil" to={`log/${id}/edit`}>
+        <Link className="button editPencil" to={`/log/${id}/edit`}>
           <img src={EditPencil} alt="Edit Pencil" className="svg" />
           <span>Edit</span>
         </Link>
