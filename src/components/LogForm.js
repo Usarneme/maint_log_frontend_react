@@ -96,8 +96,13 @@ class LogForm extends React.Component {
     // if (true) return <p>{JSON.stringify(this.state)}</p> 
 
     return (
-      <>
-        <h2>{this.props.title}</h2>
+      <div className="inner">
+        <h2>
+          {this.state.id ? 
+            `Edit Log - ${this.state.name.length > 120 ? `${this.state.name.substring(0,120)}...` : this.state.name}`
+            :
+            `Add New Log Entry`}
+        </h2>
         <form className="card form" id="logForm" onSubmit={this.apiEditLog} method="POST" encType="multipart/form-data" multiple="multiple">
           <label htmlFor="name">Name</label>
           <input type="text" name="name" value={this.state.name} onChange={this.handleInputChange} />
@@ -140,7 +145,7 @@ class LogForm extends React.Component {
           </label>
           <input className="button submit" type="submit" value="Save Log Changes" />
         </form>
-      </>
+      </div>
     )
   }
 }

@@ -12,7 +12,7 @@ function Edit(props) {
   // console.log('Edit page. Pushing log '+id+' to LogForm component...')
   // console.dir(log[0])
 
-  return <LogForm title={`Edit Log Entry - ${log[0].name}`} log={log[0]} />
+  return <LogForm log={log[0]} />
 }
 
 export default Edit

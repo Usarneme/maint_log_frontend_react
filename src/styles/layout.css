@@ -82,9 +82,10 @@ label {
 
 .form {
   /* background: $white; */
-  background: #111;
-  padding: 1.75rem;
-  margin: 1rem 5px 2rem 5px;
+  margin: 2px;
+  background: #111111;
+  padding: 5px;
+  border-radius: 5px;
   /* box-shadow: $grad; */
   box-shadow: 0px 0px 10px -3px #111;
 }

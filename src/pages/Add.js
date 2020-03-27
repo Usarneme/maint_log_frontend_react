@@ -10,7 +10,7 @@ function Add(props) {
   if (!isLoggedIn) return <Redirect to="/welcome" />
 
   // show a blank log entry form
-  return <LogForm title="Add New Log Entry" />
+  return <LogForm />
 }
 
 export default Add

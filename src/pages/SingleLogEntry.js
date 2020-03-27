@@ -19,9 +19,9 @@ function SingleLogEntry(props) {
 
   return (
     <div className="inner">
-      <h2>Single Log Entry</h2>
+      <h2>{name.length > 120 ? `${name.substring(0,120)}...` : name}</h2>
+      <VehicleHeader vehicle={props.user.vehicle[0]} />
       <div className="single__details">
-        <VehicleHeader vehicle={props.user.vehicle[0]} />
         <p>
           <strong>Short Description: </strong>
           <span>{shortDescription}</span>
