@@ -12,6 +12,7 @@ class LogForm extends React.Component {
       dateCompleted: '', 
       dateEntered: '', 
       dateDue: '', 
+      file: '',
       mileageDue: '', 
       name: '', 
       odometer: '', 
@@ -21,52 +22,86 @@ class LogForm extends React.Component {
       laborCost: '', 
       serviceLocation: '', 
       photos: '', 
-      receipts: ''
+      receipts: '',
+      vehicle: '',
+      api: true
     }
   }
 
   handleInputChange = (event) => {
+    // when a file is selected for upload...
+    if (event.target.files) return this.setState({ file: event.target.files[0] })
+    // otherwise track changes in form data to state
     const { value, name } = event.target
     this.setState({
       [name]: value
     })
   }
 
-  apiLogin = async (event) => {
+  apiEditLog = async (event) => {
     event.preventDefault()
-    const { email, password } = this.state
-    try {
-      const res = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/login`, { email, password })
-      if (res.status === 200) {
-        // console.log(`apiLogin handler returned success!`)
-        const { user, sessionID, cookies } = res.data
-        const userID = user._id
-        const username = user.name
-        // const logDataResult = await getLogData()
-        // const logData = logDataResult.data
-        // const { vehicle, log } = logData
-        // this.setState({ user: { username, userID, sessionID, cookies, email, vehicle, log }, password: '' })
-        // this.props.updateUserState(this.state.user)
+    let url = ''
+    // can post new and edit existing log entries via this form
+    if (this.props && this.props.log) {
+      url = `${process.env.REACT_APP_API_DOMAIN}/add/${this.props.log.id}`
+    } else {
+      url = `${process.env.REACT_APP_API_DOMAIN}/add/`
+    }
 
+    let formData = new FormData()
+    formData.append('id', this.state.id) 
+    formData.append('shortDescription', this.state.shortDescription) 
+    formData.append('longDescription', this.state.longDescription) 
+    formData.append('dateStarted', this.state.dateStarted) 
+    formData.append('dateCompleted', this.state.dateCompleted) 
+    formData.append('dateEntered', this.state.dateEntered) 
+    formData.append('dateDue', this.state.dateDue) 
+    formData.append('file', this.state.file)
+    formData.append('mileageDue', this.state.mileageDue) 
+    formData.append('name', this.state.name) 
+    formData.append('odometer', this.state.odometer) 
+    formData.append('tools', this.state.tools) 
+    formData.append('parts', this.state.parts) 
+    formData.append('partsCost', this.state.partsCost) 
+    formData.append('laborCost', this.state.laborCost) 
+    formData.append('serviceLocation', this.state.serviceLocation) 
+    formData.append('photos', this.state.photos) 
+    formData.append('receipts', this.state.receipts)
+    formData.append('vehicle', this.state.vehicle)
+    formData.append('api', this.state.api)
+
+    console.log(`Posting to ${url}.`)
+    try {
+      const result = await axios.post(url, formData)
+      console.log(`Returned successfully!`)
+      // console.dir(result)
+
+      if (result.status === 200) {
+        const { log } = result.data
+        // console.log('Updated log returned:')
+        // console.dir(log)
+        const user = this.props.user
+        user.log = log
+
+        this.props.updateUserState(user)
+        console.log('updateUserState complete')
+
+        // TODO redirect or flash some error/success message
         // this.props.history.push('/')
       } else {
-        console.log('Response received but with status code: '+res.status)
-        const error = new Error(res.error)
+        console.log('Response received but with status code: '+result.status)
+        const error = new Error(result.error)
         throw error
       }
-    } catch(err) {
-        console.log('Error posting to /api/login.')
-        console.dir(err)
-        alert('Error logging in please try again')
-      }
-  }
-
-  apiEditLog = async (event) => {
-    return true
+    } catch(error) {
+      console.log('Error with LogForm')
+      console.dir(error)
+      alert(error)
+      // TODO redirect? try again?
+    }
   }
 
   componentDidMount() {
-    console.log('Mounting LogForm...')
     if (!this.props) return
     if (!this.props.log) return
 
@@ -75,11 +110,11 @@ class LogForm extends React.Component {
       id: this.props.log.id, 
       shortDescription: this.props.log.shortDescription, 
       longDescription: this.props.log.longDescription, 
-      dateStarted: this.props.log.dateStarted, 
-      dateCompleted: this.props.log.dateCompleted, 
-      dateEntered: this.props.log.dateEntered, 
-      dateDue: this.props.log.dateDue, 
-      mileageDue: this.props.log.mileageDue, 
+      dateStarted: this.props.log.dateStarted || '', 
+      dateCompleted: this.props.log.dateCompleted || '', 
+      dateEntered: this.props.log.dateEntered || '', 
+      dateDue: this.props.log.dateDue || '', 
+      mileageDue: this.props.log.mileageDue || '', 
       name: this.props.log.name, 
       odometer: this.props.log.odometer, 
       tools: this.props.log.tools, 
@@ -88,7 +123,8 @@ class LogForm extends React.Component {
       laborCost: this.props.log.laborCost, 
       serviceLocation: this.props.log.serviceLocation, 
       photos: this.props.log.photos, 
-      receipts: this.props.log.receipts,   
+      receipts: this.props.log.receipts,
+      vehicle: this.props.log.vehicle 
     })
   }
 
@@ -107,7 +143,7 @@ class LogForm extends React.Component {
           <label htmlFor="name">Name</label>
           <input type="text" name="name" value={this.state.name} onChange={this.handleInputChange} />
           <label htmlFor="vehicle">Vehicle</label>
-          <select id="vehicle" name="vehicle">
+          <select id="vehicle" name="vehicle" onChange={this.handleInputChange}>
               <option value="5e4cee3fd2ebbc8f5e62f214">1989 Chevrolet G-Series (G20)</option>
               <option value="none">None</option>
           </select>
@@ -140,8 +176,8 @@ class LogForm extends React.Component {
           <label htmlFor="odometer">Odometer</label>
           <input type="number" name="odometer" min="0" value={this.state.odometer} onChange={this.handleInputChange} />
 
-          <label htmlFor="photos">Upload other images
-            <input type="file" name="photos" id="photos" accept="image/gif, image/png, image/jpeg" />
+          <label htmlFor="file">Upload other images
+            <input type="file" name="file" accept="image/gif, image/png, image/jpeg" onChange={this.handleInputChange} />
           </label>
           <input className="button submit" type="submit" value="Save Log Changes" />
         </form>

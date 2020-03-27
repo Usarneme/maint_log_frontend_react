@@ -22,10 +22,11 @@ Project Description
 
 - [ ] Organization  
 - [ ] Search flow design  
-- [ ] Adding/modifying a log entry  
+- [ ] Delete image AJAX  
 
 ### Done ✓
 
+- [x] Adding/modifying a log entry  
 - [x] Individual log item route - dynamic  
 - [x] Individual log view (component modal or page?)  
 - [x] Routing  
