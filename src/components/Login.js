@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { getLogData } from '../helpers'
 
+import Loading from './Loading'
+
 const axios = require('axios')
 axios.defaults.withCredentials = true
 
@@ -15,7 +17,8 @@ class Login extends Component {
         username: '',
         sessionID: '',
         cookies: ''
-      }
+      },
+      loading: false
     }
   }
 
@@ -28,6 +31,7 @@ class Login extends Component {
 
   apiLogin = async (event) => {
     event.preventDefault()
+    this.setState(prevState => ({loading: true}))
     const { email, password } = this.state
     try {
       const res = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/login`, { email, password })
@@ -39,16 +43,18 @@ class Login extends Component {
         const logDataResult = await getLogData()
         const logData = logDataResult.data
         const { vehicle, log } = logData
-        this.setState({ user: { username, userID, sessionID, cookies, email, vehicle, log }, password: '' })
+        this.setState({ user: { username, userID, sessionID, cookies, email, vehicle, log }, password: '', loading: false })
         this.props.updateUserState(this.state.user)
 
         this.props.history.push('/')
       } else {
         console.log('Response received but with status code: '+res.status)
+        this.setState({loading: false})
         const error = new Error(res.error)
         throw error
       }
     } catch(err) {
+        this.setState({loading: false})
         console.log('Error posting to /api/login.')
         console.dir(err)
         alert('Error logging in please try again')
@@ -73,6 +79,8 @@ class Login extends Component {
           <input type="password" name="password" placeholder="Enter password..." value={this.state.password} onChange={this.handleInputChange} />
           <input className="button" type="submit" value="Log In →" />
         </form>
+
+        { this.state.loading && <Loading message="logging in..." /> }
 
         <form className="form" onSubmit={this.apiForgot} method="POST">
           <h2>I forgot my password!</h2>

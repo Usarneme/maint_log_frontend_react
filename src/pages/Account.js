@@ -20,7 +20,10 @@ class Account extends Component {
         cookies: '',
         email: '',
         password: ''
-      }
+      }, 
+      showVin: false,
+      showManual: false,
+      showYearMakeModel: true
     }
   }
 
@@ -82,14 +85,23 @@ class Account extends Component {
       }
   }
 
+  vehicleLookupChanger = (view) => {
+    this.setState({
+      showVin: false,
+      showManual: false,
+      showYearMakeModel: false,
+      [view]: true
+    })
+  }
+
   render() {
     const isLoggedIn = (this.state.user.cookies.length > 0)
     if (!isLoggedIn) return <Redirect to="/welcome" />
   
     return (
       <div className="inner">
+        <h2>Account</h2>
         <form className="form" onSubmit={this.updateAccount} method="POST">
-          <h2>Account</h2>
           <label htmlFor="username">User Name</label>
           <input type="text" name="username" placeholder="Enter username..." value={this.state.user.username} onChange={this.handleInputChange} />
           <label htmlFor="email">Email Address</label>
@@ -100,12 +112,13 @@ class Account extends Component {
         </form>
 
         <div class="lookupSwitcher">
-          <button class="button manualVehicleEntryButton selected" id="manualVehicleEntry">Enter Info Manually</button>
-          <button class="button vinLookupButton" id="searchByVin">Search by VIN</button>
-          <button class="button vehicleLookupButton" id="vehicleLookup">Search By Make &amp; Model</button>
-          <VLVin />
-          <VLManual />
-          <VLYMM />
+          <h2>Vehicle</h2>
+          <button class="button" onClick={() => this.vehicleLookupChanger('showYearMakeModel')}>Search By Make &amp; Model</button>
+          <button class="button" onClick={() => this.vehicleLookupChanger('showVin')}>Search by VIN</button>
+          <button class="button" onClick={() => this.vehicleLookupChanger('showManual')}>Enter Info Manually</button>
+          {this.state.showVin && <VLVin />}
+          {this.state.showManual && <VLManual />}
+          {this.state.showYearMakeModel && <VLYMM />}
         </div>
       </div>
     )  
