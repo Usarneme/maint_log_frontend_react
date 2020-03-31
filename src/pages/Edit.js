@@ -8,6 +8,9 @@ function Edit(props) {
   const isLoggedIn = (props.user.cookies.length > 0)
   if (!isLoggedIn) return <Redirect to="/welcome" />
 
+  // do not display while data is being fetched/loaded/mounted
+  // TODO make this part of an error boundary
+  if (!props || !props.user || !props.user.log) return null
   const log = props.user.log.filter(entry => entry.id === id)
   // console.log('Edit page. Pushing log '+id+' to LogForm component...')
   // console.dir(log[0])

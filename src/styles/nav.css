@@ -62,9 +62,6 @@ a.navLink > img > g {
 }
 
 @media all and (min-width: 550px) {
-  nav.nav {
-    grid-template-columns: repeat(6, 1fr);
-  }
   a.navLink > img,
   a.navLink > img > g {
     max-width: 40px;

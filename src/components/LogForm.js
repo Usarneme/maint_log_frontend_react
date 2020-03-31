@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 
+import PhotoEditor from './PhotoEditor' 
 class LogForm extends React.Component {
   constructor(props) {
     super(props) 
@@ -24,7 +25,8 @@ class LogForm extends React.Component {
       photos: '', 
       receipts: '',
       vehicle: '',
-      api: true
+      api: true,
+      showDeleteButton: false
     }
   }
 
@@ -74,20 +76,24 @@ class LogForm extends React.Component {
     try {
       const result = await axios.post(url, formData)
       console.log(`Returned successfully!`)
-      // console.dir(result)
+      console.dir(result)
 
       if (result.status === 200) {
-        const { log } = result.data
-        // console.log('Updated log returned:')
+        const log = result.data.fullLog
+        const newLogEntry = result.data.newLogEntry
+
+        // console.log('New log entry returned:')
+        // console.dir(newLogEntry)
+        // console.log('Full log:')
         // console.dir(log)
+
         const user = this.props.user
         user.log = log
-
         this.props.updateUserState(user)
         console.log('updateUserState complete')
 
-        // TODO redirect or flash some error/success message
-        // this.props.history.push('/')
+        // works for editing existing log entries...
+        this.props.history.push(`/log/${newLogEntry.slug}`)
       } else {
         console.log('Response received but with status code: '+result.status)
         const error = new Error(result.error)
@@ -101,19 +107,85 @@ class LogForm extends React.Component {
     }
   }
 
+  toggleDeleteButton = async () => {
+    this.setState({ showDeleteButton: !this.state.showDeleteButton })
+  }
+
+  deleteLogEntry = async event => {
+    event.preventDefault()
+    try {
+      const result = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/delete/log/entry/${this.state.id}`)
+      if (result.data === null) {
+        console.log('Server unable to find specified log entry. Was it already deleted?')
+      } else if (result.status === 200) {
+        console.log('Log entry removed successfully.')
+        // console.log(result)
+        // update State to remove the deleted entry
+        const updatedLog = this.props.user.log.filter(entry => entry.id !== this.state.id)
+        const user = this.props.user
+        user.log = updatedLog
+        this.props.updateUserState(user)
+        console.log('updateUserState completed.')
+
+        // redirect back to the log page
+        this.props.history.push('/log')
+      }
+    } catch(err) {
+      console.error(err)
+    }
+  }
+
+  deletePhoto = async event => {
+    event.preventDefault()
+    // pathname has a leading slash: /api/remove/photo/name.filetype
+    console.log('Deleting photo: '+event.target.pathname)
+    const url = `${process.env.REACT_APP_API_DOMAIN}${event.target.pathname}`
+    console.log('posting to url: '+url)
+    try {
+      const result = await axios.post(url)
+      if (result.data === null) {
+        console.log('Server unable to find specified photo to delete. Was it already deleted?')
+      } else if (result.status === 200) {
+        console.log('Photo deleted successfully.')
+        console.log(result)
+        // update State to remove the deleted entry
+        const user = this.props.user
+        user.log = result.data
+        this.props.updateUserState(user)
+        console.log('updateUserState completed.')
+
+        // flash success message and re-render...
+        this.props.history.push(`/log/${this.props.log.id}/edit`)
+      }
+    } catch(err) {
+      console.error(err)
+    }
+  }
+
   componentDidMount() {
     if (!this.props) return
     if (!this.props.log) return
 
     console.log('Editing extant Log entry. Initializing state. ')
+    let dateStarted = ''
+    let dateCompleted = ''
+    let dateEntered = ''
+    let dateDue = ''
+    // convert mongodb timestamp to something usable by an input type=date, 
+    // eg: 2018-01-30T00:00:00.000Z => 2018-01-30
+    if (this.props.log.dateStarted) dateStarted = this.props.log.dateStarted.split('T')[0]
+    if (this.props.log.dateCompleted) dateCompleted = this.props.log.dateCompleted.split('T')[0]
+    if (this.props.log.dateEntered) dateEntered = this.props.log.dateEntered.split('T')[0]
+    if (this.props.log.dateDue) dateDue = this.props.log.dateDue.split('T')[0]
+
     this.setState({
       id: this.props.log.id, 
       shortDescription: this.props.log.shortDescription, 
       longDescription: this.props.log.longDescription, 
-      dateStarted: this.props.log.dateStarted || '', 
-      dateCompleted: this.props.log.dateCompleted || '', 
-      dateEntered: this.props.log.dateEntered || '', 
-      dateDue: this.props.log.dateDue || '', 
+      dateStarted: dateStarted, 
+      dateCompleted: dateCompleted, 
+      dateEntered: dateEntered, 
+      dateDue: dateDue, 
       mileageDue: this.props.log.mileageDue || '', 
       name: this.props.log.name, 
       odometer: this.props.log.odometer, 
@@ -143,9 +215,9 @@ class LogForm extends React.Component {
           <label htmlFor="name">Name</label>
           <input type="text" name="name" value={this.state.name} onChange={this.handleInputChange} />
           <label htmlFor="vehicle">Vehicle</label>
-          <select id="vehicle" name="vehicle" onChange={this.handleInputChange}>
+          <select id="vehicle" name="vehicle" defaultValue={this.props && this.props.log && this.props.log.vehicle ? this.props.log.vehicle : 'none'} onChange={this.handleInputChange}>
               <option value="5e4cee3fd2ebbc8f5e62f214">1989 Chevrolet G-Series (G20)</option>
-              <option value="none">None</option>
+              <option value="none">None Associated</option>
           </select>
           <label htmlFor="dateStarted">Date Started</label>
           <input type="date" name="dateStarted" value={this.state.dateStarted} onChange={this.handleInputChange} />
@@ -181,6 +253,17 @@ class LogForm extends React.Component {
           </label>
           <input className="button submit" type="submit" value="Save Log Changes" />
         </form>
+
+        { this.state.photos && <PhotoEditor photos={this.state.photos} deletePhoto={this.deletePhoto} /> }
+
+        { this.state.id &&
+          <>
+          <button className="button delete__log__entry" onClick={this.toggleDeleteButton} title="Delete Log Entry">Delete Log Entry</button>
+          { this.state.showDeleteButton &&
+            <button className="button delete__log__entry__confirm" onClick={this.deleteLogEntry} title="Permanently Delete Log Entry">Permanently Delete Log Entry</button>
+          }
+          </>
+        }
       </div>
     )
   }

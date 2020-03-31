@@ -1,0 +1,46 @@
+.logout__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.logout__container > .button {
+  width: 100%;
+  margin: 5px 3px;
+}
+
+button.button.confirm--active {
+  border: 2px solid #ffff3a;
+}
+
+button.button.disconnect {
+  background: red;
+}
+
+.buttons__holder {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: center;
+  align-items: center;
+}
+
+.lookup__button {
+  border: none;
+  border-bottom: 1px solid #AAA;
+  color: #AAA;
+  text-transform: uppercase;
+  align-self: center;
+  justify-self: center;
+  background: none;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.lookup__selected {
+  transform: scale(1.1);
+  color: #DDD;
+  border-bottom: 2px solid #DDD;
+}

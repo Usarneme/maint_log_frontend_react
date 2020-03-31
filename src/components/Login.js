@@ -57,7 +57,7 @@ class Login extends Component {
       }
     } catch(err) {
         this.setState({loading: false})
-        console.log('Error posting to /api/login.')
+        console.log(`Error posting to ${process.env.REACT_APP_API_DOMAIN}/api/login`)
         console.dir(err)
         alert('Error logging in please try again')
       }

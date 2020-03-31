@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, Redirect, useParams } from 'react-router-dom'
 import moment from 'moment'
 
+import PhotoEditor from '../components/PhotoEditor'
 import VehicleHeader from '../components/VehicleHeader'
 import EditPencil from '../images/editPencil.svg'
 
@@ -15,7 +16,7 @@ function SingleLogEntry(props) {
 
   console.log(`Displaying log entry: ${slug}`)
   const log = props.user.log.filter(entry => entry.slug === slug)
-  const { id, shortDescription, longDescription, dateStarted, dateCompleted, dateEntered, dateDue, mileageDue, name, odometer, tools, parts, partsCost, laborCost, serviceLocation, photos, receipts } = log[0]
+  const { id, shortDescription, longDescription, dateStarted, dateCompleted, dateEntered, dateDue, mileageDue, name, odometer, tools, parts, partsCost, laborCost, serviceLocation, photos } = log[0]
 
   return (
     <div className="inner">
@@ -78,16 +79,9 @@ function SingleLogEntry(props) {
           <img src={EditPencil} alt="Edit Pencil" className="svg" />
           <span>Edit</span>
         </Link>
-        <label htmlFor="previousPhotos">Previously Uploaded Images</label>
-        <div className="photos__div">
-          {photos.map(photo => (
-            <div key={photo} className="single__photo__div">
-              <img className="single__photo" src={`http://res.cloudinary.com/c00p/image/upload/${photo}`} alt={photo} />
-              <Link className="button delete__photo" to={`/api/remove/photo/${photo}`} title="Delete This Photo">Delete Photo</Link>
-            </div>
-            )
-          )}
-        </div>
+
+        { photos && <PhotoEditor photos={photos} editingBlocked={true} /> }
+
         <input type="hidden" name="previousPhotos" value={photos.toString()} />
       </div>
 
