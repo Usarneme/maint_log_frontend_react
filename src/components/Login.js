@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { getLogData } from '../helpers'
 
 import Loading from './Loading'
+import '../styles/login.css'
 
 const axios = require('axios')
-axios.defaults.withCredentials = true
+// axios.defaults.withCredentials = true
 
 class Login extends Component {
   constructor(props) {
@@ -18,18 +19,19 @@ class Login extends Component {
         sessionID: '',
         cookies: ''
       },
-      loading: false
+      loading: false,
+      showForgotPassword: false
     }
   }
 
-  handleInputChange = (event) => {
+  handleInputChange = event => {
     const { value, name } = event.target
     this.setState({
       [name]: value
     })
   }
 
-  apiLogin = async (event) => {
+  apiLogin = async event => {
     event.preventDefault()
     this.setState(prevState => ({loading: true}))
     const { email, password } = this.state
@@ -61,7 +63,12 @@ class Login extends Component {
       }
   }
 
-  apiForgot = (event) => {
+  toggleForgotPassword = event => {
+    event.preventDefault()
+    this.setState({ showForgotPassword: !this.state.showForgotPassword })
+  }
+
+  apiForgot = event => {
     event.preventDefault()
     const { email } = this.state
     console.log(`/apiForgot handler: ${email}`)
@@ -71,23 +78,29 @@ class Login extends Component {
   render() {
     return (
       <div className="inner">
-        <form className="form" onSubmit={this.apiLogin} method="POST">
+        <form className="card" onSubmit={this.apiLogin} method="POST">
           <h2>Login</h2>
           <label htmlFor="email">Email Address</label>
           <input type="email" name="email" placeholder="Enter email..." value={this.state.email} onChange={this.handleInputChange} />
           <label htmlFor="password">Password</label>
           <input type="password" name="password" placeholder="Enter password..." value={this.state.password} onChange={this.handleInputChange} />
           <input className="button" type="submit" value="Log In →" />
+          { !this.state.showForgotPassword && 
+            <button className="button forgot__password__button" onClick={event => this.toggleForgotPassword(event)}>Forgot Your Password?</button> 
+          }
         </form>
 
         { this.state.loading && <Loading message="logging in..." /> }
 
-        <form className="form" onSubmit={this.apiForgot} method="POST">
-          <h2>I forgot my password!</h2>
-          <label htmlFor="email">Email</label>
-          <input type="email" name="email" placeholder="Enter email..." value={this.state.email} onChange={this.handleInputChange} />
-          <input className="button" type="submit" value="Send a Reset" />
-        </form>
+        { this.state.showForgotPassword && 
+          <form className="card" onSubmit={this.apiForgot} method="POST">
+            <h2>I forgot my password!</h2>
+            <label htmlFor="email">Email Address</label>
+            <input type="email" name="email" placeholder="Enter email..." value={this.state.email} onChange={this.handleInputChange} />
+            <input className="button" type="submit" value="Send a Reset" />
+            <button className="button forgot__password__button" onClick={event => this.toggleForgotPassword(event)}>Hide Forgot Password Input</button> 
+          </form>
+        }
       </div>
     )
   }

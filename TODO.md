@@ -16,13 +16,14 @@ Project Description
 - [ ] Image gallery  
 - [ ] Image tagging, indexed for search  
 - [ ] Caching - vehicle lookups  
-- [ ] Search on homepage  
 
 ### In Progress
 
 - [ ] Organization  
-- [ ] Search flow design  
 - [ ] Delete image AJAX  
+- [ ] Logout flow on account page  
+- [ ] Search flow design  
+- [ ] Search on homepage  
 
 ### Done ✓
 

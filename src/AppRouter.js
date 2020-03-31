@@ -7,13 +7,12 @@ import {
 
 import Nav from './components/Nav'
 
-import Account from './pages/Account'
+import Settings from './pages/Settings'
 import Add from './pages/Add'
 import Edit from './pages/Edit'
 import GuestHome from './pages/GuestHome'
 import Home from './pages/Home'
 import Log from './pages/Log'
-import Logout from './components/Logout'
 import NotFound from './pages/NotFound'
 import Search from './pages/Search'
 import SingleLogEntry from './pages/SingleLogEntry'
@@ -37,12 +36,11 @@ function AppRouter() {
             <SiteTitle />
             <Route path="/welcome" render={props => <GuestHome {...props} user={user} updateUserState={updateUserState} /> }/>
             <Route path="/" exact={true} render={props => <Home {...props} user={user} updateUserState={updateUserState} /> }/>
-            <Route path="/account" render={props => <Account {...props} user={user} updateUserState={updateUserState} />  }/>
+            <Route path="/settings" render={props => <Settings {...props} user={user} updateUserState={updateUserState} />  }/>
             <Route path="/add" render={props => <Add {...props} user={user} updateUserState={updateUserState} />  }/>
             <Route path="/log" exact render={props => <Log {...props} user={user} updateUserState={updateUserState} />  }/>
             <Route path="/log/:id/edit" exact render={props => <Edit {...props} user={user} updateUserState={updateUserState} />  }/>
             <Route path="/log/:slug" exact render={props => <SingleLogEntry {...props} user={user} updateUserState={updateUserState} />  }/>
-            <Route path="/logout" render={props => <Logout {...props} user={user} updateUserState={updateUserState} />  }/>
             <Route path="/search" render={props => <Search {...props} user={user} updateUserState={updateUserState} />  }/>
             <Route path="/todo" render={props => <Todo {...props} user={user} updateUserState={updateUserState} />  }/>
             {user.cookies.length > 0 && <Nav />}

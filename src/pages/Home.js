@@ -8,7 +8,7 @@ import LoginIcon from '../images/login.svg'
 import SearchIcon from '../images/search.svg'
 import AddIcon from '../images/addLog.svg'
 import TodoIcon from '../images/todo.svg'
-import AccountIcon from '../images/account.svg'
+import SettingsIcon from '../images/account.svg'
 import LogIcon from '../images/log.svg'
 
 import '../styles/home.css'
@@ -60,9 +60,9 @@ function Home(props) {
             </div>
             <h4 className="button">View Upcoming Scheduled Maintenance</h4>
           </Link>
-          <Link className="home__actions account" to="/account">
+          <Link className="home__actions settings" to="/settings">
             <div>
-              <img src={AccountIcon} alt="account" description="account icon" className="svg" />
+              <img src={SettingsIcon} alt="settings" description="settings icon" className="svg" />
             </div>
             <h4 className="button">Add Your Vehicle and View Other Settings</h4>
           </Link>

@@ -6,7 +6,7 @@ html {
 body {
   font-size: 1.2rem;
   min-height: 91vh;
-  background: #111;
+  background: #222;
 }
 
 body, 
@@ -14,7 +14,7 @@ a {
   color: #EEE;
 }
 
-h2 {
+h3, h4, h5 {
   padding: 5px;
   margin: 5px;
 }
@@ -22,7 +22,7 @@ h2 {
 .inner {
   max-width: 900px;
   min-height: calc(100vh - 40px);
-  padding: 4px;
+  padding: 3px;
   padding-bottom: 40px;
   margin: 0 auto;
   background: #333;
@@ -49,7 +49,7 @@ svg {
   font-family: 'Panama';
   font-weight: 600;
   padding: 10px;
-  margin: 15px 0 10px 0;
+  margin: 10px 0;
   border-radius: 5px;
 }
 
@@ -81,23 +81,12 @@ label {
   display: block;
 }
 
-.form {
-  /* background: $white; */
-  margin: 2px;
-  background: #111111;
+.card {
+  margin: 10px 0;
+  background: #111;
   padding: 5px;
   border-radius: 5px;
-  /* box-shadow: $grad; */
   box-shadow: 0px 0px 10px -3px #111;
-}
-
-.form > h2 {
-  margin: 0;
-  font-size: 2rem;
-  padding-bottom: 0.5rem;
-  margin-bottom: 1rem;
-  /* border-bottom: 1px solid $grey; */
-  border-bottom: 1px solid #AAA;
 }
 
 select {
