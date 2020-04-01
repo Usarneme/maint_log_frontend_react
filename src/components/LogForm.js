@@ -254,7 +254,13 @@ class LogForm extends React.Component {
           <input className="button submit" type="submit" value="Save Log Changes" />
         </form>
 
-        { this.state.photos && <PhotoEditor photos={this.state.photos} deletePhoto={this.deletePhoto} /> }
+        { this.state.photos && 
+          <>
+            <label htmlFor="previousPhotos">Log Entry Photos:</label>
+            <PhotoEditor photos={this.state.photos} deletePhoto={this.deletePhoto} /> 
+            <input type="hidden" name="previousPhotos" value={this.state.photos.toString()} />
+          </>  
+          }
 
         { this.state.id &&
           <>

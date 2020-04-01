@@ -81,7 +81,6 @@ function SingleLogEntry(props) {
         </Link>
 
         { photos && <PhotoEditor photos={photos} editingBlocked={true} /> }
-
         <input type="hidden" name="previousPhotos" value={photos.toString()} />
       </div>
 

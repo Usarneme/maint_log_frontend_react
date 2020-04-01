@@ -12,7 +12,7 @@ function Edit(props) {
   // TODO make this part of an error boundary
   if (!props || !props.user || !props.user.log) return null
   const log = props.user.log.filter(entry => entry.id === id)
-  // console.log('Edit page. Pushing log '+id+' to LogForm component...')
+  console.log('Edit page. Pushing log '+id+' to LogForm component...')
   // console.dir(log[0])
 
   return <LogForm log={log[0]} {...props} />

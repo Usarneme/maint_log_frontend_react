@@ -24,7 +24,7 @@ h3, h4, h5 {
   min-height: calc(100vh - 40px);
   padding: 3px;
   padding-bottom: 40px;
-  margin: 0 auto;
+  margin: 0 auto 40px;
   background: #333;
 }
 
