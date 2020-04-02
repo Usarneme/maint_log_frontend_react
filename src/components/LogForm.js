@@ -67,6 +67,7 @@ class LogForm extends React.Component {
     formData.append('partsCost', this.state.partsCost) 
     formData.append('laborCost', this.state.laborCost) 
     formData.append('serviceLocation', this.state.serviceLocation) 
+    formData.append('previousPhotos', this.state.photos) 
     formData.append('photos', this.state.photos) 
     formData.append('receipts', this.state.receipts)
     formData.append('vehicle', this.state.vehicle)
