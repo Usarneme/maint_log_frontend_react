@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 
+import SearchBox from '../components/SearchBox'
 import VehicleHeader from '../components/VehicleHeader'
 
 import RegisterIcon from '../images/register.svg'
@@ -45,8 +46,7 @@ function Home(props) {
             <div>
               <img src={SearchIcon} alt="search" description="search icon" className="svg" />
             </div>
-            <input className="search__input" type="text" placeholder="Search by part, date, etc..." name="search" />
-            <div className="search__results"></div>
+            <SearchBox />
           </div>
           <Link className="home__actions add" to="/add">
             <div>

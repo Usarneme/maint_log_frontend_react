@@ -12,6 +12,7 @@ function Log(props) {
 
   return (
     <div className="inner">
+      <h2>Service History</h2>
       <VehicleHeader vehicle={props.user.vehicle[0]}>
         <LogSorter {...props} />
         {log && log.map(entry => <LogEntry key={entry._id} data={entry} />)}

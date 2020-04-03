@@ -2,13 +2,16 @@ import React from 'react'
 import axios from 'axios'
 
 import SearchResults from './SearchResults'
+import Loading from './Loading'
 
 class SearchBox extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       query: '',
-      results: []
+      results: [],
+      searching: false,
+      counter: 0
     }
   }
 
@@ -20,7 +23,8 @@ class SearchBox extends React.Component {
 
       if (response.data.length) {
         this.setState({
-          results: response.data
+          results: response.data,
+          searching: false
         }) 
       }
     } catch (err) {
@@ -30,16 +34,26 @@ class SearchBox extends React.Component {
     }
   }
 
-  handleInputChange = (e) => {
+  handleInputChange = e => {
     this.setState({
-      query: e.target.value
+      query: e.target.value,
+      searching: true,
+      results: []
     }, () => {
-      if (this.state.query && this.state.query.length > 1) {
-        if (this.state.query.length % 2 === 0) {
+      // only query the API at most 2x per second (every 500 ms)
+      if (this.state.query && this.state.query.length > 1 && Date.now() - this.state.counter > 500) {
+        this.getInfo()
+        this.setState({ counter: Date.now() })
+      } else {
+        setTimeout(() => {
           this.getInfo()
-        }
-      } 
+        }, 500)
+      }
     })
+  }
+
+  blurCleanup = () => {
+    if (this.state.query.length === 0) this.setState({ results: [] })
   }
   
   // searchInput.addEventListener('keyup', (e) => {
@@ -74,18 +88,22 @@ class SearchBox extends React.Component {
       <form>
         <input
           placeholder="Search parts, service, etc..."
-          onChange={(e) => this.handleInputChange(e)}
+          onKeyUp={(e) => this.handleInputChange(e)}
+          onBlur={this.blurCleanup}
         />
+        {this.state.loading && <Loading message={`Searching for: ${this.state.query}`} />}
         {this.state.results && this.state.results.length > 0 &&
           <>
             <p>Results:</p>
-            <SearchResults results={this.state.results} />
+              <SearchResults results={this.state.results} /> 
           </>
+        }
+        {this.state.results.length === 0 && this.state.query.length > 0 &&
+          <p>No match found for that search...</p>
         }
       </form>
     )
   }
-
 }
 
 export default SearchBox

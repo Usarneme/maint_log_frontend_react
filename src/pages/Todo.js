@@ -12,6 +12,7 @@ function Todo(props) {
 
   return (
     <div className="inner">
+      <h2>Upcoming Service{todoLog.length > 1 ? 's': ''}</h2>
       <VehicleHeader vehicle={props.user.vehicle[0]}>
         <LogSorter {...props} />
         {todoLog && todoLog.map(entry => <LogEntry key={entry._id} data={entry} />)}

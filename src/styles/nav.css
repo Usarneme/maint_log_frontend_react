@@ -6,14 +6,12 @@
   display: inline-grid;
   grid-template-columns: repeat(5, 1fr);
   background: #333;
-  /* background: $black; */
   padding: 1px;
   transition: transform 0.25s;
 }
 
 .navLink {
   background: #111;
-  /* background: $navBlack; */
   min-height: 20px;
   margin: 1px;
   border-radius: 5px;
@@ -27,21 +25,26 @@
 .navLink:hover,
 .navLink--active {
   background: linear-gradient(90deg, #48ded4 0%, hsla(219, 93%, 48%, 1) 10%, #3bae37 100%) fixed;
+  margin: 1px;
+  padding: 1px;
 }
 
 .navLink:hover > img {
-  transform: scale(0.6);
+  transform: scale(0.85);
+  margin: 1px;
+  padding: 1px;
 }
 
 .navLink:hover > h5 {
   visibility: visible;
   display: block;
+  margin: 1px;
+  padding: 1px;
 }
 
 .nav > a,
 .nav > div > a {
   color: #eee;
-  /* color: $navText; */
   text-transform: uppercase;
   display: flex;
   align-items: center;
@@ -49,13 +52,11 @@
   flex-direction: column;
   text-align: center;
   padding: 4px 0;
-  /* margin-right: calc(50vw - 105px); */
 }
 
 a.navLink > img,
 a.navLink > img > g {
   fill: #eee;
-  /* fill: $navText; */
   margin: 1px;
   width: 30px;
   height: 30px;
