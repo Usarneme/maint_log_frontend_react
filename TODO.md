@@ -13,20 +13,20 @@ Project Description
 - [ ] Service Manual image to text file, user/client corrections, text file to upcoming/todo Log entries  
 - [ ] Color Scheme and abstraction  
 - [ ] Light Mode and switcher  
-- [ ] Image gallery  
-- [ ] Image tagging, indexed for search  
 - [ ] Caching - vehicle lookups  
 
 ### In Progress
 
 - [ ] Organization  
-- [ ] Delete image AJAX  
-- [ ] Logout flow on account page  
-- [ ] Search flow design  
-- [ ] Search on homepage  
+- [ ] Image gallery  
+- [ ] Image tagging, indexed for search  
 
 ### Done ✓
 
+- [x] Search on homepage  
+- [x] Search flow design  
+- [x] Logout flow on account page  
+- [x] Delete image AJAX  
 - [x] Adding/modifying a log entry  
 - [x] Individual log item route - dynamic  
 - [x] Individual log view (component modal or page?)  
