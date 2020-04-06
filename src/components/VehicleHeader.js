@@ -10,7 +10,7 @@ function VehicleHeader(props) {
         <details>
           <summary>{`${props.vehicle.year} ${props.vehicle.make} ${props.vehicle.model}`}</summary>
           <div className="vehicle__details__update">
-            <Link to="/account">Add or select a different vehicle</Link>
+            <Link to="/settings">Add or select a different vehicle</Link>
           </div>
         </details>
       </div>

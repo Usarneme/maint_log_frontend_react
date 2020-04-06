@@ -42,12 +42,12 @@ function Home(props) {
       }
       {isLoggedIn &&
         <VehicleHeader vehicle={vehicle} >
-          <div className="home__actions search__main search">
+          <Link className="home__actions history" to="/log">
             <div>
-              <img src={SearchIcon} alt="search" description="search icon" className="svg" />
+              <img src={LogIcon} alt="log" description="log icon" className="svg" />
             </div>
-            <SearchBox />
-          </div>
+            <h4 className="button">View Full Maintenance Log History</h4>
+          </Link>
           <Link className="home__actions add" to="/add">
             <div>
               <img src={AddIcon} alt="add" description="add icon" className="svg" />
@@ -60,17 +60,17 @@ function Home(props) {
             </div>
             <h4 className="button">View Upcoming Scheduled Maintenance</h4>
           </Link>
+          <div className="home__actions search__main search">
+            <div>
+              <img src={SearchIcon} alt="search" description="search icon" className="svg" />
+            </div>
+            <SearchBox homepage={true} />
+          </div>
           <Link className="home__actions settings" to="/settings">
             <div>
               <img src={SettingsIcon} alt="settings" description="settings icon" className="svg" />
             </div>
             <h4 className="button">Add Your Vehicle and View Other Settings</h4>
-          </Link>
-          <Link className="home__actions history" to="/log">
-            <div>
-              <img src={LogIcon} alt="log" description="log icon" className="svg" />
-            </div>
-            <h4 className="button">View Full Maintenance Log History</h4>
           </Link>
         </VehicleHeader>
       }

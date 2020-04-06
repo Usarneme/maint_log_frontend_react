@@ -29,17 +29,18 @@ class GuestHome extends React.Component {
       <div className="inner">
         <div className="guest__options">
           <div className={`guest__option login ${this.state.showLogin ? 'guest__option__active' : ''}`} onClick={() => this.showLogin()}>
-            <img src={LoginIcon} alt="login" description="login icon" className="svg" />
-            <h4>Login to View Your Maintenance Log</h4>
+            <img src={LoginIcon} alt="login" description="login icon" className="svg button" />
+            <h4>Login & View Your Maintenance Log</h4>
           </div>
+          <div><span>-or-</span></div>
           <div className={`guest__option register ${this.state.showLogin ? '' : 'guest__option__active'}`} onClick={() => this.showRegister()}>
-            <h4>Register to Start Your Maintenance Log</h4>
-            <img src={RegisterIcon} alt="register" description="register icon" className="svg" />
+            <h4>Register & Start Your Maintenance Log</h4>
+            <img src={RegisterIcon} alt="register" description="register icon" className="svg button" />
           </div>
         </div>
         { !this.state.showLogin && 
           <div>
-            <Register />
+            <Register user={this.props.user} updateUserState={this.props.updateUserState} history={this.props.history} />
           </div>
         }
         { this.state.showLogin &&

@@ -1,33 +1,41 @@
 .guest__options {
+  margin: 0 3px;
+  padding: 0;
   display: flex;
+  align-items: center;
   justify-content: space-evenly;
-  margin: 5px;
-  padding: 5px;
 }
 
 .guest__option {
+  margin: 0;
+  padding: 3px;
   display: flex;
   align-items: center;
-  background: #222;
+  text-decoration: underline;
 }
 
-.guest__option:nth-of-type(2) {
-  border-left: 1px solid #AAA;
+.guest__option.login {
+  border-radius: 5px 0 0 5px;
 }
 
-.guest__option:nth-of-type(1) {
-  border-right: 1px solid #AAA;
+.guest__option.register {
+  border-radius: 0 5px 5px 0;
 }
 
 .guest__option > h4 {
-  padding: 10px;
+  padding: 2px;
 }
 
 .guest__option__active {
-  transform: scale(1.02);
-  background: #111;
+  transform: scale(1.05);
 }
 
-h2 {
+.guest__option > img.svg {
+  margin: 0;
+  padding: 2px;
+  border: 1px solid #AAA;
+}
+
+.guest__option > h2 {
   text-align: center;
 }

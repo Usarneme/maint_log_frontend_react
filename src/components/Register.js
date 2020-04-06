@@ -59,7 +59,7 @@ class Register extends Component {
   render() {
     return (
       <div className="inner">
-        <form className="form" onSubmit={this.apiRegister} method="POST">
+        <form className="card" onSubmit={this.apiRegister} method="POST">
           <h2>Register</h2>
           <label htmlFor="name">Username</label>
           <input type="text" name="name" placeholder="Enter username..." value={this.state.username} onChange={this.handleInputChange} />

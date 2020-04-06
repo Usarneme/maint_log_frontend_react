@@ -4,6 +4,8 @@ import axios from 'axios'
 import SearchResults from './SearchResults'
 import Loading from './Loading'
 
+import '../styles/search.css'
+
 class SearchBox extends React.Component {
   constructor(props) {
     super(props)
@@ -35,6 +37,7 @@ class SearchBox extends React.Component {
   }
 
   handleInputChange = e => {
+    e.preventDefault()
     this.setState({
       query: e.target.value,
       searching: true,
@@ -54,6 +57,11 @@ class SearchBox extends React.Component {
 
   blurCleanup = () => {
     if (this.state.query.length === 0) this.setState({ results: [] })
+  }
+
+  clearInput = e => {
+    e.preventDefault()
+    this.setState({ query: '', searching: false, results: [] })
   }
   
   // searchInput.addEventListener('keyup', (e) => {
@@ -86,16 +94,23 @@ class SearchBox extends React.Component {
   render() {
     return (
       <form>
-        <input
-          placeholder="Search parts, service, etc..."
-          onKeyUp={(e) => this.handleInputChange(e)}
-          onBlur={this.blurCleanup}
-        />
+        <div className="search__input__container">
+          <input
+            placeholder="Search parts, service, etc..."
+            onKeyUp={this.handleInputChange}
+            onChange={this.handleInputChange}
+            onBlur={this.blurCleanup}
+            value={this.state.query}
+            className={this.state.query.length > 0 ? `search__input with__text`: `search__input`}
+          />
+          {this.state.query && this.state.query.length > 0 &&             
+            <button className="button clear__input" onClick={this.clearInput} ><strong>X</strong></button>}
+        </div>
         {this.state.loading && <Loading message={`Searching for: ${this.state.query}`} />}
         {this.state.results && this.state.results.length > 0 &&
           <>
             <p>Results:</p>
-              <SearchResults results={this.state.results} /> 
+              <SearchResults homepage={this.props.homepage} results={this.state.results} /> 
           </>
         }
         {this.state.results.length === 0 && this.state.query.length > 0 &&

@@ -28,9 +28,9 @@ class App extends React.Component {
     }
   }
 
-  componentDidMount() {
-    // TODO - check localStorage for a valid user and set it to state
-  }
+  // componentDidMount() {
+  //   // TODO - check localStorage for a valid user and set it to state
+  // }
 
   render() {
     const context = { user: this.state.user, updateUserState: this.state.updateUserState }

@@ -1,11 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import '../styles/searchResults.css'
-
 function SearchResults(props) {
   return (
-    <ul className="search__results">
+    <ul className={`search__results ${props.homepage ? 'search__on__homepage' : ''}`} >
       {props.results.map(result => (
         <li key={result.id} className="search__result">
           <strong>{result.name}</strong>
