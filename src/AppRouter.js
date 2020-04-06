@@ -14,6 +14,7 @@ import GuestHome from './pages/GuestHome'
 import Home from './pages/Home'
 import Log from './pages/Log'
 import NotFound from './pages/NotFound'
+import ScrollToTop from './components/ScrollToTop'
 import Search from './pages/Search'
 import SingleLogEntry from './pages/SingleLogEntry'
 import SiteTitle from './components/SiteTitle'
@@ -24,6 +25,7 @@ import { userContext } from './contexts/userContext'
 function AppRouter() {
   return (
     <Router>
+      <ScrollToTop />
       <Switch>
         <userContext.Consumer>
           {({ user, updateUserState }) => 
