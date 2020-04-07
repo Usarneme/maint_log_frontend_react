@@ -102,30 +102,24 @@ class Settings extends Component {
     this.setState({ showLogoutButton: !this.state.showLogoutButton })
   }
 
-  logout = event => {
+  logout = async event => {
     event.preventDefault()
-    // console.log(`logout handler. POST fetching: ${process.env.REACT_APP_API_DOMAIN}/api/logout`)
-    fetch(`${process.env.REACT_APP_API_DOMAIN}/api/logout`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(res => {
-      if (res.status === 200) {
-        // console.log(`logout handler returned success!`)
+    console.log(`logout handler. POST to: ${process.env.REACT_APP_API_DOMAIN}/api/logout`)
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/logout`)
+      if (response.status === 200) {
+        console.log(`logout handler returned success!`)
         const userReset = { username: '', userID: '', sessionID: '', cookies: '', email: ''}
         this.props.updateUserState(userReset)
         return this.props.history.push('/')
       } else {
-        const error = new Error(res.error)
+        console.log('Response received but with status code: '+response.status)
+        const error = new Error(response.error)
         throw error
       }
-    })
-    .catch(err => {
-      console.error(err)
-      alert('Error logging out please try again')
-    })
+    } catch(err) {
+      console.err(err)
+    }
   }
 
   render() {

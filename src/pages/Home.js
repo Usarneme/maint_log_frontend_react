@@ -20,7 +20,10 @@ function Home(props) {
   if (!isLoggedIn) return <Redirect to="/welcome" />
 
   // console.log('Home Component. Logged in user? '+isLoggedIn)
-  const vehicle = props.user.vehicle[0]
+  let vehicle = {}
+  if (props.user.vehicle && props.user.vehicle[0]) {
+    vehicle = props.user.vehicle[0]
+  }
 
   return (
     <div className="inner">

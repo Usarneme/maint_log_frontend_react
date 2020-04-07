@@ -25,12 +25,11 @@ class LogForm extends React.Component {
       photos: '', 
       receipts: '',
       vehicle: '',
-      api: true,
       showDeleteButton: false
     }
   }
 
-  handleInputChange = (event) => {
+  handleInputChange = event => {
     // when a file is selected for upload...
     if (event.target.files) return this.setState({ file: event.target.files[0] })
     // otherwise track changes in form data to state
@@ -40,7 +39,7 @@ class LogForm extends React.Component {
     })
   }
 
-  apiEditLog = async (event) => {
+  apiEditLog = async event => {
     event.preventDefault()
     let url = ''
     // can post new and edit existing log entries via this form
@@ -71,9 +70,12 @@ class LogForm extends React.Component {
     formData.append('photos', this.state.photos) 
     formData.append('receipts', this.state.receipts)
     formData.append('vehicle', this.state.vehicle)
-    formData.append('api', this.state.api)
+    formData.append('api', true)
 
+    console.log('Form Data prepared:')
+    for (let item of formData.entries()) console.dir(`${item[0]} : ${item[1]}`)
     console.log(`Posting to ${url}.`)
+
     try {
       const result = await axios.post(url, formData)
       console.log(`Returned successfully!`)

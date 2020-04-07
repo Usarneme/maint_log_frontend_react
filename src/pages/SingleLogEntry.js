@@ -17,11 +17,15 @@ function SingleLogEntry(props) {
   console.log(`Displaying log entry: ${slug}`)
   const log = props.user.log.filter(entry => entry.slug === slug)
   const { id, shortDescription, longDescription, dateStarted, dateCompleted, dateEntered, dateDue, mileageDue, name, odometer, tools, parts, partsCost, laborCost, serviceLocation, photos } = log[0]
+  let vehicle = {}
+  if (props.user.vehicle && props.user.vehicle[0]) {
+    vehicle = props.user.vehicle[0]
+  }
 
   return (
     <div className="inner">
       <h2>{name.length > 120 ? `${name.substring(0,120)}...` : name}</h2>
-      <VehicleHeader vehicle={props.user.vehicle[0]} />
+      <VehicleHeader vehicle={vehicle} />
       <div className="single__details">
         <p>
           <strong>Short Description: </strong>

@@ -9,11 +9,15 @@ function Log(props) {
   const isLoggedIn = (props.user.cookies.length > 0)
   if (!isLoggedIn) return <Redirect to="/welcome" />
   const log = props.user.log
+  let vehicle = {}
+  if (props.user.vehicle && props.user.vehicle[0]) {
+    vehicle = props.user.vehicle[0]
+  }
 
   return (
     <div className="inner">
       <h2>Service History</h2>
-      <VehicleHeader vehicle={props.user.vehicle[0]}>
+      <VehicleHeader vehicle={vehicle}>
         <LogSorter {...props} />
         {log && log.map(entry => <LogEntry key={entry._id} data={entry} />)}
       </VehicleHeader>
