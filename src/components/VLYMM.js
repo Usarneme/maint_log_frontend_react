@@ -9,16 +9,16 @@ class VLYMM extends React.Component {
       year: new Date().getFullYear(),
       make: '',
       models: [],
-      model: ''
+      model: '',
+      showConfirmButton: false
     }
   }
 
-  async lookupModelByYearAndMake() {
+  async lookupModelsByYearAndMake() {
     // console.log("Select changed. Calling lookupMakeQuery... ")
     if (!this.state || !this.state.year || !this.state.make) {
       return console.log('leaving lookup early due to no year or make selected...')
     }
-
     console.log('Make selected: '+this.state.make)
     // check for a local cache of the query
     const localStorageKey = this.state.year.toString() + this.state.make.toString()
@@ -27,7 +27,7 @@ class VLYMM extends React.Component {
       console.log('Duplicate query. Retreiving cache from localStorage...')
       const localStorageModelsArray = localStorageModels.split(',') // turns comma-delineated string into array of strings
       console.log(localStorageModelsArray)
-      this.setState({ models: localStorageModelsArray })
+      this.setState({ models: localStorageModelsArray, showConfirmButton: false })
     } else {
       fetch(`https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformakeyear/make/${this.state.make}/modelyear/${this.state.year}?format=json`)
         .then(async data => {
@@ -43,40 +43,32 @@ class VLYMM extends React.Component {
           console.log(modelsArray)
           // cache query results
           if (modelsArray.length > 0) localStorage.setItem(localStorageKey, modelsArray)
-          this.setState(prevState => ({ models: [...modelsArray] }))
+          this.setState(prevState => ({ models: [...modelsArray], showConfirmButton: false }))
         })
         .catch(err => console.error(err))
     }
   }
   
-  modelSelected(e) {
-    e.stopPropagation()
-    e.preventDefault()
-    // console.log('Model selected...')
-    const year = document.querySelector('select[name="lookupYear"]').value
-    const make = document.querySelector('select[name="lookupMake"]').value
-  
-    let model = undefined
-  
-    if (e.originalTarget !== undefined) {
-      model = e.originalTarget.value
-    } else {
-      model = e.target.value
-    }
-    // console.log(year, make, model)
-    const confirmLookupResultsButton = document.querySelector('#confirmLookupResults')
-    // confirmLookupResultsButton.addEventListener('click', e => updateVehicle(e, year, make, model))
-    confirmLookupResultsButton.classList.remove('hidden')
-  }
-
   handleSelectChange = async event => {
     event.preventDefault()
     // await state change before calling the next method as that relies on the updated state value...
     await this.setState({ [event.target.name]: event.target.value })
-    this.lookupModelByYearAndMake()
+    if (this.state && this.state.year && this.state.make) {
+      this.lookupModelsByYearAndMake()
+    }
+    if (this.state && this.state.year && this.state.make && this.state.models && this.state.model) {
+      await this.setState({ showConfirmButton: true })
+    }
+  }
+
+  saveVehicle = () => {
+    // console.log('vlymm saveVehicle called')
+    this.props.saveVehicle( this.state )
   }
 
   render() {
+    if (!this.props.display) return null
+
     const thisYear = new Date().getFullYear()
 
     return (
@@ -103,7 +95,9 @@ class VLYMM extends React.Component {
             }
           </select>
       </div>
-      <button className="button hidden" id="confirmLookupResults">Vehicle Info Is Correct</button>
+      { this.state.showConfirmButton && 
+        <button className="button" onClick={this.saveVehicle}>Vehicle Info Is Correct</button>
+      }
     </div>
     )
   }

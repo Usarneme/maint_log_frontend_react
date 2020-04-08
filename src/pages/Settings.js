@@ -41,45 +41,54 @@ class Settings extends Component {
     this.setState({ user: newState.user })
   }
 
-  saveVehicle = vehicle => {
-    console.log('saving vehicle...')
-    console.log(vehicle)
-
+  saveVehicle = async vehicleData => {
+    // console.log('saving vehicle...')
+    // console.log(vehicleData)
+    const vehicle = {
+      make: vehicleData.make || '',
+      model: vehicleData.model || '',
+      odometer: vehicleData.odometer || '',
+      vin: vehicleData.vin || '',
+      year: vehicleData.year || ''
+    } 
+    await this.setState(prevState => ({ 
+      ...prevState,
+      user: { 
+        ...prevState.user,
+        vehicle: [vehicle]
+      } 
+    }))
     // 2T1KY38E23C077319
     // bay@bae.bay
-    
-    // setState
-    // updateAccount
+    await this.updateAccount()
   }
 
-  updateAccount = async (event) => {
-    event.preventDefault()
-    // console.log(`/updateAccount handler. Axios posting to ${process.env.REACT_APP_API_DOMAIN}/api/updateAccount`)
+  updateAccount = async (event = '') => {
+    if (event) event.preventDefault()
+    // console.log(`/updateAccount handler. Axios posting to ${process.env.REACT_APP_API_DOMAIN}/api/update/account`)
     const { name, email, password } = this.state.user
-    const { vehicleYear, vehicleMake, vehicleModel, vehicleOdometer } = this.state.user.vehicle
+    const vehicleYear = this.state.user.vehicle[0].year
+    const vehicleMake = this.state.user.vehicle[0].make
+    const vehicleModel = this.state.user.vehicle[0].model
+    const vehicleOdometer = this.state.user.vehicle[0].odometer
+    const vin = this.state.user.vehicle[0].vin
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/update`, { name, email, password, vehicleYear, vehicleMake, vehicleModel, vehicleOdometer })
+      const res = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/update/account`, { name, email, password, vehicleYear, vehicleMake, vehicleModel, vehicleOdometer, vin })
       // console.dir(res)
 
       if (res.status === 200) {
-        // console.log(`updateAccount handler returned success!`)
-        // console.dir(res)
+        console.log(`updateAccount handler returned success!`)
+        console.dir(res)
+
         const { user, sessionID, cookies } = res.data
         const userID = user._id
         const name = user.name
+        const email = user.email
+        const vehicle = user.vehicle
 
-        // console.log('GETting log data...')
-        const logDataResult = await getLogData()
-        const logData = logDataResult.data
-        // console.log(`Found log data result of ${logData}`)
-
-        const { vehicle, log } = logData
-        // console.log(`success! Returned #${log.length} log entries for vehicle ${vehicle[0]}.`)
-
-        this.setState({ user: { name, userID, sessionID, cookies, email, vehicle, log, password: ''} })
+        this.setState({ user: { name, userID, sessionID, cookies, email, vehicle }, password: '', passwordConfirm: '' })
         this.props.updateUserState(this.state.user)
-
-        // this.props.history.push('/')
+        this.props.history.push('/settings')
       } else {
         console.log('Response received but with status code: '+res.status)
         const error = new Error(res.error)
@@ -155,7 +164,7 @@ class Settings extends Component {
 
         <form className="card" onSubmit={this.updateAccount} method="POST">
           <h3>Account</h3>
-          <label htmlFor="name">User Name</label>
+          <label htmlFor="name">Name</label>
           <input type="text" name="name" placeholder="Enter name..." value={this.state.user.name} onChange={this.handleInputChange} />
           <label htmlFor="email">Email Address</label>
           <input type="email" name="email" placeholder="Enter email..." value={this.state.user.email} onChange={this.handleInputChange} />

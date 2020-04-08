@@ -67,7 +67,7 @@ class VLVin extends React.Component {
               <span>{`Year: ${this.state.vehicle.year}`}</span>
               <span>{`Make: ${this.state.vehicle.make}`}</span>
               <span>{`Model: ${this.state.vehicle.model}`}</span>
-              <button className="button" id="confirmVinResults" onClick={this.saveVehicle}>Save Vehicle</button>
+              <button className="button" onClick={this.saveVehicle}>Vehicle Info Is Correct</button>
             </>          
           }
         </div>

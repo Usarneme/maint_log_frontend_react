@@ -41,11 +41,11 @@ class Login extends Component {
         // console.log(`apiLogin handler returned success!`)
         const { user, sessionID, cookies } = res.data
         const userID = user._id
-        const username = user.name
+        const name = user.name
         const logDataResult = await getLogData()
         const logData = logDataResult.data
         const { vehicle, log } = logData
-        this.setState({ user: { username, userID, sessionID, cookies, email, vehicle, log }, password: '', loading: false })
+        this.setState({ user: { name, userID, sessionID, cookies, email, vehicle, log }, password: '', loading: false })
         this.props.updateUserState(this.state.user)
 
         this.props.history.push('/')
