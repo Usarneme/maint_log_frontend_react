@@ -24,22 +24,12 @@ class VLVin extends React.Component {
     event.stopPropagation()
     event.preventDefault()
     if (!this.state.vin) return
-    console.log('VIN Search clicked... Looking up '+this.state.vin)
-    
     try {
-      // 2t1ky38e23c077319
       const response = await fetch(`https://vpic.nhtsa.dot.gov/api/vehicles/decodevin/${this.state.vin}?format=json`)
       const data = await response.json()
       const results = await data["Results"]
-      console.dir(results)
-
-      // Per the NHTSA API spec
+      // Per the NHTSA API spec (https://vpic.nhtsa.dot.gov/api/):
       const error = Number(results[4]["Value"][0])
-      console.log('Error code: '+error)
-
-      console.log('this: ')
-      console.log(this)
-
       if (error === 0) {
         const year = results[9]["Value"]
         const rawMake = results[6]["Value"]
@@ -54,7 +44,12 @@ class VLVin extends React.Component {
     }
   }
 
+  saveVehicle = () => {
+    this.props.saveVehicle({ vin: this.state.vin, ...this.state.vehicle })
+  }
+
   render() {
+    if (!this.props.display) return null
 
     return (
       <div className="card searchByVinDiv">
@@ -72,7 +67,7 @@ class VLVin extends React.Component {
               <span>{`Year: ${this.state.vehicle.year}`}</span>
               <span>{`Make: ${this.state.vehicle.make}`}</span>
               <span>{`Model: ${this.state.vehicle.model}`}</span>
-              <button className="button" id="confirmVinResults">Save Vehicle</button>
+              <button className="button" id="confirmVinResults" onClick={this.saveVehicle}>Save Vehicle</button>
             </>          
           }
         </div>

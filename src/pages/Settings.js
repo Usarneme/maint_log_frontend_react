@@ -17,7 +17,7 @@ class Settings extends Component {
     this.state = {
       user: {
         userID: '',
-        username: '',
+        name: '',
         sessionID: '',
         cookies: '',
         email: '',
@@ -41,13 +41,24 @@ class Settings extends Component {
     this.setState({ user: newState.user })
   }
 
+  saveVehicle = vehicle => {
+    console.log('saving vehicle...')
+    console.log(vehicle)
+
+    // 2T1KY38E23C077319
+    // bay@bae.bay
+    
+    // setState
+    // updateAccount
+  }
+
   updateAccount = async (event) => {
     event.preventDefault()
     // console.log(`/updateAccount handler. Axios posting to ${process.env.REACT_APP_API_DOMAIN}/api/updateAccount`)
-
-    const { email, password } = this.state.user
+    const { name, email, password } = this.state.user
+    const { vehicleYear, vehicleMake, vehicleModel, vehicleOdometer } = this.state.user.vehicle
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/updateAccount`, { email, password })
+      const res = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/update`, { name, email, password, vehicleYear, vehicleMake, vehicleModel, vehicleOdometer })
       // console.dir(res)
 
       if (res.status === 200) {
@@ -55,7 +66,7 @@ class Settings extends Component {
         // console.dir(res)
         const { user, sessionID, cookies } = res.data
         const userID = user._id
-        const username = user.name
+        const name = user.name
 
         // console.log('GETting log data...')
         const logDataResult = await getLogData()
@@ -65,7 +76,7 @@ class Settings extends Component {
         const { vehicle, log } = logData
         // console.log(`success! Returned #${log.length} log entries for vehicle ${vehicle[0]}.`)
 
-        this.setState({ user: { username, userID, sessionID, cookies, email, vehicle, log, password: ''} })
+        this.setState({ user: { name, userID, sessionID, cookies, email, vehicle, log, password: ''} })
         this.props.updateUserState(this.state.user)
 
         // this.props.history.push('/')
@@ -75,7 +86,7 @@ class Settings extends Component {
         throw error
       }
     } catch(err) {
-        console.log('Error posting to /api/updateAccount.')
+        console.log('Error posting to /update.')
         console.dir(err)
         // console.log(Object.keys(err))
         // console.log(err.message)
@@ -84,7 +95,7 @@ class Settings extends Component {
         // console.log(err.response)
         // console.log(err.isAxiosError)
         // console.dir(err.toJSON())
-        alert('Error logging in please try again')
+        alert('Error updating account. Please try again.')
       }
   }
 
@@ -104,16 +115,13 @@ class Settings extends Component {
 
   logout = async event => {
     event.preventDefault()
-    console.log(`logout handler. POST to: ${process.env.REACT_APP_API_DOMAIN}/api/logout`)
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/logout`)
       if (response.status === 200) {
-        console.log(`logout handler returned success!`)
-        const userReset = { username: '', userID: '', sessionID: '', cookies: '', email: ''}
+        const userReset = { name: '', userID: '', sessionID: '', cookies: '', email: ''}
         this.props.updateUserState(userReset)
         return this.props.history.push('/')
       } else {
-        console.log('Response received but with status code: '+response.status)
         const error = new Error(response.error)
         throw error
       }
@@ -139,16 +147,16 @@ class Settings extends Component {
             <button className={`lookup__button ${this.state.showManual ? 'lookup__selected' : ''}`} onClick={() => this.vehicleLookupChanger('showManual')}>Manually Enter</button>
           </div>
           <div className="lookupSwitcher">
-            {this.state.showVin && <VLVin />}
-            {this.state.showManual && <VLManual />}
-            {this.state.showYearMakeModel && <VLYMM />}
+            <VLVin display={this.state.showVin} saveVehicle={this.saveVehicle} />
+            <VLManual display={this.state.showManual} saveVehicle={this.saveVehicle} /> 
+            <VLYMM display={this.state.showYearMakeModel} saveVehicle={this.saveVehicle} /> 
           </div>
         </div>
 
         <form className="card" onSubmit={this.updateAccount} method="POST">
           <h3>Account</h3>
-          <label htmlFor="username">User Name</label>
-          <input type="text" name="username" placeholder="Enter username..." value={this.state.user.username} onChange={this.handleInputChange} />
+          <label htmlFor="name">User Name</label>
+          <input type="text" name="name" placeholder="Enter name..." value={this.state.user.name} onChange={this.handleInputChange} />
           <label htmlFor="email">Email Address</label>
           <input type="email" name="email" placeholder="Enter email..." value={this.state.user.email} onChange={this.handleInputChange} />
           {/* <label htmlFor="password">Password</label>
