@@ -1,5 +1,5 @@
 import React from 'react'
-
+import PropTypes from 'prop-types'
 import Login from '../components/Login'
 import Register from '../components/Register'
 
@@ -51,6 +51,12 @@ class GuestHome extends React.Component {
       </div>
     )
   }
+}
+
+GuestHome.propTypes = {
+  user: PropTypes.object,
+  updateUserState: PropTypes.func,
+  history: PropTypes.object
 }
 
 export default GuestHome
