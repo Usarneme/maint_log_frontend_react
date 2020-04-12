@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`	GuestHome Page Testing. renders 1`] = `
+exports[`GuestHome Page Testing. 	Not Logged In. Renders 1`] = `
 <div
   className="inner"
 >

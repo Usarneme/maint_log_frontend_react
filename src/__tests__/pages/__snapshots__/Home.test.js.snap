@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HOME PAGE 	Not Logged In redirects to / route 1`] = `
+Array [
+  <a
+    className="siteTitle"
+    href="/"
+    onClick={[Function]}
+  >
+    <img
+      alt="home"
+      className="svg"
+      description="home"
+      src="home.svg"
+    />
+    <h1>
+      Vehicle Maintenance Log
+    </h1>
+  </a>,
+  <div
+    className="inner"
+  >
+    <div
+      className="guest__options"
+    >
+      <div
+        className="guest__option login guest__option__active"
+        onClick={[Function]}
+      >
+        <img
+          alt="login"
+          className="svg button"
+          description="login icon"
+          src="login.svg"
+        />
+        <h4>
+          Login & View Your Maintenance Log
+        </h4>
+      </div>
+      <div>
+        <span>
+          -or-
+        </span>
+      </div>
+      <div
+        className="guest__option register "
+        onClick={[Function]}
+      >
+        <h4>
+          Register & Start Your Maintenance Log
+        </h4>
+        <img
+          alt="register"
+          className="svg button"
+          description="register icon"
+          src="register.svg"
+        />
+      </div>
+    </div>
+    <div>
+      <div
+        className="inner"
+      >
+        <form
+          className="card"
+          method="POST"
+          onSubmit={[Function]}
+        >
+          <h2>
+            Login
+          </h2>
+          <label
+            htmlFor="email"
+          >
+            Email Address
+          </label>
+          <input
+            name="email"
+            onChange={[Function]}
+            placeholder="Enter email..."
+            type="email"
+            value=""
+          />
+          <label
+            htmlFor="password"
+          >
+            Password
+          </label>
+          <input
+            name="password"
+            onChange={[Function]}
+            placeholder="Enter password..."
+            type="password"
+            value=""
+          />
+          <input
+            className="button"
+            type="submit"
+            value="Log In →"
+          />
+          <button
+            className="button forgot__password__button"
+            onClick={[Function]}
+          >
+            Forgot Your Password?
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>,
+]
+`;

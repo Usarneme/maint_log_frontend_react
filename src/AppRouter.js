@@ -40,7 +40,7 @@ function AppRouter() {
             <Route path="/log/:slug" exact render={props => <SingleLogEntry {...props} user={user} updateUserState={updateUserState} /> }/>
             <Route path="/search" render={props => <Search {...props} user={user} updateUserState={updateUserState} /> }/>
             <Route path="/todo" render={props => <Todo {...props} user={user} updateUserState={updateUserState} /> }/>
-            { user.cookies.length > 0 && <Nav /> }
+            { user && user.cookies && user.cookies.length > 0 && <Nav /> }
             <Route path="*" component={NotFound} />
           </>
           }

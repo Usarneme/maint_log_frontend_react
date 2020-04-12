@@ -16,7 +16,7 @@ import '../styles/home.css'
 
 function Home(props) {
   // console.log(props)
-  const isLoggedIn = (props.user.cookies.length > 0)
+  const isLoggedIn = (props.user && props.user.cookies ? props.user.cookies.length > 0 : false)
   if (!isLoggedIn) return <Redirect to="/welcome" />
 
   // console.log('Home Component. Logged in user? '+isLoggedIn)

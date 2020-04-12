@@ -140,7 +140,7 @@ class Settings extends Component {
   }
 
   render() {
-    const isLoggedIn = (this.props.user.cookies.length > 0)
+    const isLoggedIn = (this.props.user && this.props.user.cookies ? this.props.user.cookies.length > 0 : false)
     if (!isLoggedIn) return <Redirect to="/welcome" />
   
     return (

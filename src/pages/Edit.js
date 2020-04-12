@@ -5,7 +5,7 @@ import LogForm from '../components/LogForm'
 
 function Edit(props) {
   const { id } = useParams()
-  const isLoggedIn = (props.user.cookies.length > 0)
+  const isLoggedIn = (props.user && props.user.cookies ? props.user.cookies.length > 0 : false)
   if (!isLoggedIn) return <Redirect to="/welcome" />
 
   // do not display while data is being fetched/loaded/mounted

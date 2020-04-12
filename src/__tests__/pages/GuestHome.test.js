@@ -2,11 +2,13 @@ import React from 'react'
 import GuestHome from '../../pages/GuestHome'
 import renderer from 'react-test-renderer'
 
-describe('\tGuestHome Page Testing.', () => {
-  it('renders', () => {
+describe('GuestHome Page Testing.', () => {
+  describe('\tNot Logged In.', () => {
+  it('Renders', () => {
     const user = {}
     const updateUserState = () => {}
     const history = {}
+
     const tree = renderer.create(
       <GuestHome 
         user={user}
@@ -15,5 +17,6 @@ describe('\tGuestHome Page Testing.', () => {
       />).toJSON()
 
       expect(tree).toMatchSnapshot()
+    })
   })
 })

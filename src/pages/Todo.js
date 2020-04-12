@@ -6,8 +6,9 @@ import LogEntry from '../components/LogEntry'
 import LogSorter from '../components/LogSorter'
 
 function Todo(props) {
-  const isLoggedIn = (props.user.cookies.length > 0)
+  const isLoggedIn = (props.user && props.user.cookies ? props.user.cookies.length > 0 : false)
   if (!isLoggedIn) return <Redirect to="/welcome" />
+
   const todoLog = props.user.log.filter(entry => entry.mileageDue !== null || entry.dateDue !== null)
   let vehicle = {}
   if (props.user.vehicle && props.user.vehicle[0]) {

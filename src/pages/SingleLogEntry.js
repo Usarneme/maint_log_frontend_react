@@ -11,7 +11,7 @@ import '../styles/singleLogEntry.css'
 function SingleLogEntry(props) {
   const { slug } = useParams()
 
-  const isLoggedIn = (props.user.cookies.length > 0)
+  const isLoggedIn = (props.user && props.user.cookies ? props.user.cookies.length > 0 : false)
   if (!isLoggedIn) return <Redirect to="/welcome" />
 
   console.log(`Displaying log entry: ${slug}`)
