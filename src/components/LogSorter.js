@@ -77,16 +77,16 @@ const LogSorter = (props) => {
   return (
     <div className='log__sorter__container'>
       <div className="log__sorter__item log__sorter__service">
-        <span onClick={(e) => sortBy('service',e)}>service <span className="log__sorter__arrow service__arrow">▴</span></span>
+        <span onClick={e => sortBy('service',e)}>service <span className="log__sorter__arrow service__arrow">▴</span></span>
       </div>
       <div className="log__sorter__item log__sorter__dates">
-        <span onClick={(e) => sortBy('date',e)}>dates <span className="log__sorter__arrow date__arrow">▴</span></span>
+        <span onClick={e => sortBy('date',e)}>dates <span className="log__sorter__arrow date__arrow">▴</span></span>
       </div>
       <div className="log__sorter__item log__sorter__mileage">
-        <span onClick={(e) => sortBy('mileage',e)}>mileage <span className="log__sorter__arrow mileage__arrow">▴</span></span>
+        <span onClick={e => sortBy('mileage',e)}>mileage <span className="log__sorter__arrow mileage__arrow">▴</span></span>
       </div>
       <div className="log__sorter__item log__sorter__costs">
-        <span onClick={(e) => sortBy('costs',e)}>costs <span className="log__sorter__arrow costs__arrow">▴</span></span>
+        <span onClick={e => sortBy('costs',e)}>costs <span className="log__sorter__arrow costs__arrow">▴</span></span>
       </div>
     </div>
   )

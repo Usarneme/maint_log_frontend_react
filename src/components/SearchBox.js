@@ -99,7 +99,7 @@ class SearchBox extends React.Component {
       <ReactSVG src={MagnifyingGlassIcon} role="img" aria-label="Magnifying Glass Icon" fallback={() => <img src={MagnifyingGlassIcon} alt="magnifying glass icon" description="magnifying glass icon" className="svg" />} /> 
 
     return (
-      <form>
+      <form className="card search__form">
         <div className="search__input__container">
           <input
             placeholder="Search parts, service, etc..."
@@ -114,12 +114,12 @@ class SearchBox extends React.Component {
         {this.state.loading && <Loading message={`Searching for: ${this.state.query}`} />}
         {this.state.results && this.state.results.length > 0 &&
           <>
-            <p>Results:</p>
+            <h5>Results:</h5>
               <SearchResults homepage={this.props.homepage} results={this.state.results} /> 
           </>
         }
         {this.state.results.length === 0 && this.state.query.length > 0 &&
-          <p>No match found for that search...</p>
+          <h5>No match found for that search...</h5>
         }
       </form>
     )

@@ -9,7 +9,7 @@ function LogEntry(props) {
   if (!log) return ( <div>Error loading log data...</div> )
 
   return (
-    <div>
+    <div className="card">
       {log && 
         <div className="log__entry">
           <Link to={`/log/${log.slug}`}>

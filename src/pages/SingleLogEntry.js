@@ -27,7 +27,7 @@ function SingleLogEntry(props) {
     <div className="inner">
       <h2>{name.length > 120 ? `${name.substring(0,120)}...` : name}</h2>
       <VehicleHeader vehicle={vehicle} />
-      <div className="single__details">
+      <div className="card single__details">
         <p>
           <strong>Short Description: </strong>
           <span>{shortDescription}</span>

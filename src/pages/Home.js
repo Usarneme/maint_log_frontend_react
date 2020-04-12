@@ -5,8 +5,6 @@ import { ReactSVG } from 'react-svg'
 import SearchBox from '../components/SearchBox'
 import VehicleHeader from '../components/VehicleHeader'
 
-import RegisterIcon from '../images/register.svg'
-import LoginIcon from '../images/login.svg'
 import SearchIcon from '../images/search.svg'
 import AddIcon from '../images/addLog.svg'
 import TodoIcon from '../images/todo.svg'

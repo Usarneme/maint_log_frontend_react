@@ -1,5 +1,6 @@
 .home__actions__container {
-  min-height: calc(100vh - 85px);
+  max-width: 750px;
+  margin: 0 auto;
 }
 
 .home__actions {
@@ -26,9 +27,11 @@
 .home__actions > h4 {
   margin: 0 auto;
   width: 85%;
+  padding: 0;
 }
 
-.home__actions > h4 {
+.home__actions > h4,
+.search__main > form {
   text-align: right;
   display: flex;
   flex-direction: column;
@@ -36,11 +39,6 @@
   align-items: center;
 }
 
-.search__main > div {
+/* .search__main > div {
   flex-grow: 5;
-}
-
-.search__main > form {
-  flex-grow: 85;
-  padding-right: 3%;
-}
+} */

@@ -1,5 +1,5 @@
-*, **, html {
-  font-size: 10px;
+*, html {
+  font-size: 12px;
   box-sizing: border-box;
 }
 
@@ -17,8 +17,8 @@
 .light {
   --backgroundLayerOne: #DEFDEF;
   --backgroundLayerTwo: #DDDDDD;
-  --backgroundLayerThree: #CCCCCC;
-  --backgroundLayerFour: #AAAAAA;
+  --backgroundLayerThree: #BBABBA;
+  --backgroundLayerFour: #A9A9A9;
   --backgroundLayerFive: #888888;
   --textColorOne: #111111;
   --textColorTwo: #666666;
@@ -40,18 +40,22 @@ h2, h3, h4, h5 {
   margin: 7px;
 }
 
+h2 {
+  text-align: center;
+  text-transform: uppercase;
+}
+
 h3 {
-  border-bottom: 1px solid var(--textColorOne);
   border-bottom: 1px solid var(--textColorOne);
 }
 
 .inner {
-  max-width: 900px;
   padding: 3px;
-  padding-bottom: 40px;
-  margin: 0 auto 40px;
+  padding-bottom: 56px;
+  margin: 0 auto;
   background: var(--backgroundLayerFour);
-  /* min-height: calc(100vh - 85px); */
+  /* ~40px title + ~55px bottom-nav */
+  min-height: calc(100vh - 45px);
 }
 
 .inner--flashes {
@@ -104,11 +108,12 @@ label {
 }
 
 .card {
-  margin: 10px 0;
   background: var(--backgroundLayerTwo);
   padding: 5px;
   border-radius: 5px;
   box-shadow: 0px 0px 10px -3px var(--backgroundLayerThree);
+  max-width: 900px;
+  margin: 10px auto
 }
 
 .card > h2 {

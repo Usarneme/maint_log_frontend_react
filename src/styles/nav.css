@@ -5,13 +5,13 @@
   margin: 0;
   display: inline-grid;
   grid-template-columns: repeat(5, 1fr);
-  background: var(--backgroundLayerThree);
+  background: var(--backgroundLayerFour);
   padding: 1px;
   transition: transform 0.25s;
 }
 
 .navLink {
-  background: var(--backgroundLayerOne);
+  background: var(--backgroundLayerTwo);
   min-height: 20px;
   margin: 1px;
   border-radius: 5px;

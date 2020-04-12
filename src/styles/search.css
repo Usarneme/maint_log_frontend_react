@@ -1,7 +1,14 @@
+form.search__form {
+  width: 85%;
+  padding: 0;
+  margin: 0 auto;
+}
+
 .search__input__container {
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 100%;
 }
 
 .search__input__container > p {
@@ -27,8 +34,8 @@
 .search__results {
   display: flex;
   flex-direction: column;
-  margin: 0;
-  padding: 0;
+  margin: 1px;
+  padding: 2px;
 }
 
 .search__on__homepage {

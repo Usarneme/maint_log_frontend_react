@@ -1,14 +1,15 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 class VLManual extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      year: props.year || '',
-      make: props.make || '',
-      model: props.model || '',
-      vin: props.vin || '',
-      odometer: props.odometer || ''
+      year: props.currentVehicle.year || '',
+      make: props.currentVehicle.make || '',
+      model: props.currentVehicle.model || '',
+      vin: props.currentVehicle.vin || '',
+      odometer: props.currentVehicle.odometer || ''
     }
   }
 
@@ -23,6 +24,7 @@ class VLManual extends React.Component {
 
   render() {
     if (!this.props.display) return null
+    console.log('rendering VLManual...')
 
     return (
       <div className="form manualVehicleEntryDiv">
@@ -40,6 +42,11 @@ class VLManual extends React.Component {
       </div>
     )
   }
+}
+
+VLManual.propTypes = {
+  currentVehicle: PropTypes.object,
+  saveVehicle: PropTypes.func.isRequired
 }
 
 export default VLManual

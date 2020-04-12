@@ -1,5 +1,7 @@
 .log__sorter__container {
   display: flex;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 /* .log__sorter__container > * {
@@ -12,6 +14,7 @@
 
 .log__sorter__item > span {
   border-bottom: 1px solid var(--textColorOne);
+  cursor: pointer;
 }
 
 .log__sorter__service {
@@ -20,7 +23,7 @@
 }
 
 .log__sorter__dates {
-  flex-basis: 15%;
+  flex-basis: 18%;
 }
 
 .log__sorter__mileage {
@@ -28,7 +31,7 @@
 }
 
 .log__sorter__costs {
-  flex-basis: 15%;
+  flex-basis: 12%;
 }
 
 .log__sorter__arrow {
