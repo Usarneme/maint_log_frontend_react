@@ -1,4 +1,5 @@
 .siteTitle {
+  color: var(--textColorThree);
   position: relative;
   margin: 0;
   padding: 2px;
@@ -18,8 +19,10 @@
   padding: 8px;
 }
 
-.siteTitle > div.svg {
+.siteTitle > div.svg,
+.siteTitle > div > div > svg {
   position: absolute;
   top: 0;
   left: 0;
+  fill: var(--textColorThree);
 }

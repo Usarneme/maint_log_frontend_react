@@ -41,6 +41,6 @@ button.button.disconnect {
 
 .lookup__selected {
   transform: scale(1.1);
-  color: var(--textColorThree);
-  border-bottom: 2px solid var(--textColorThree);
+  color: var(--textColorOne);
+  border-bottom: 2px solid var(--textColorOne);
 }
