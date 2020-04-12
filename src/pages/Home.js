@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
+import { ReactSVG } from 'react-svg'
 
 import SearchBox from '../components/SearchBox'
 import VehicleHeader from '../components/VehicleHeader'
@@ -27,56 +28,31 @@ function Home(props) {
 
   return (
     <div className="inner">
-      {!isLoggedIn &&
-        <>
-          <Link className="home__actions register" to="/register">
-            <div>
-              <img src={RegisterIcon} alt="register" description="register icon" className="svg" />
-            </div>
-            <h4 className="button">Register to Start Your Maintenance Log</h4>
-          </Link>
-          <Link className="home__actions login" to="/login">
-            <div>
-              <img src={LoginIcon} alt="login" description="login icon" className="svg" />
-            </div>
-            <h4 className="button">Login to View Your Maintenance Log</h4>
-          </Link>
-        </>
-      }
-      {isLoggedIn &&
-        <VehicleHeader vehicle={vehicle} >
+      {isLoggedIn && <>
+        <VehicleHeader vehicle={vehicle} / >
+        <div className="home__actions__container">
           <Link className="home__actions history" to="/log">
-            <div>
-              <img src={LogIcon} alt="log" description="log icon" className="svg" />
-            </div>
+            <ReactSVG src={LogIcon} role="img" aria-label="Log Icon" fallback={() => <img src={LogIcon} alt="log icon" description="log icon" className="svg" />} /> 
             <h4 className="button">View Full Maintenance Log History</h4>
           </Link>
           <Link className="home__actions add" to="/add">
-            <div>
-              <img src={AddIcon} alt="add" description="add icon" className="svg" />
-            </div>
+            <ReactSVG src={AddIcon} role="img" aria-label="Add Icon" fallback={() => <img src={AddIcon} alt="add icon" description="add icon" className="svg" />} /> 
             <h4 className="button">Add New Log Entry</h4>
           </Link>
           <Link className="home__actions todo upcoming-maintenance" to="/todo">
-            <div>
-              <img src={TodoIcon} alt="todo" description="upcoming maintenance icon" className="svg" />
-            </div>
+            <ReactSVG src={TodoIcon} role="img" aria-label="Todo Icon" fallback={() => <img src={TodoIcon} alt="todo icon" description="todo icon" className="svg" />} /> 
             <h4 className="button">View Upcoming Scheduled Maintenance</h4>
           </Link>
           <div className="home__actions search__main search">
-            <div>
-              <img src={SearchIcon} alt="search" description="search icon" className="svg" />
-            </div>
+            <ReactSVG src={SearchIcon} role="img" aria-label="Search Icon" fallback={() => <img src={SearchIcon} alt="search icon" description="search icon" className="svg" />} /> 
             <SearchBox homepage={true} />
           </div>
           <Link className="home__actions settings" to="/settings">
-            <div>
-              <img src={SettingsIcon} alt="settings" description="settings icon" className="svg" />
-            </div>
+            <ReactSVG src={SettingsIcon} role="img" aria-label="Settings Icon" fallback={() => <img src={SettingsIcon} alt="settings icon" description="settings icon" className="svg" />} /> 
             <h4 className="button">Add Your Vehicle and View Other Settings</h4>
           </Link>
-        </VehicleHeader>
-      }
+        </div>
+      </>}
     </div>
   )
 }

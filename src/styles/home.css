@@ -1,21 +1,25 @@
+.home__actions__container {
+  min-height: calc(100vh - 85px);
+}
+
 .home__actions {
   margin: 5px;
   padding: 16px 10px;
   border: none;
-  background: #222;
+  background: var(--backgroundLayerTwo);
   display: flex;
   flex-direction: row;
   border-radius: 5px;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0px 0px 10px -3px #111;
+  box-shadow: 0px 0px 10px -3px var(--backgroundLayerTwo);
 }
 
 .home__actions:focus,
 .home__actions:focus-within,
 .home__actions:hover {
   transform: scale(1.02);
-  box-shadow: 0px 1px 9px -7px #AAA;
+  box-shadow: 0px 1px 9px -7px var(--backgroundLayerFour);
 }
 
 .home__actions > input, 

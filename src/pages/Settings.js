@@ -5,7 +5,6 @@ import VLVin from '../components/VLVin'
 import VLManual from '../components/VLManual'
 import VLYMM from '../components/VLYMM'
 
-import { getLogData } from '../helpers'
 import '../styles/settings.css'
 
 const axios = require('axios')
@@ -26,12 +25,20 @@ class Settings extends Component {
       showVin: false,
       showManual: false,
       showYearMakeModel: true,
-      showLogoutButton: false
+      showLogoutButton: false,
+      theme: 'dark',
     }
   }
 
   componentDidMount() {
-    this.setState({ user: this.props.user })
+    // by default the root element class is 'dark', this is overwritten by localStorage saved preference
+    let theme = document.documentElement.className || localStorage.getItem('theme')
+    // if it wasn't set previously, save the theme preference to localStorage
+    if (theme === '') {
+      theme = 'dark'
+      localStorage.setItem('theme', 'dark')
+    }
+    this.setState({ user: this.props.user, theme })
   }
 
   handleInputChange = (event) => {
@@ -139,6 +146,13 @@ class Settings extends Component {
     }
   }
 
+  toggleTheme = () => {
+    const newTheme = this.state.theme === 'dark' ? 'light' : 'dark'
+    localStorage.setItem('theme', newTheme)
+    document.documentElement.className = newTheme
+    this.setState({ theme: newTheme }) 
+  }
+
   render() {
     const isLoggedIn = (this.props.user && this.props.user.cookies ? this.props.user.cookies.length > 0 : false)
     if (!isLoggedIn) return <Redirect to="/welcome" />
@@ -178,6 +192,14 @@ class Settings extends Component {
           <div className="logout__container">
             <button className={`button ${this.state.showLogoutButton ? 'confirm--active' : 'confirm'}`} onClick={this.toggleConfirmLogout}>{this.state.showLogoutButton ? 'Cancel Logout' : 'Logout'}</button>
             { this.state.showLogoutButton && <button className="button disconnect" onClick={this.logout}><span className="red">Confirm and Logout</span></button> }
+          </div>
+        </div>
+
+        <div className="card">
+          <h3>Theme Settings</h3>
+          <div className="theme__container">
+            <label htmlFor="theme">{`${this.state.theme.substring(0,1).toUpperCase()}${this.state.theme.substring(1)} Mode Enabled`}</label>
+            <button className={`button`} onClick={this.toggleTheme}>Switch Theme</button>
           </div>
         </div>
 

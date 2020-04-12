@@ -2,16 +2,16 @@
   display: flex;
 }
 
-.log__sorter__container > * {
-  border-left: 1px solid #333;
-}
+/* .log__sorter__container > * {
+  border-left: 1px solid var(--backgroundLayerThree);
+} */
 
 .log__sorter__item {
   padding: 3px; 
 }
 
 .log__sorter__item > span {
-  border-bottom: 1px solid #EEE;
+  border-bottom: 1px solid var(--textColorOne);
 }
 
 .log__sorter__service {

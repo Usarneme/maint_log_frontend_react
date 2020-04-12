@@ -16,10 +16,9 @@
 
 .siteTitle > h1 {
   padding: 8px;
-  /* margin-right: calc(50vw - 105px); */
 }
 
-.siteTitle > img {
+.siteTitle > div.svg {
   position: absolute;
   top: 0;
   left: 0;

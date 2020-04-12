@@ -12,14 +12,13 @@ Project Description
 - [ ] HTML and fallback text email tests  
 - [ ] Service Manual image to text file, user/client corrections, text file to upcoming/todo Log entries  
 - [ ] Color Scheme and abstraction  
-- [ ] Light Mode and switcher  
-- [ ] Caching - vehicle lookups  
 
 ### In Progress
 
-- [ ] Organization  
 - [ ] Image gallery  
 - [ ] Image tagging, indexed for search  
+- [ ] Error Boundaries around all data-changing routes  
+- [ ] Light Mode and switcher  
 
 ### Done ✓
 
@@ -31,4 +30,6 @@ Project Description
 - [x] Individual log item route - dynamic  
 - [x] Individual log view (component modal or page?)  
 - [x] Routing  
+- [x] Caching - vehicle lookups  
+- [x] Organization  
 

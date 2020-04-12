@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { ReactSVG } from 'react-svg'
 
 import Home from '../images/home.svg'
 import '../styles/siteTitle.css'
@@ -7,7 +8,7 @@ import '../styles/siteTitle.css'
 const SiteTitle = () => {
   return (
     <Link to='/' className='siteTitle'>
-      <img src={Home} alt='home' description='home' className='svg' />
+      <ReactSVG src={Home} role="img" aria-label="Home Icon" className="svg" fallback={() => <img src={Home} alt="home icon" description="home icon" className="svg" />} /> 
       <h1>Vehicle Maintenance Log</h1>
     </Link>
   )

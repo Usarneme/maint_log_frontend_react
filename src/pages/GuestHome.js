@@ -1,4 +1,5 @@
 import React from 'react'
+import { ReactSVG } from 'react-svg'
 import PropTypes from 'prop-types'
 import Login from '../components/Login'
 import Register from '../components/Register'
@@ -28,24 +29,23 @@ class GuestHome extends React.Component {
     return (
       <div className="inner">
         <div className="guest__options">
-          <div className={`guest__option login ${this.state.showLogin ? 'guest__option__active' : ''}`} onClick={() => this.showLogin()}>
-            <img src={LoginIcon} alt="login" description="login icon" className="svg button" />
+          <div className={`button guest__option login ${this.state.showLogin ? 'guest__option__active' : ''}`} onClick={() => this.showLogin()}>
             <h4>Login & View Your Maintenance Log</h4>
+            <ReactSVG src={LoginIcon} role="img" aria-label="Login Icon" fallback={() => <img src={LoginIcon} alt="login" description="login icon" className="svg" />} /> 
           </div>
-          <div><span>-or-</span></div>
-          <div className={`guest__option register ${this.state.showLogin ? '' : 'guest__option__active'}`} onClick={() => this.showRegister()}>
+          <div className={`button guest__option register ${this.state.showLogin ? '' : 'guest__option__active'}`} onClick={() => this.showRegister()}>
             <h4>Register & Start Your Maintenance Log</h4>
-            <img src={RegisterIcon} alt="register" description="register icon" className="svg button" />
+            <ReactSVG src={RegisterIcon} role="img" aria-label="Register Icon" fallback={() => <img src={RegisterIcon} alt="register" description="register icon" className="svg" />} /> 
           </div>
         </div>
         { !this.state.showLogin && 
-          <div>
+          <div className={this.state.showLogin ? 'hidden' : ''}>
             <Register user={this.props.user} updateUserState={this.props.updateUserState} history={this.props.history} />
           </div>
         }
         { this.state.showLogin &&
-          <div>
-            <Login user={this.props.user} updateUserState={this.props.updateUserState} history={this.props.history} />
+          <div className={this.state.showLogin ? '' : 'hidden'}>
+          <Login user={this.props.user} updateUserState={this.props.updateUserState} history={this.props.history} />
           </div>
         }
       </div>

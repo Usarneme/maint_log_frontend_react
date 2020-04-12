@@ -8,14 +8,20 @@
   padding-left: 3px;
 }
 
-.search__input.with__text {
+.search__input {
   border-radius: 5px 0 0 5px;
 }
 
-.button.clear__input {
+.button.search__button {
   border-radius: 0 5px 5px 0;
   height: 40px;
   margin: 0;
+  width: initial;
+}
+
+.search__button > div > div > svg {
+  width: 20px;
+  height: 20px;
 }
 
 .search__results {
@@ -31,14 +37,14 @@
 
 .search__result {
   margin: 5px 0 0 0;
-  background: #111111;
+  background: var(--backgroundLayerTwo);
   padding: 17px 4px 17px 7px;
   border-radius: 5px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-content: center;
-  color: #AAA;
+  color: var(--textColorTwo);
 }
 
 .search__result__buttons > .button {

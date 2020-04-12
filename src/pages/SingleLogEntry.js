@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, Redirect, useParams } from 'react-router-dom'
 import moment from 'moment'
+import { ReactSVG } from 'react-svg'
 
 import PhotoEditor from '../components/PhotoEditor'
 import VehicleHeader from '../components/VehicleHeader'
@@ -80,7 +81,7 @@ function SingleLogEntry(props) {
           <span>{Number(odometer).toLocaleString()}</span>
         </p>
         <Link className="button editPencil" to={`/log/${id}/edit`}>
-          <img src={EditPencil} alt="Edit Pencil" className="svg" />
+          <ReactSVG src={EditPencil} role="img" aria-label="Edit Pencil Icon" fallback={() => <img src={EditPencil} alt="edit pencil icon" description="edit pencil icon" className="svg" />} /> 
           <span>Edit</span>
         </Link>
 

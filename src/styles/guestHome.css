@@ -1,39 +1,37 @@
 .guest__options {
-  margin: 0 3px;
-  padding: 0;
   display: flex;
   align-items: center;
+  flex-direction: column;
   justify-content: space-evenly;
+  margin: 5px;
 }
 
-.guest__option {
-  margin: 0;
-  padding: 3px;
+.button.guest__option {
+  margin: 4px;
   display: flex;
   align-items: center;
-  text-decoration: underline;
-}
-
-.guest__option.login {
-  border-radius: 5px 0 0 5px;
-}
-
-.guest__option.register {
-  border-radius: 0 5px 5px 0;
+  justify-content: center;
 }
 
 .guest__option > h4 {
   padding: 2px;
 }
 
+.guest__option > div {
+  position: absolute;
+  right: 5px;
+}
+
 .guest__option__active {
-  transform: scale(1.05);
+  /* transform: scale(1.025); */
+}
+
+.guest__option__active:before {
+  content: '>';
 }
 
 .guest__option > img.svg {
-  margin: 0;
-  padding: 2px;
-  border: 1px solid #AAA;
+  border: 1px solid var(--textColorTwo);
 }
 
 .guest__option > h2 {

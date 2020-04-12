@@ -5,13 +5,13 @@
   margin: 0;
   display: inline-grid;
   grid-template-columns: repeat(5, 1fr);
-  background: #333;
+  background: var(--backgroundLayerThree);
   padding: 1px;
   transition: transform 0.25s;
 }
 
 .navLink {
-  background: #111;
+  background: var(--backgroundLayerOne);
   min-height: 20px;
   margin: 1px;
   border-radius: 5px;
@@ -44,7 +44,7 @@
 
 .nav > a,
 .nav > div > a {
-  color: #eee;
+  color: var(--textColorOne);
   text-transform: uppercase;
   display: flex;
   align-items: center;
@@ -56,7 +56,7 @@
 
 a.navLink > img,
 a.navLink > img > g {
-  fill: #eee;
+  fill: var(--textColorOne);
   margin: 1px;
   width: 30px;
   height: 30px;

@@ -1,6 +1,6 @@
 .single__details {
   margin: 2px;
-  background: #111111;
+  background: var(--backgroundLayerTwo);
   padding: 5px;
   border-radius: 5px;
 }
@@ -9,16 +9,17 @@
   display: flex;
   align-content: center;
   align-items: center;
+  justify-content: center;
 }
 
-.editPencil > .svg {
+.editPencil > div > div > svg {
   width: 20px;
   height: 20px;
 }
 
-.editPencil > span {
-  align-self: flex-end;
-  padding-left: 10px;
+.editPencil > div {
+  position: absolute;
+  left: 25px;
 }
 
 .photos__div {
@@ -32,9 +33,9 @@
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  border: 1px groove #222222;  
+  border: 1px groove var(--backgroundLayerThree);  
   margin: 2px 0;
-  background: #ccc;
+  background: var(--backgroundLayerFive);
   min-height: 200px;
   overflow: hidden;
 }

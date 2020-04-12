@@ -1,8 +1,10 @@
 import React from 'react'
 import axios from 'axios'
+import { ReactSVG } from 'react-svg'
 
 import SearchResults from './SearchResults'
 import Loading from './Loading'
+import MagnifyingGlassIcon from '../images/magnifying.svg'
 
 import '../styles/search.css'
 
@@ -92,6 +94,10 @@ class SearchBox extends React.Component {
   // });
 
   render() {
+    const buttonImg = this.state.query && this.state.query.length > 0 ? 
+      <strong>X</strong> :
+      <ReactSVG src={MagnifyingGlassIcon} role="img" aria-label="Magnifying Glass Icon" fallback={() => <img src={MagnifyingGlassIcon} alt="magnifying glass icon" description="magnifying glass icon" className="svg" />} /> 
+
     return (
       <form>
         <div className="search__input__container">
@@ -101,10 +107,9 @@ class SearchBox extends React.Component {
             onChange={this.handleInputChange}
             onBlur={this.blurCleanup}
             value={this.state.query}
-            className={this.state.query.length > 0 ? `search__input with__text`: `search__input`}
+            className='search__input'
           />
-          {this.state.query && this.state.query.length > 0 &&             
-            <button className="button clear__input" onClick={this.clearInput} ><strong>X</strong></button>}
+          <button className="button search__button" onClick={this.clearInput}>{buttonImg}</button>
         </div>
         {this.state.loading && <Loading message={`Searching for: ${this.state.query}`} />}
         {this.state.results && this.state.results.length > 0 &&
