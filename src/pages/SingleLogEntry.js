@@ -15,7 +15,7 @@ function SingleLogEntry(props) {
   const isLoggedIn = (props.user && props.user.cookies ? props.user.cookies.length > 0 : false)
   if (!isLoggedIn) return <Redirect to="/welcome" />
 
-  console.log(`Displaying log entry: ${slug}`)
+  // console.log(`Displaying log entry: ${slug}`)
   const log = props.user.log.filter(entry => entry.slug === slug)
   const { id, shortDescription, longDescription, dateStarted, dateCompleted, dateEntered, dateDue, mileageDue, name, odometer, tools, parts, partsCost, laborCost, serviceLocation, photos } = log[0]
   let vehicle = {}

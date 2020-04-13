@@ -88,7 +88,7 @@ class Settings extends Component {
         const userID = user._id
         const name = user.name
         const email = user.email
-        const vehicle = user.vehicle
+        const vehicle = [user.vehicle]
         console.log(vehicle)
 
         await this.props.updateUserState(this.state.user)
@@ -97,7 +97,7 @@ class Settings extends Component {
         console.log('settings component state updated...')
         console.log(this.state)
 
-        await this.props.history.push('/settings')
+        return this.props.history.push('/settings')
       } else {
         console.log('Response received but with status code: '+res.status)
         const error = new Error(res.error)
@@ -167,11 +167,14 @@ class Settings extends Component {
         
         <div className="card">
           <h3>Vehicle</h3>
-          <div className="current__vehicle">
+          <div className="current__vehicle__container">
             { this.state.user && this.state.user.vehicle && this.state.user.vehicle[0] && <>
-              <span>{this.state.user.vehicle[0].year}</span>
-              <span>{this.state.user.vehicle[0].make}</span>
-              <span>{this.state.user.vehicle[0].model}</span>
+              <h4><strong>Current Vehicle: </strong></h4>
+              <div className="current__vehicle">
+                <span>{this.state.user.vehicle[0].year}</span>
+                <span>{this.state.user.vehicle[0].make}</span>
+                <span>{this.state.user.vehicle[0].model}</span>
+              </div>
             </> }
           </div>
           <div className="buttons__holder">
@@ -197,15 +200,6 @@ class Settings extends Component {
           <input type="password" name="password" placeholder="Enter password..." value={this.state.password} onChange={this.handleInputChange} /> */}
           <input className="button" type="submit" value="Update Account" />
         </form>
-
-        <div className="card">
-          <h3>Disconnect Account and Logout</h3>
-          <div className="logout__container">
-            <button className={`button ${this.state.showLogoutButton ? 'confirm--active' : 'confirm'}`} onClick={this.toggleConfirmLogout}>{this.state.showLogoutButton ? 'Cancel Logout' : 'Logout'}</button>
-            { this.state.showLogoutButton && <button className="button disconnect" onClick={this.logout}><span className="red">Confirm and Logout</span></button> }
-          </div>
-        </div>
-
         <div className="card">
           <h3>Theme Settings</h3>
           <div className="theme__container">
@@ -213,7 +207,13 @@ class Settings extends Component {
             <button className="button" onClick={this.toggleTheme}>Switch Theme</button>
           </div>
         </div>
-
+        <div className="card">
+          <h3>Disconnect Account and Logout</h3>
+          <div className="logout__container">
+            <button className={`button ${this.state.showLogoutButton ? 'confirm--active' : 'confirm'}`} onClick={this.toggleConfirmLogout}>{this.state.showLogoutButton ? 'Cancel Logout' : 'Logout'}</button>
+            { this.state.showLogoutButton && <button className="button disconnect" onClick={this.logout}><span className="red">Confirm and Logout</span></button> }
+          </div>
+        </div>
       </div>
     )  
   }

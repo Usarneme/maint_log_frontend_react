@@ -24,7 +24,8 @@ class VLManual extends React.Component {
 
   render() {
     if (!this.props.display) return null
-    console.log('rendering VLManual...')
+    // console.log('rendering VLManual... props:')
+    // console.dir(this.props)
 
     return (
       <div className="form manualVehicleEntryDiv">

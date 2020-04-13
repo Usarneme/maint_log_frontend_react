@@ -48,11 +48,11 @@ class Register extends Component {
 
     try {
       const res = await axios.post(url, formData)
-      console.log(`Returned successfully!`)
-      console.dir(res)
+      // console.log(`Returned successfully!`)
+      // console.dir(res)
 
       if (res.status === 200) {
-        console.log(`apiRegister handler returned success!`)
+        // console.log(`apiRegister handler returned success!`)
         const { user, sessionID, cookies } = res.data
         const userID = user._id
         const name = user.name
@@ -69,7 +69,7 @@ class Register extends Component {
         console.log('Error posting to /api/register.')
         // console.log(Object.keys(err).forEach(r => console.log(err[r])))
         // console.warn(Object.keys(err))
-        console.log(err.response.data)
+        // console.log(err.response.data)
         console.log(err.response.status)
         alert(`${err.response.data} The email may be malformed (typo?), banned, or already in use. Please try again.`)
       }

@@ -51,7 +51,7 @@ class Login extends Component {
 
         this.props.history.push('/')
       } else {
-        console.log('Response received but with status code: '+res.status)
+        // console.log('Response received but with status code: '+res.status)
         this.setState({loading: false})
         const error = new Error(res.error)
         throw error

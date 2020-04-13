@@ -22,8 +22,8 @@ class SearchBox extends React.Component {
   getInfo = async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_API_DOMAIN}/api/search?q=${this.state.query}`)
-      console.log('REACT CLIENT - api search for '+this.state.query+'. Result: ')
-      console.log(response.data)
+      // console.log('REACT CLIENT - api search for '+this.state.query+'. Result: ')
+      // console.log(response.data)
 
       if (response.data.length) {
         this.setState({
@@ -32,7 +32,7 @@ class SearchBox extends React.Component {
         }) 
       }
     } catch (err) {
-        console.log('Error posting to /api/search')
+        // console.log('Error posting to /api/search')
         console.dir(err)
         alert('Error getting log data please try again')
     }

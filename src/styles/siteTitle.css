@@ -2,7 +2,7 @@
   color: var(--textColorThree);
   position: relative;
   margin: 0;
-  padding: 2px;
+  padding: 0;
   text-align: center;
   font-weight: 500;
   display: flex;
@@ -16,7 +16,7 @@
 }
 
 .siteTitle > h1 {
-  padding: 8px;
+  padding: 12px;
 }
 
 .siteTitle > div.svg,

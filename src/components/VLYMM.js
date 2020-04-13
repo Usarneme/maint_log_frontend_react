@@ -19,7 +19,7 @@ class VLYMM extends React.Component {
     if (!this.state || !this.state.year || !this.state.make) {
       return console.log('leaving lookup early due to no year or make selected...')
     }
-    console.log('Make selected: '+this.state.make)
+    // console.log('Make selected: '+this.state.make)
     // check for a local cache of the query
     const localStorageKey = this.state.year.toString() + this.state.make.toString()
     const localStorageModels = localStorage.getItem(localStorageKey)
@@ -40,7 +40,7 @@ class VLYMM extends React.Component {
             else return 0
           })
           const modelsArray = models.map(model => model["Model_Name"])
-          console.log(modelsArray)
+          // console.log(modelsArray)
           // cache query results
           if (modelsArray.length > 0) localStorage.setItem(localStorageKey, modelsArray)
           this.setState(prevState => ({ models: [...modelsArray], showConfirmButton: false }))

@@ -72,14 +72,14 @@ class LogForm extends React.Component {
     formData.append('vehicle', this.state.vehicle)
     formData.append('api', true)
 
-    console.log('Form Data prepared:')
-    for (let item of formData.entries()) console.dir(`${item[0]} : ${item[1]}`)
-    console.log(`Posting to ${url}.`)
+    // console.log('Form Data prepared:')
+    // for (let item of formData.entries()) console.dir(`${item[0]} : ${item[1]}`)
+    // console.log(`Posting to ${url}.`)
 
     try {
       const result = await axios.post(url, formData)
-      console.log(`Returned successfully!`)
-      console.dir(result)
+      // console.log(`Returned successfully!`)
+      // console.dir(result)
 
       if (result.status === 200) {
         const log = result.data.fullLog
@@ -93,9 +93,7 @@ class LogForm extends React.Component {
         const user = this.props.user
         user.log = log
         this.props.updateUserState(user)
-        console.log('updateUserState complete')
-
-        // works for editing existing log entries...
+        // console.log('updateUserState complete')
         this.props.history.push(`/log/${newLogEntry.slug}`)
       } else {
         console.log('Response received but with status code: '+result.status)
@@ -121,14 +119,14 @@ class LogForm extends React.Component {
       if (result.data === null) {
         console.log('Server unable to find specified log entry. Was it already deleted?')
       } else if (result.status === 200) {
-        console.log('Log entry removed successfully.')
+        // console.log('Log entry removed successfully.')
         // console.log(result)
         // update State to remove the deleted entry
         const updatedLog = this.props.user.log.filter(entry => entry.id !== this.state.id)
         const user = this.props.user
         user.log = updatedLog
         this.props.updateUserState(user)
-        console.log('updateUserState completed.')
+        // console.log('updateUserState completed.')
 
         // redirect back to the log page
         this.props.history.push('/log')
@@ -141,21 +139,21 @@ class LogForm extends React.Component {
   deletePhoto = async event => {
     event.preventDefault()
     // pathname has a leading slash: /api/remove/photo/name.filetype
-    console.log('Deleting photo: '+event.target.pathname)
+    // console.log('Deleting photo: '+event.target.pathname)
     const url = `${process.env.REACT_APP_API_DOMAIN}${event.target.pathname}`
-    console.log('posting to url: '+url)
+    // console.log('posting to url: '+url)
     try {
       const result = await axios.post(url)
       if (result.data === null) {
         console.log('Server unable to find specified photo to delete. Was it already deleted?')
       } else if (result.status === 200) {
-        console.log('Photo deleted successfully.')
-        console.log(result)
+        // console.log('Photo deleted successfully.')
+        // console.log(result)
         // update State to remove the deleted entry
         const user = this.props.user
         user.log = result.data
         this.props.updateUserState(user)
-        console.log('updateUserState completed.')
+        // console.log('updateUserState completed.')
 
         // flash success message and re-render...
         this.props.history.push(`/log/${this.props.log.id}/edit`)
@@ -169,7 +167,7 @@ class LogForm extends React.Component {
     if (!this.props) return
     if (!this.props.log) return
 
-    console.log('Editing extant Log entry. Initializing state. ')
+    // console.log('Editing extant Log entry. Initializing state. ')
     let dateStarted = ''
     let dateCompleted = ''
     let dateEntered = ''
