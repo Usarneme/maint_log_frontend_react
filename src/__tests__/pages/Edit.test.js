@@ -2,15 +2,11 @@ import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import TestRenderer from 'react-test-renderer'
 import routeData from 'react-router'
-// import { useParams } from 'react-router'
 
 import Edit from '../../pages/Edit'
 
 describe('EDIT PAGE', () => {
   describe('* Not Logged In', () => {
-    // jest.unmock('react-router')
-    // jest.resetModules()
-
     it('** Responds with a redirect to /welcome', () => {
       const raw = TestRenderer.create(
         <Router>
@@ -27,7 +23,7 @@ describe('EDIT PAGE', () => {
 
   describe('* Logged In', () => {
     const mockLocation = {
-      pathname: '/welcome',
+      pathname: '/log/123abc/edit',
       hash: '',
       search: '',
       state: '',
@@ -35,6 +31,7 @@ describe('EDIT PAGE', () => {
         'id': '123abc'
       }
     }
+    // useParams() hook gets the ID of the log being edited from the url /log/:id/edit
     const spy = jest.spyOn(routeData, 'useParams').mockReturnValue(mockLocation)
     
     it('** Renders the Edit Page', () => {
@@ -46,12 +43,14 @@ describe('EDIT PAGE', () => {
           "id": "123"
         },
         "path": "/log/:id/edit",
-        "url": "/log/123/edit"
+        "url": "/log/123abc/edit"
       }
-
+      // console.log(Object.keys(spy))
       const tree = TestRenderer.create(<Edit user={userProps} match={matchProps} />).toTree()
       expect(tree.props.user).toEqual(userProps)
       expect(tree.props.match).toEqual(matchProps)
+      expect(spy).toHaveBeenCalled()
+      spy.mockRestore()
     })
   })
 })

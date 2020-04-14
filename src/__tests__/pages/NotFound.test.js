@@ -1,17 +1,18 @@
 import React from 'react'
-import NotFound from '../../pages/NotFound'
-import renderer from 'react-test-renderer'
+import TestRenderer from 'react-test-renderer'
 
 import AppRouter from '../../AppRouter'
+import NotFound from '../../pages/NotFound'
 
-describe('\tNotFound Page Testing', () => {
-  it('redirects to / route', () => {
-    const tree = renderer.create(
+describe('NOT FOUND PAGE', () => {
+  it('** Responds with a redirect to /welcome', () => {
+    const raw = TestRenderer.create(
       <AppRouter>
         <NotFound />
       </AppRouter>
-      ).toJSON()
-      // expect(tree[1].children[0].props.className).toEqual('guest__options')
-      expect(tree).toMatchSnapshot()
+    )
+    expect(raw.toJSON()[1].children[0].props.className).toEqual('card guest__options')
+    expect(raw.toTree().rendered.rendered.props.history.action).toEqual('REPLACE')
+    expect(raw.toTree().rendered.instance.history.location.pathname).toEqual('/welcome')
   })
 })
