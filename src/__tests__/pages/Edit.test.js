@@ -55,5 +55,3 @@ describe('EDIT PAGE', () => {
     })
   })
 })
-
-// TODO - don't pass context as props, use the useContext hook per: https://reactjs.org/docs/hooks-reference.html#usecontext

@@ -7,7 +7,6 @@ import {
 
 import Nav from './components/Nav'
 
-import Settings from './pages/Settings'
 import Add from './pages/Add'
 import Edit from './pages/Edit'
 import GuestHome from './pages/GuestHome'
@@ -16,9 +15,12 @@ import Log from './pages/Log'
 import NotFound from './pages/NotFound'
 import ScrollToTop from './components/ScrollToTop'
 import Search from './pages/Search'
+import Settings from './pages/Settings'
 import SingleLogEntry from './pages/SingleLogEntry'
 import SiteTitle from './components/SiteTitle'
 import Todo from './pages/Todo'
+
+import ProtectedRoute from './components/ProtectedRoute'
 
 import { userContext } from './contexts/userContext'
 
@@ -32,14 +34,14 @@ function AppRouter() {
           <>
             <SiteTitle />
             <Route path="/welcome" render={props => <GuestHome {...props} user={user} updateUserState={updateUserState} /> }/>
-            <Route path="/" exact={true} render={props => <Home {...props} user={user} updateUserState={updateUserState} /> }/>
-            <Route path="/settings" render={props => <Settings {...props} user={user} updateUserState={updateUserState} /> }/>
-            <Route path="/add" render={props => <Add {...props} user={user} updateUserState={updateUserState} /> }/>
-            <Route path="/log" exact render={props => <Log {...props} user={user} updateUserState={updateUserState} /> }/>
-            <Route path="/log/:id/edit" exact render={props => <Edit {...props} user={user} updateUserState={updateUserState} /> }/>
-            <Route path="/log/:slug" exact render={props => <SingleLogEntry {...props} user={user} updateUserState={updateUserState} /> }/>
-            <Route path="/search" render={props => <Search {...props} user={user} updateUserState={updateUserState} /> }/>
-            <Route path="/todo" render={props => <Todo {...props} user={user} updateUserState={updateUserState} /> }/>
+            <ProtectedRoute path="/" exact={true} component={Home} />
+            <ProtectedRoute path="/add" component={Add} />
+            <ProtectedRoute path="/log" exact component={Log} />
+            <ProtectedRoute path="/log/:id/edit" exact component={Edit} />
+            <ProtectedRoute path="/log/:slug" exact component={SingleLogEntry} />
+            <ProtectedRoute path="/search" component={Search} />
+            <ProtectedRoute path="/settings" component={Settings} />
+            <ProtectedRoute path="/todo" component={Todo} />
             { user && user.cookies && user.cookies.length > 0 && <Nav /> }
             <Route path="*" component={NotFound} />
           </>
