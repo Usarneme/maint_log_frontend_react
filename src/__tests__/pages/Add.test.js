@@ -1,20 +1,32 @@
 import React from 'react'
-import Add from '../../pages/Add'
-import renderer from 'react-test-renderer'
+import { BrowserRouter as Router } from "react-router-dom"
+import TestRenderer from 'react-test-renderer'
 
-import AppRouter from '../../AppRouter'
+import Add from '../../pages/Add'
 
 describe('\ADD PAGE', () => {
-  describe('\tNot Logged In', () => {
-    it('redirects to / route', () => {
-      const tree = renderer.create(
-        <AppRouter>
+  describe('* Not Logged In', () => {
+  it('** Responds with a redirect to /welcome', () => {
+      const tree = TestRenderer.create(
+        <Router>
           <Add />
-        </AppRouter>
-        ).toJSON()
-        // console.log(tree)
-        // expect(tree[1].children[0].props.className).toEqual('guest__options')
-        expect(tree).toMatchSnapshot()
+        </Router>
+      ).toTree()
+      expect(tree.rendered.props.history.action).toEqual('REPLACE')
+      expect(tree.rendered.rendered.rendered.props.to).toEqual('/welcome')
+    })
+  })
+  describe('* Logged In', () => {
+    it('** Renders the Add Page', () => {
+      const userProps = {
+        "cookies": "thisisarealcookie"
+      }
+      const raw = TestRenderer.create(<Add user={userProps} />)
+      const tree = raw.toTree()
+
+      expect(raw.toJSON().children[0].children[0]).toEqual('Add New Log Entry')
+      expect(tree.props).toEqual({ "user": userProps })
+      expect(tree.props.user).toEqual(userProps)
     })
   })
 })

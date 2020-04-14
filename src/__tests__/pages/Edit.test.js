@@ -1,20 +1,59 @@
 import React from 'react'
-import Edit from '../../pages/Edit'
-import renderer from 'react-test-renderer'
+import { BrowserRouter as Router } from 'react-router-dom'
+import TestRenderer from 'react-test-renderer'
+import routeData from 'react-router'
+// import { useParams } from 'react-router'
 
-import AppRouter from '../../AppRouter'
+import Edit from '../../pages/Edit'
 
 describe('EDIT PAGE', () => {
-  describe('\tNot Logged In', () => {
-    it('redirects to / route', () => {
-      const tree = renderer.create(
-        <AppRouter>
+  describe('* Not Logged In', () => {
+    // jest.unmock('react-router')
+    // jest.resetModules()
+
+    it('** Responds with a redirect to /welcome', () => {
+      const raw = TestRenderer.create(
+        <Router>
           <Edit />
-        </AppRouter>
-        ).toJSON()
-        // console.log(tree)
-        // expect(tree[1].children[0].props.className).toEqual('guest__options')
-        expect(tree).toMatchSnapshot()
+        </Router>
+      )
+      const tree = raw.toTree()
+      // console.log(Object.keys(raw.toTree().instance))
+      // console.log(raw.toTree().instance.props)
+      expect(tree.rendered.props.history.action).toEqual('REPLACE')
+      expect(tree.rendered.rendered.rendered.props.to).toEqual('/welcome')
+    })
+  })
+
+  describe('* Logged In', () => {
+    const mockLocation = {
+      pathname: '/welcome',
+      hash: '',
+      search: '',
+      state: '',
+      params: {
+        'id': '123abc'
+      }
+    }
+    const spy = jest.spyOn(routeData, 'useParams').mockReturnValue(mockLocation)
+    
+    it('** Renders the Edit Page', () => {
+      const userProps = {
+        "cookies": "thisisarealcookie"
+      }
+      const matchProps = {
+        "params": {
+          "id": "123"
+        },
+        "path": "/log/:id/edit",
+        "url": "/log/123/edit"
+      }
+
+      const tree = TestRenderer.create(<Edit user={userProps} match={matchProps} />).toTree()
+      expect(tree.props.user).toEqual(userProps)
+      expect(tree.props.match).toEqual(matchProps)
     })
   })
 })
+
+// TODO - don't pass context as props, use the useContext hook per: https://reactjs.org/docs/hooks-reference.html#usecontext
