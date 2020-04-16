@@ -3,6 +3,7 @@ import React from 'react'
 import '../styles/logSorter.css'
 
 const LogSorter = (props) => {
+  console.log('Log Sorter...')
 
   function sortBy(method, event) {
     const arrow = event.target.childNodes[1]
@@ -91,5 +92,7 @@ const LogSorter = (props) => {
     </div>
   )
 }
+
+// updateUserState, user
 
 export default LogSorter

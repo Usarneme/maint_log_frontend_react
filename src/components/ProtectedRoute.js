@@ -7,7 +7,8 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
   const { user, updateUserState } = useContext(userContext)
   let isLoggedIn = false
   if (user && user.cookies && user.cookies.length > 0) isLoggedIn = true
-  // console.log('Protected Route...Logged in: '+isLoggedIn)
+  console.log('Protected Route...Logged in: '+isLoggedIn)
+  console.log(user)
   if (!isLoggedIn) return <Redirect to='/welcome' />
 
   return (

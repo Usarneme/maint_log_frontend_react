@@ -12,7 +12,7 @@ describe('NOT FOUND PAGE', () => {
       </AppRouter>
     )
     expect(raw.toJSON()[1].children[0].props.className).toEqual('card guest__options')
-    expect(raw.toTree().rendered.rendered.props.history.action).toEqual('REPLACE')
+    expect(raw.toTree().rendered.instance.history.action).toEqual('REPLACE')
     expect(raw.toTree().rendered.instance.history.location.pathname).toEqual('/welcome')
   })
 })

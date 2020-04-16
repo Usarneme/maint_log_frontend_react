@@ -13,13 +13,16 @@ class GuestHome extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      showLogin: true
+      showLogin: true,
+      user: props.user || null,
+      updateUserState: props.updateUserState || null
     }
   }
 
   componentDidMount() {
     const theme = localStorage.getItem('theme') || 'dark'
     document.documentElement.className = theme
+    this.setState({ theme })
   }
 
   showLogin(bool) {
@@ -57,8 +60,8 @@ class GuestHome extends React.Component {
 }
 
 GuestHome.propTypes = {
-  user: PropTypes.object,
-  updateUserState: PropTypes.func,
+  user: PropTypes.object.isRequired,
+  updateUserState: PropTypes.func.isRequired,
   history: PropTypes.object
 }
 
