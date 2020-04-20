@@ -7,3 +7,11 @@ import '@testing-library/jest-dom/extend-expect'
 // This hides the Jest output: Error: Not implemented: window.scrollTo
 const emptyFunction = () => {}
 Object.defineProperty(window, 'scrollTo', { value: emptyFunction, writable: true })
+
+global.console = {
+  log: console.log, 
+  error: jest.fn(), // to ignore PropTypes warnings
+  warn: console.warn,
+  info: console.info,
+  debug: console.debug,
+}
