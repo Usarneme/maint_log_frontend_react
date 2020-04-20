@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import ForgotPassword from '../components/ForgotPassword'
+import PropTypes from 'prop-types'
 
+import ForgotPassword from '../components/ForgotPassword'
 import { getLogData } from '../helpers'
 import Loading from './Loading'
 import '../styles/login.css'
@@ -14,7 +15,7 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      user: {
+      user: props.user || {
         userID: '',
         username: '',
         sessionID: '',
@@ -46,7 +47,7 @@ class Login extends Component {
         const logDataResult = await getLogData()
         const logData = logDataResult.data
         const { vehicle, log } = logData
-        this.setState({ user: { name, userID, sessionID, cookies, email, vehicle, log }, password: '', loading: false })
+        await this.setState({ user: { name, userID, sessionID, cookies, email, vehicle, log }, password: '', loading: false })
         this.props.updateUserState(this.state.user)
 
         this.props.history.push('/')
@@ -88,6 +89,19 @@ class Login extends Component {
       </form>
     )
   }
+}
+
+Login.propTypes = {
+  user: PropTypes.shape({
+    cookies: PropTypes.string,
+    email: PropTypes.string,
+    log: PropTypes.array,
+    name: PropTypes.string,
+    sessionID: PropTypes.string,
+    userID: PropTypes.string,
+    vehicle: PropTypes.array
+  }),
+  updateUserState: PropTypes.func.isRequired
 }
 
 export default Login

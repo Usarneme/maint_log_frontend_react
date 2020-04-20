@@ -1,7 +1,15 @@
 import React from 'react'
 
 const userContext = React.createContext({
-  user: {},
+  user: {
+    cookies: '',
+    email: '',
+    log: [],
+    name: '',
+    sessionID: '',
+    userID: '',
+    vehicle: []  
+  },
   updateUserState: () => {}
 })
 

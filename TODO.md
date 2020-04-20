@@ -11,14 +11,18 @@ Project Description
 - [ ] HTML email build and style  
 - [ ] HTML and fallback text email tests  
 - [ ] Service Manual image to text file, user/client corrections, text file to upcoming/todo Log entries  
-- [ ] Color Scheme and abstraction  
+- [ ] Integration Test all components  
+- [ ] Why is userContext setting default value for user.vehicle to a string instead of empty [] array? --causing PropTypes warnings  
 
 ### In Progress
 
 - [ ] Image gallery  
 - [ ] Image tagging, indexed for search  
 - [ ] Error Boundaries around all data-changing routes  
-- [ ] Light Mode and switcher  
+- [ ] Registration -> 1st time Login -> Settings fails, find out why and fix  
+- [ ] Registration -> 1st time Login -> Should prompt w/component on Home page to enter vehicle for new account  
+- [ ] Unit Test All Components  
+- [ ] Unit Test All Pages  
 
 ### Done ✓
 
@@ -32,4 +36,7 @@ Project Description
 - [x] Routing  
 - [x] Caching - vehicle lookups  
 - [x] Organization  
+- [x] Simplify AppRouter via useContext  
+- [x] Light Mode and switcher  
+- [x] Color Scheme and abstraction  
 

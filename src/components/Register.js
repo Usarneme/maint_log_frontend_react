@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import PropTypes from 'prop-types'
 
 class Register extends Component {
   constructor(props) {
@@ -91,6 +92,19 @@ class Register extends Component {
       </form>
     )
   }
+}
+
+Register.propTypes = {
+  user: PropTypes.shape({
+    cookies: PropTypes.string,
+    email: PropTypes.string,
+    log: PropTypes.array,
+    name: PropTypes.string,
+    sessionID: PropTypes.string,
+    userID: PropTypes.string,
+    vehicle: PropTypes.array
+  }),
+  updateUserState: PropTypes.func.isRequired
 }
 
 export default Register

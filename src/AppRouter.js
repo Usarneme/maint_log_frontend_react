@@ -33,7 +33,7 @@ function AppRouter() {
           {({ user, updateUserState }) => 
           <>
             <SiteTitle />
-            <Route path="/welcome" render={props => <GuestHome {...props} user={user} updateUserState={updateUserState} /> }/>
+            <Route path="/welcome" component={GuestHome} />
             <ProtectedRoute path="/" exact={true} component={Home} />
             <ProtectedRoute path="/add" component={Add} />
             <ProtectedRoute path="/log" exact component={Log} />

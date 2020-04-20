@@ -138,7 +138,7 @@ class Settings extends Component {
       if (response.status === 200) {
         const userReset = { name: '', userID: '', sessionID: '', cookies: '', email: ''}
         this.props.updateUserState(userReset)
-        return this.props.history.push('/')
+        return this.props.history.push('/welcome')
       } else {
         const error = new Error(response.error)
         throw error
