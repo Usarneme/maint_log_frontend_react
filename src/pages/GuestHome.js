@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { ReactSVG } from 'react-svg'
-import PropTypes from 'prop-types'
 
 import Login from '../components/Login'
 import Register from '../components/Register'
@@ -8,7 +7,7 @@ import LoginIcon from '../images/login.svg'
 import RegisterIcon from '../images/register.svg'
 import '../styles/guestHome.css'
 
-function GuestHome(props) {
+function GuestHome() {
   const [loginShowing, toggleLoginShowing] = useState(true)
 
   const [theme, changeTheme] = useState('dark')
@@ -32,23 +31,10 @@ function GuestHome(props) {
         </div>
       </div>
 
-      { !loginShowing && 
-        <div className={loginShowing ? 'hidden' : ''}>
-          <Register history={props.history} />
-        </div>
-      }
-
-      { loginShowing &&
-        <div className={loginShowing ? '' : 'hidden'}>
-          <Login history={props.history} />
-        </div>
-      }
+      { !loginShowing && <Register /> }
+      { loginShowing && <Login /> }
     </div>
   )
-}
-
-GuestHome.propTypes = {
-  history: PropTypes.object
 }
 
 export default GuestHome
