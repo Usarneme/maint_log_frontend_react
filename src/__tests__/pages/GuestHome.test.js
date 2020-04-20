@@ -3,26 +3,28 @@ import GuestHome from '../../pages/GuestHome'
 import TestRenderer from 'react-test-renderer'
 
 describe('GUEST HOME PAGE.', () => {
-  describe('* NOT LOGGED IN.', () => {
-    it('NO PROPS - Renders with PropTypes warnings', () => {
-      const raw = TestRenderer.create(<GuestHome />)
-      expect(raw.toJSON().children[0].props.className).toBe('card guest__options')
-      expect(raw.toTree().instance.state.showLogin).toBeTruthy()
-      expect(raw.toTree().instance.state.theme).not.toBe(null)
-    })
+  let raw
 
-    it('VALID PROPS - Renders without warnings', () => {
-      const props = {
-        user: {},
-        updateUserState: () => {},
-        history: {}
-      }
-
-      const raw = TestRenderer.create(<GuestHome {...props} />)
-      expect(raw.root._fiber.stateNode.props).toEqual(props)
-      expect(raw.toJSON().children[0].props.className).toBe('card guest__options')
-      expect(raw.toTree().props).toEqual(props)
-      expect(raw.toTree().instance.state.showLogin).toBeTruthy()
-    })
+  beforeEach(() => {
+    raw = TestRenderer.create(<GuestHome />)
   })
+
+  it('Renders', () => {
+    expect(raw.toJSON().children[0].props.className).toBe('card guest__options')
+    expect(raw.toTree().rendered.rendered[0].props.className).toBe('card guest__options')
+  })
+
+  it('Uses the correct React Hooks (useState x2 and useEffect x1)', () => {
+    expect(raw.root._fiber._debugHookTypes).toEqual(['useState','useState','useEffect'])
+  })
+
+  it('Contains the buttons to toggle display of Login and Register components', () => {
+    expect(raw.toTree().rendered.props.children[0].props.children[0].props.className).toBe('button guest__option login guest__option__active')
+    expect(raw.toTree().rendered.props.children[0].props.children[1].props.className.toString().trim()).toBe('button guest__option register')
+  })
+
+  it('Renders the Login child component by default', () => {
+    expect(raw.toJSON().children[1].children[0].children[0]).toBe('Login')
+  })
+
 })

@@ -9,7 +9,6 @@ import '../styles/guestHome.css'
 
 function GuestHome() {
   const [loginShowing, toggleLoginShowing] = useState(true)
-
   const [theme, changeTheme] = useState('dark')
   
   useEffect(() => {

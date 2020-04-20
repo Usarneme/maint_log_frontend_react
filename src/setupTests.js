@@ -7,6 +7,7 @@ import '@testing-library/jest-dom/extend-expect'
 // This hides the Jest output: Error: Not implemented: window.scrollTo
 const emptyFunction = () => {}
 Object.defineProperty(window, 'scrollTo', { value: emptyFunction, writable: true })
+global.document = { 'className': 'dark' } // default theme if not overwritten by localStorage and/or State
 
 global.console = {
   log: console.log, 
