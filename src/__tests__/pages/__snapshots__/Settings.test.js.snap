@@ -47,54 +47,51 @@ Array [
         />
       </div>
     </div>
-    <div
-      className=""
+    <form
+      className="card"
+      method="POST"
+      onSubmit={[Function]}
     >
-      <form
-        className="card"
-        method="POST"
-        onSubmit={[Function]}
+      <h2>
+        Login
+      </h2>
+      <label
+        htmlFor="email"
       >
-        <h2>
-          Login
-        </h2>
-        <label
-          htmlFor="email"
-        >
-          Email Address
-        </label>
-        <input
-          name="email"
-          onChange={[Function]}
-          placeholder="Enter email..."
-          type="email"
-          value=""
-        />
-        <label
-          htmlFor="password"
-        >
-          Password
-        </label>
-        <input
-          name="password"
-          onChange={[Function]}
-          placeholder="Enter password..."
-          type="password"
-          value=""
-        />
-        <input
-          className="button"
-          type="submit"
-          value="Log In →"
-        />
-        <button
-          className="button forgot__password__button"
-          onClick={[Function]}
-        >
-          Forgot Your Password?
-        </button>
-      </form>
-    </div>
+        Email Address
+      </label>
+      <input
+        name="email"
+        onChange={[Function]}
+        placeholder="Enter email..."
+        type="email"
+        value=""
+      />
+      <label
+        htmlFor="password"
+      >
+        Password
+      </label>
+      <input
+        name="password"
+        onChange={[Function]}
+        placeholder="Enter password..."
+        type="password"
+        value=""
+      />
+      <input
+        className="button"
+        type="submit"
+        value="Log In →"
+      />
+      <button
+        className="button forgot__password__button"
+        onClick={[Function]}
+      >
+        Forgot Your Password?
+      </button>
+    </form>
   </div>,
+  "",
 ]
 `;

@@ -14,8 +14,8 @@ describe('GUEST HOME PAGE.', () => {
     expect(raw.toTree().rendered.rendered[0].props.className).toBe('card guest__options')
   })
 
-  it('Uses the correct React Hooks (useState x2 and useEffect x1)', () => {
-    expect(raw.root._fiber._debugHookTypes).toEqual(['useState','useState','useEffect'])
+  it('Uses the correct React Hooks (login showing state, user context, theme state, useEffect to get theme default from localStorage)', () => {
+    expect(raw.root._fiber._debugHookTypes).toEqual(['useState','useContext','useState','useEffect'])
   })
 
   it('Contains the buttons to toggle display of Login and Register components', () => {
