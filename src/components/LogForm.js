@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import PropTypes from 'prop-types'
 
 import PhotoEditor from './PhotoEditor' 
 class LogForm extends React.Component {
@@ -172,7 +173,7 @@ class LogForm extends React.Component {
     let dateCompleted = ''
     let dateEntered = ''
     let dateDue = ''
-    // convert mongodb timestamp to something usable by an input type=date, 
+    // convert mongodb timestamp to something usable by an html input of type=date, 
     // eg: 2018-01-30T00:00:00.000Z => 2018-01-30
     if (this.props.log.dateStarted) dateStarted = this.props.log.dateStarted.split('T')[0]
     if (this.props.log.dateCompleted) dateCompleted = this.props.log.dateCompleted.split('T')[0]
@@ -202,7 +203,6 @@ class LogForm extends React.Component {
   }
 
   render() {
-    // if (true) return <p>{JSON.stringify(this.state)}</p> 
 
     return (
       <div className="inner">
@@ -274,6 +274,13 @@ class LogForm extends React.Component {
       </div>
     )
   }
+}
+
+LogForm.propTypes = {
+  log: PropTypes.object,
+  user: PropTypes.object.isRequired,
+  updateUserState: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 }
 
 export default LogForm

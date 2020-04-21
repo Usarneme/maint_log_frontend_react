@@ -1,33 +1,36 @@
 import React from 'react'
-import { BrowserRouter as Router } from "react-router-dom"
 import TestRenderer from 'react-test-renderer'
 
 import Add from '../../pages/Add'
 
-describe('\ADD PAGE', () => {
-  describe('* Not Logged In', () => {
-  it('** Responds with a redirect to /welcome', () => {
-      const tree = TestRenderer.create(
-        <Router>
-          <Add />
-        </Router>
-      ).toTree()
-      expect(tree.rendered.props.history.action).toEqual('REPLACE')
-      expect(tree.rendered.rendered.rendered.props.to).toEqual('/welcome')
-    })
+describe('ADD PAGE', () => {
+  let raw
+  const props = {
+    "history": {},
+    "user": {},
+    "updateUserState": () => {}
+  }
+  beforeEach(() => {
+    raw = TestRenderer.create(<Add {...props} />)
   })
-  describe('* Logged In', () => {
-    it('** Renders the Add Page', () => {
-      const userProps = {
-        "cookies": "thisisarealcookie"
-      }
-      const raw = TestRenderer.create(<Add user={userProps} />)
-      const tree = raw.toTree()
 
-      expect(raw.toJSON().children[0].children[0]).toEqual('Add New Log Entry')
-      expect(tree.props).toEqual({ "user": userProps })
-      expect(tree.props.user).toEqual(userProps)
-    })
+  it('** Renders the Add Page', () => {
+    expect(raw.toJSON().children[0].children[0]).toEqual('Add New Log Entry')
+    expect(raw.root._fiber.type.name).toBe('Add')
+    expect(raw.toTree().type.name).toBe('Add')
+  })
+
+  it('** Has a child LogForm component', () => {
+    expect(raw.toJSON().children[1].props.id).toBe('logForm')
+  })
+
+  it('** Contains the correct props', () => {
+    expect(raw.toTree().props).toStrictEqual(props)
+    expect(raw.toTree().rendered.props).toStrictEqual(props)
+  })
+
+  it('** Passes the correct props to children', () => {
+    expect(raw.toTree().rendered.instance.props).toStrictEqual(props)
   })
 })
 

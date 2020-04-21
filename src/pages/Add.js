@@ -1,14 +1,23 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
-
+import PropTypes from 'prop-types'
 import LogForm from '../components/LogForm'
 
 function Add(props) {
-  const isLoggedIn = (props.user && props.user.cookies ? props.user.cookies.length > 0 : false)
-  if (!isLoggedIn) return <Redirect to="/welcome" />
-
-  // show a blank log entry form
   return <LogForm {...props} />
+}
+
+Add.propTypes = {
+  history: PropTypes.object.isRequired,
+  user: PropTypes.shape({
+    cookies: PropTypes.string,
+    email: PropTypes.string,
+    log: PropTypes.array,
+    name: PropTypes.string,
+    sessionID: PropTypes.string,
+    userID: PropTypes.string,
+    vehicle: PropTypes.array
+  }),
+  updateUserState: PropTypes.func.isRequired
 }
 
 export default Add
