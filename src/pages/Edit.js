@@ -1,22 +1,27 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
-import { useParams } from 'react-router'
+import PropTypes from 'prop-types'
 
 import LogForm from '../components/LogForm'
 
 function Edit(props) {
-  const { id } = useParams()
-  const isLoggedIn = (props.user && props.user.cookies ? props.user.cookies.length > 0 : false)
-  if (!isLoggedIn) return <Redirect to="/welcome" />
-
-  // do not display while data is being fetched/loaded/mounted
-  // TODO make this part of an error boundary
-  if (!props || !props.user || !props.user.log) return null
+  const { id } = props.match.params
+  // find the log entry that matches the ID from the URL parameter...
   const log = props.user.log.filter(entry => entry.id === id)
-  // console.log('Edit page. Pushing log '+id+' to LogForm component...')
-  // console.dir(log[0])
+  return <LogForm {...props} log={log[0]} />
+}
 
-  return <LogForm log={log[0]} {...props} />
+Edit.propTypes = {
+  history: PropTypes.object.isRequired,
+  user: PropTypes.shape({
+    cookies: PropTypes.string,
+    email: PropTypes.string,
+    log: PropTypes.array,
+    name: PropTypes.string,
+    sessionID: PropTypes.string,
+    userID: PropTypes.string,
+    vehicle: PropTypes.array
+  }),
+  updateUserState: PropTypes.func.isRequired
 }
 
 export default Edit

@@ -33,10 +33,3 @@ describe('ADD PAGE', () => {
     expect(raw.toTree().rendered.instance.props).toStrictEqual(props)
   })
 })
-
-
-// toTree() -> nodeType, type, props, instance, rendered
-// toJSON() -> type, props, children
-// raw -> root, toJSON, toTree, update, unmount, getInstance
-// raw.root._fiber -> tag, key, elementType, type, stateNode, return, child, sibling, index, ref, effectTag, alternate
-// raw.root._fiber.return.stateNode.context
