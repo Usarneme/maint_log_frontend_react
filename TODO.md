@@ -13,6 +13,7 @@ Project Description
 - [ ] Service Manual image to text file, user/client corrections, text file to upcoming/todo Log entries  
 - [ ] Integration Test all components  
 - [ ] Why is userContext setting default value for user.vehicle to a string instead of empty [] array? --causing PropTypes warnings  
+- [ ] Loading component - make animation  
 
 ### In Progress
 

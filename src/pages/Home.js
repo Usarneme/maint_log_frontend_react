@@ -50,7 +50,16 @@ function Home(props) {
 }
 
 Home.propTypes = {
-  user: PropTypes.object
+  user: PropTypes.shape({
+    cookies: PropTypes.string,
+    email: PropTypes.string,
+    log: PropTypes.array,
+    name: PropTypes.string,
+    sessionID: PropTypes.string,
+    userID: PropTypes.string,
+    vehicle: PropTypes.array
+  }),
+  updateUserState: PropTypes.func.isRequired
 }
 
 export default Home

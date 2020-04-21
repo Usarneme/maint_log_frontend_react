@@ -65,9 +65,8 @@ describe('EDIT PAGE', () => {
     raw = TestRenderer.create(<Router><Edit {...props} /></Router>)
   })
 
-  it('** Renders the Edit Page with correct props', () => {
+  it('** Renders the Edit Page', () => {
     expect(raw.toTree().rendered.rendered.type.name).toBe('Edit')
-    // expect(raw.root._fiber.child.child.memoized)
   })
 
   it('** Gets the log ID from the url params', () => {
