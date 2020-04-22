@@ -123,6 +123,11 @@ label {
   border-bottom: 1px solid var(--textColorTwo);
 }
 
+.no__log {
+  display: grid;
+  padding: 10px;
+}
+
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
