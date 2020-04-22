@@ -1,86 +1,55 @@
 import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import TestRenderer from 'react-test-renderer'
 
-import ProtectedRoute from '../../components/ProtectedRoute'
 import Todo from '../../pages/Todo'
-import { userContext } from '../../contexts/userContext'
 
 describe('TODO PAGE', () => {
-  describe('* NOT LOGGED IN', () => {
-    it('** Wrapped in a ProtectedRoute HOC -> <Todo /> redirects to /welcome', () => {
-      const tree = TestRenderer.create(
-        <Router>
-          <userContext.Consumer>
-          {({ user, updateUserState }) => 
-            <ProtectedRoute path="/todo" exact component={Todo} />
-          }
-          </userContext.Consumer>
-        </Router>
-      ).toTree()
-      expect(tree.rendered.props.history.action).toEqual('REPLACE')
-      expect(tree.rendered.rendered.rendered.props.to).toEqual('/welcome')
-    })
-
-    it('** returns null if no user prop is passed', () => {
-      const raw = TestRenderer.create(
-        <Todo />
-      )
-      const tree = raw.toTree()
-      expect(tree.rendered).toBe(null)
-      expect(tree.instance).toBe(null)
-    })
-
-    it('** returns null if an empty user prop is passed', () => {
-      const raw = TestRenderer.create(
-        <Todo user={{}} />
-      )
-      const tree = raw.toTree()
-      expect(tree.rendered).toBe(null)
-      expect(tree.instance).toBe(null)
-    })
-
-    it('** returns null if a malformed user prop is passed', () => {
-      const raw = TestRenderer.create(
-        <Todo user={{ "log": []}} />
-      )
-      const tree = raw.toTree()
-      expect(tree.rendered).toBe(null)
-      expect(tree.instance).toBe(null)
-    })
-
-    it('** returns null if a randomly malformed user prop is passed', () => {
-      const raw = TestRenderer.create(
-        <Todo user={{ "blah": {}, "cookies": "", "otherkey": [1,2,3]}} />
-      )
-      const tree = raw.toTree()
-      expect(tree.rendered).toBe(null)
-      expect(tree.instance).toBe(null)
-    })
-  })
-
   const userProps = {
     "cookies": "abc123",
     "email": "email@address.com",
-    "log": [{"_id": 0, "mileageDue": 1000000},{"_id": 1, "dateDue": 1588847069900}],
+    "log": [
+      {"_id": 0, "mileageDue": 5, "dateDue": null},
+      {"_id": 1, "mileageDue": null, "dateDue": null}],
     "name": "username",
-    "vehicle": [{"vehicle0": {}}]
+    "vehicle": [{"vehicle0": { "odometer": 1 }}]
   }
 
-  describe('* LOGGED IN', () => {    
-    it('** Renders the Todo Page', () => {
-      // Router and Route components need to render Link tags within LogEntry within Todo
-      const raw = TestRenderer.create(
-        <Router>
-          <Route path="/todo">
-            <Todo user={userProps} />
-          </Route>
-        </Router>
-      )
-      const tree = raw.toTree()
-      expect(tree.rendered.rendered.props.path).toEqual('/todo')
-      expect(tree.rendered.rendered.props.children.props.user).toEqual(userProps)
-      expect(tree.rendered.rendered.props.children.props.user.log[0]).toEqual(userProps.log[0])
-    })
+it('** The Todo Page renders', () => {
+    // Router is required in order to render Link tags (within LogEntry rendered/called by Log)
+    const raw = TestRenderer.create(
+      <Router>
+        <Todo user={userProps} updateUserState={() => {}} />
+      </Router>
+    )
+    const tree = raw.toTree()
+    expect(tree.instance).not.toBe(null)
+    expect(tree.props.children.props.user).toEqual(userProps)
+    expect(raw.toJSON().children[0].children[0]).toEqual('Upcoming Service')
+    expect(raw.toJSON().children[1].children.length).toBe(3) // vehicleHeader + log__sorter + number of future due log entries 
+  })
+
+  const noTodosProps = {
+    "cookies": "abc123",
+    "email": "email@address.com",
+    "log": [
+      {"_id": 0, "mileageDue": null, "dateDue": null},
+      {"_id": 1, "mileageDue": null, "dateDue": null}],
+    "name": "username",
+    "vehicle": [{"vehicle0": { "odometer": 1 }}]
+  }
+
+  it('Renders alternate text when there are no future due log entries', () => {
+    const raw = TestRenderer.create(
+      <Router>
+        <Todo user={noTodosProps} updateUserState={() => {}} />
+      </Router>
+    )
+    expect(raw.toJSON().children[1].props.className).toBe('card no__todos')
+    expect(raw.toTree().props.children.props.user).toEqual(noTodosProps)
+    expect(raw.toJSON().children[1].children.length).toBe(3) // header and 2 anchor tag2 )links to /add and /log)
+    expect(raw.toJSON().children[1].children[0].children[0]).toBe('No Future-Due Log Entries Found!')
+    expect(raw.toJSON().children[1].children[1].props.href).toBe('/add')
+    expect(raw.toJSON().children[1].children[2].props.href).toBe('/log')
   })
 })

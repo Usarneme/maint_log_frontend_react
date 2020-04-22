@@ -3,18 +3,7 @@ import PropTypes from 'prop-types'
 
 import SearchBox from '../components/SearchBox'
 
-function Search(props) {
-  if (!props ) return null
-  if (props === {} ) return null
-  if (Object.keys(props).length === 0) return null
-  if (!props.user) return null
-  if (Object.keys(props.user).length === 0) return null
-  if (!props.user.cookies) return null
-  if (!props.user.email) return null
-  if (!props.user.name) return null
-  if (!props.user.sessionID) return null
-  if (!props.user.userID) return null
-
+function Search() {
   return (
     <div className="inner">
       <h2>Search</h2>

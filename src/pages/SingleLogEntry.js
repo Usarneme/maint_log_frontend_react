@@ -1,5 +1,6 @@
 import React from 'react'
-import { Link, Redirect, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import moment from 'moment'
 import { ReactSVG } from 'react-svg'
 
@@ -10,18 +11,11 @@ import EditPencil from '../images/editPencil.svg'
 import '../styles/singleLogEntry.css'
 
 function SingleLogEntry(props) {
-  const { slug } = useParams()
-
-  const isLoggedIn = (props.user && props.user.cookies ? props.user.cookies.length > 0 : false)
-  if (!isLoggedIn) return <Redirect to="/welcome" />
-
-  // console.log(`Displaying log entry: ${slug}`)
+  const { slug } = props.match.params
   const log = props.user.log.filter(entry => entry.slug === slug)
   const { id, shortDescription, longDescription, dateStarted, dateCompleted, dateEntered, dateDue, mileageDue, name, odometer, tools, parts, partsCost, laborCost, serviceLocation, photos } = log[0]
   let vehicle = {}
-  if (props.user.vehicle && props.user.vehicle[0]) {
-    vehicle = props.user.vehicle[0]
-  }
+  if (props.user.vehicle && props.user.vehicle[0]) vehicle = props.user.vehicle[0]
 
   return (
     <div className="inner">
@@ -91,6 +85,20 @@ function SingleLogEntry(props) {
 
     </div>
   )
+}
+
+SingleLogEntry.propTypes = {
+  history: PropTypes.object.isRequired,
+  user: PropTypes.shape({
+    cookies: PropTypes.string,
+    email: PropTypes.string,
+    log: PropTypes.array,
+    name: PropTypes.string,
+    sessionID: PropTypes.string,
+    userID: PropTypes.string,
+    vehicle: PropTypes.array
+  }),
+  updateUserState: PropTypes.func.isRequired
 }
 
 export default SingleLogEntry 

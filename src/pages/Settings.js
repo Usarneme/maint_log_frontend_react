@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import VLVin from '../components/VLVin'
 import VLManual from '../components/VLManual'
@@ -63,8 +64,6 @@ class Settings extends Component {
       },
       loading: true
     }))
-    // 2T1KY38E23C077319
-    // bay@bae.bay
     await this.updateAccount()
   }
 
@@ -217,6 +216,18 @@ class Settings extends Component {
       </div>
     )  
   }
+}
+
+Settings.propTypes = {
+  user: PropTypes.shape({
+    cookies: PropTypes.string,
+    email: PropTypes.string,
+    log: PropTypes.array,
+    name: PropTypes.string,
+    sessionID: PropTypes.string,
+    userID: PropTypes.string,
+    vehicle: PropTypes.array
+  })
 }
 
 export default Settings
