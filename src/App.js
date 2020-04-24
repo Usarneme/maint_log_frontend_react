@@ -18,7 +18,8 @@ class App extends React.Component {
         cookies: '',
         email: '',
         vehicle: [],
-        log: []
+        log: [],
+        currentlySelectedVehicle: {}
       }, 
       updateUserState: this.updateUserState
     }

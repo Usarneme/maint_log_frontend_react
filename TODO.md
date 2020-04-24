@@ -4,6 +4,7 @@ Project Description
 
 ### Todo
 
+- [ ] Image tagging, indexed for search  
 - [ ] Notifications SW  
 - [ ] Odometer image to number? Overengineered?  
 - [ ] Odometer entry notification - whenever wifi disconnects? Cron job? Interval?  
@@ -12,21 +13,20 @@ Project Description
 - [ ] HTML and fallback text email tests  
 - [ ] Service Manual image to text file, user/client corrections, text file to upcoming/todo Log entries  
 - [ ] Integration Test all components  
-- [ ] Why is userContext setting default value for user.vehicle to a string instead of empty [] array? --causing PropTypes warnings  
-- [ ] Loading component - make animation  
+- [ ] Registration -> 1st time Login -> Should prompt w/component on Home page to enter vehicle for new account  
 
 ### In Progress
 
-- [ ] Image gallery  
-- [ ] Image tagging, indexed for search  
 - [ ] Error Boundaries around all data-changing routes  
-- [ ] Registration -> 1st time Login -> Settings fails, find out why and fix  
-- [ ] Registration -> 1st time Login -> Should prompt w/component on Home page to enter vehicle for new account  
 - [ ] Unit Test All Components  
 - [ ] Unit Test All Pages  
+- [ ] Loading component - make animation  
 
 ### Done ✓
 
+- [x] Why is userContext setting default value for user.vehicle to a string instead of empty [] array? --causing PropTypes warnings  
+- [x] Image gallery  
+- [x] Registration -> 1st time Login -> Settings fails, find out why and fix  
 - [x] Search on homepage  
 - [x] Search flow design  
 - [x] Logout flow on account page  

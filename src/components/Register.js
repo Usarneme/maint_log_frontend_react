@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import PropTypes from 'prop-types'
 
+import Loading from './Loading'
+import { getLogData } from '../helpers'
+
 class Register extends Component {
   constructor(props) {
     super(props)
@@ -14,8 +17,12 @@ class Register extends Component {
         userID: '',
         username: '',
         sessionID: '',
-        cookies: ''
-      }
+        cookies: '',
+        log: [],
+        vehicle: [],
+        currentlySelectedVehicle: ''
+      },
+      loading: false
     }
   }
 
@@ -32,6 +39,7 @@ class Register extends Component {
 
   apiRegister = async event => {
     event.preventDefault()
+    this.setState({ loading: true })
     // client-side check on password fields before sending to server
     if (this.state.password !== this.state.passwordConfirm) {
       alert('Your passwords do not match!')
@@ -58,7 +66,12 @@ class Register extends Component {
         const userID = user._id
         const name = user.name
         const email = this.state.email
-        this.setState({ user: { name, userID, sessionID, cookies, email }, password: '', passwordConfirm: '' })
+
+        const logDataResult = await getLogData()
+        const logData = logDataResult.data
+        const vehicle = logData.vehicle || []
+        const log = logData.log || []
+        await this.setState({ user: { name, userID, sessionID, cookies, email, vehicle, log, currentlySelectedVehicle: vehicle[0] }, password: '', loading: false })
         this.props.updateUserState(this.state.user)
         this.props.history.push('/')
       } else {
@@ -72,11 +85,14 @@ class Register extends Component {
         // console.warn(Object.keys(err))
         // console.log(err.response.data)
         console.log(err.response.status)
+        this.setState({ loading: false })
         alert(`${err.response.data} The email may be malformed (typo?), banned, or already in use. Please try again.`)
       }
   }
 
   render() {
+    if (this.state.loading) return <Loading message="Registering New User..." />
+
     return (
       <form className="card" onSubmit={this.apiRegister} method="POST" encType="multipart/form-data" multiple="multiple">
         <h2>Register</h2>

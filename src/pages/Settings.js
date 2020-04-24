@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
+import Loading from '../components/Loading'
 import VLVin from '../components/VLVin'
 import VLManual from '../components/VLManual'
 import VLYMM from '../components/VLYMM'
@@ -21,8 +21,11 @@ class Settings extends Component {
         sessionID: '',
         cookies: '',
         email: '',
-        password: ''
+        password: '',
+        vehicle: [],
+        log: []
       }, 
+      currentlySelectedVehicle: props.currentlySelectedVehicle || undefined,
       showVin: false,
       showManual: false,
       showYearMakeModel: true,
@@ -155,10 +158,7 @@ class Settings extends Component {
   }
 
   render() {
-    const isLoggedIn = (this.props.user && this.props.user.cookies ? this.props.user.cookies.length > 0 : false)
-    if (!isLoggedIn) return <Redirect to="/welcome" />
-
-    if (this.state.loading) return <div>Loading...</div>
+    if (this.state.loading) return <Loading message='Updating Account...' />
   
     return (
       <div className="inner">
@@ -170,9 +170,14 @@ class Settings extends Component {
             { this.state.user && this.state.user.vehicle && this.state.user.vehicle[0] && <>
               <h4><strong>Current Vehicle: </strong></h4>
               <div className="current__vehicle">
-                <span>{this.state.user.vehicle[0].year}</span>
-                <span>{this.state.user.vehicle[0].make}</span>
-                <span>{this.state.user.vehicle[0].model}</span>
+                { this.state.user.vehicle && 
+                  <>
+                    <span>{this.state.user.vehicle[0].year}</span>
+                    <span>{this.state.user.vehicle[0].make}</span>
+                    <span>{this.state.user.vehicle[0].model}</span>
+                  </> 
+                }
+                { Object.keys(this.props.user.vehicle[0]).length === 0 && <span>(none)</span> }
               </div>
             </> }
           </div>
@@ -227,7 +232,8 @@ Settings.propTypes = {
     sessionID: PropTypes.string,
     userID: PropTypes.string,
     vehicle: PropTypes.array
-  })
+  }),
+  currentlySelectedVehicle: PropTypes.object // default vehicle for which to display info
 }
 
 export default Settings

@@ -123,7 +123,9 @@ label {
   border-bottom: 1px solid var(--textColorTwo);
 }
 
-.no__log {
+.no__log,
+.no__todos,
+.no__vehicle {
   display: grid;
   padding: 10px;
 }

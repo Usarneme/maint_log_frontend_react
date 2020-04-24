@@ -8,7 +8,8 @@ const userContext = React.createContext({
     name: '',
     sessionID: '',
     userID: '',
-    vehicle: []  
+    vehicle: [],
+    currentlySelectedVehicle: {}
   },
   updateUserState: () => {}
 })

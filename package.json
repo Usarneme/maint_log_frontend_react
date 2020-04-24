@@ -18,7 +18,8 @@
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
-    "react-svg": "^11.0.18"
+    "react-svg": "^11.0.18",
+    "react-transition-group": "^4.3.0"
   },
   "scripts": {
     "start": "BROWSER=none REACT_APP_API_DOMAIN=http://localhost:7777 react-scripts start",

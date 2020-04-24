@@ -46,10 +46,10 @@ class Login extends Component {
         const name = user.name
         const logDataResult = await getLogData()
         const logData = logDataResult.data
-        const { vehicle, log } = logData
-        await this.setState({ user: { name, userID, sessionID, cookies, email, vehicle, log }, password: '', loading: false })
+        const vehicle = logData.vehicle || []
+        const log = logData.log || []
+        await this.setState({ user: { name, userID, sessionID, cookies, email, vehicle, log, currentlySelectedVehicle: vehicle[0] }, password: '', loading: false })
         this.props.updateUserState(this.state.user)
-
         this.props.history.push('/')
       } else {
         // console.log('Response received but with status code: '+res.status)
@@ -99,7 +99,8 @@ Login.propTypes = {
     name: PropTypes.string,
     sessionID: PropTypes.string,
     userID: PropTypes.string,
-    vehicle: PropTypes.array
+    vehicle: PropTypes.array,
+    currentlySelectedVehicle: PropTypes.string
   }),
   updateUserState: PropTypes.func.isRequired
 }
