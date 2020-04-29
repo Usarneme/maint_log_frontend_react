@@ -5,7 +5,7 @@ import moment from 'moment'
 import { ReactSVG } from 'react-svg'
 
 import PhotoEditor from '../components/PhotoEditor'
-import VehicleHeader from '../components/VehicleHeader'
+import VehicleHeader from '../components/vehicle/VehicleHeader'
 import EditPencil from '../images/editPencil.svg'
 
 import '../styles/singleLogEntry.css'

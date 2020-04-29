@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { manufacturers } from '../helpers'
+import { manufacturers } from '../../helpers'
 
 class VLYMM extends React.Component {
   constructor(props) {

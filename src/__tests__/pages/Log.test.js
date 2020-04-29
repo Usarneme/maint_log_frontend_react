@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import TestRenderer from 'react-test-renderer'
 
 import Log from '../../pages/Log'
-import LogSorter from '../../components/LogSorter'
+import LogSorter from '../../components/log/LogSorter'
 
 describe('LOG PAGE', () => {
   const userProps = {

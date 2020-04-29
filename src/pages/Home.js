@@ -4,7 +4,7 @@ import { ReactSVG } from 'react-svg'
 import PropTypes from 'prop-types'
 
 import SearchBox from '../components/SearchBox'
-import VehicleHeader from '../components/VehicleHeader'
+import VehicleHeader from '../components/vehicle/VehicleHeader'
 
 import SearchIcon from '../images/search.svg'
 import AddIcon from '../images/addLog.svg'

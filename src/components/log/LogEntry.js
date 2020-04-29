@@ -2,7 +2,7 @@ import React from 'react'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 
-import '../styles/logEntry.css'
+import '../../styles/logEntry.css'
 
 function LogEntry(props) {
   const log = props.data

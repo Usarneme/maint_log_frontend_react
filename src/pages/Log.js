@@ -2,9 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-import VehicleHeader from '../components/VehicleHeader'
-import LogEntry from '../components/LogEntry'
-import LogSorter from '../components/LogSorter'
+import VehicleHeader from '../components/vehicle/VehicleHeader'
+import LogEntry from '../components/log/LogEntry'
+import LogSorter from '../components/log/LogSorter'
 
 function Log(props) {
   let log = []

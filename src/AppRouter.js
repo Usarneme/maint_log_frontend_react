@@ -5,22 +5,21 @@ import {
   Route
 } from "react-router-dom"
 
-import Nav from './components/Nav'
-
 import Add from './pages/Add'
 import Edit from './pages/Edit'
 import GuestHome from './pages/GuestHome'
 import Home from './pages/Home'
 import Log from './pages/Log'
 import NotFound from './pages/NotFound'
-import ScrollToTop from './components/ScrollToTop'
 import Search from './pages/Search'
 import Settings from './pages/Settings'
 import SingleLogEntry from './pages/SingleLogEntry'
-import SiteTitle from './components/SiteTitle'
 import Todo from './pages/Todo'
 
-import ProtectedRoute from './components/ProtectedRoute'
+import Nav from './components/Nav'
+import ProtectedRoute from './components/account/ProtectedRoute'
+import ScrollToTop from './components/ScrollToTop'
+import SiteTitle from './components/SiteTitle'
 
 import { userContext } from './contexts/userContext'
 

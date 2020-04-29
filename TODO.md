@@ -14,6 +14,7 @@ Project Description
 - [ ] Service Manual image to text file, user/client corrections, text file to upcoming/todo Log entries  
 - [ ] Integration Test all components  
 - [ ] Registration -> 1st time Login -> Should prompt w/component on Home page to enter vehicle for new account  
+- [ ] ForgotPassword Component - hook up and test  
 
 ### In Progress
 
@@ -21,6 +22,7 @@ Project Description
 - [ ] Unit Test All Components  
 - [ ] Unit Test All Pages  
 - [ ] Loading component - make animation  
+- [ ] Break up Settings page components, pull out api setting/getting to a separate module and import was needed  
 
 ### Done ✓
 

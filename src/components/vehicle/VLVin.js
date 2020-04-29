@@ -1,6 +1,6 @@
 import React from 'react'
 
-import '../styles/vlvin.css'
+import '../../styles/vlvin.css'
 
 class VLVin extends React.Component {
   constructor(props) {

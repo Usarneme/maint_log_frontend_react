@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import ForgotPassword from '../components/ForgotPassword'
-import { getLogData } from '../helpers'
-import Loading from './Loading'
-import '../styles/login.css'
+import ForgotPassword from './ForgotPassword'
+import { getLogData } from '../../helpers'
+import Loading from '../Loading'
+import '../../styles/login.css'
 
 const axios = require('axios')
 // axios.defaults.withCredentials = true

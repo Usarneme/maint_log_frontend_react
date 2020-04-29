@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import LogForm from '../components/LogForm'
+import LogForm from '../components/log/LogForm'
 
 function Add(props) {
   return <LogForm {...props} />

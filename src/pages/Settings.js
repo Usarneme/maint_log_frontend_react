@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import Loading from '../components/Loading'
-import VLVin from '../components/VLVin'
-import VLManual from '../components/VLManual'
-import VLYMM from '../components/VLYMM'
+import VLVin from '../components/vehicle/VLVin'
+import VLManual from '../components/vehicle/VLManual'
+import VLYMM from '../components/vehicle/VLYMM'
 
 import '../styles/settings.css'
 

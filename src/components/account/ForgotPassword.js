@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import Loading from './Loading'
+import Loading from '../Loading'
 const axios = require('axios')
 
 class ForgotPassword extends Component {

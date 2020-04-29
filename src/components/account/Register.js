@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import PropTypes from 'prop-types'
 
-import Loading from './Loading'
-import { getLogData } from '../helpers'
+import Loading from '../Loading'
+import { getLogData } from '../../helpers'
 
 class Register extends Component {
   constructor(props) {

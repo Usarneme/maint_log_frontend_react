@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-import '../styles/vehicleHeader.css'
+import '../../styles/vehicleHeader.css'
 
 function VehicleHeader(props) {
   return (

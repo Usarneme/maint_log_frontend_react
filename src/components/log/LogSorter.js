@@ -1,6 +1,6 @@
 import React from 'react'
 
-import '../styles/logSorter.css'
+import '../../styles/logSorter.css'
 
 const LogSorter = (props) => {
   // console.log('Log Sorter...')
@@ -93,6 +93,6 @@ const LogSorter = (props) => {
   )
 }
 
-// updateUserState, user
+// PROPS: updateUserState, user
 
 export default LogSorter

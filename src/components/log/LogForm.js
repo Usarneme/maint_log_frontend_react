@@ -4,8 +4,9 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 
-import Loading from './Loading'
-import PhotoEditor from './PhotoEditor' 
+import Loading from '../Loading'
+import PhotoEditor from '../PhotoEditor' 
+
 class LogForm extends React.Component {
   constructor(props) {
     super(props) 
