@@ -49,8 +49,6 @@ class VLVin extends React.Component {
   }
 
   render() {
-    if (!this.props.display) return null
-
     return (
       <div className="card searchByVinDiv">
         <div className="vinSearchInput">

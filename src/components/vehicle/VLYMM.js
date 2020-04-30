@@ -67,8 +67,6 @@ class VLYMM extends React.Component {
   }
 
   render() {
-    if (!this.props.display) return null
-
     const thisYear = new Date().getFullYear()
 
     return (

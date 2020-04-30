@@ -4,9 +4,7 @@ import PropTypes from 'prop-types'
 import Loading from '../components/Loading'
 import Logout from '../components/account/Logout'
 import ThemeSwitcher from '../components/account/ThemeSwitcher'
-import VLVin from '../components/vehicle/VLVin'
-import VLManual from '../components/vehicle/VLManual'
-import VLYMM from '../components/vehicle/VLYMM'
+import VehicleSettings from '../components/vehicle/VehicleSettings'
 
 import '../styles/settings.css'
 
@@ -28,9 +26,6 @@ class Settings extends Component {
         log: []
       }, 
       currentlySelectedVehicle: props.currentlySelectedVehicle || undefined,
-      showVin: false,
-      showManual: false,
-      showYearMakeModel: true,
       theme: 'dark',
       loading: true
     }
@@ -40,7 +35,11 @@ class Settings extends Component {
     let theme = localStorage.getItem('theme') || this.state.theme
     localStorage.setItem('theme', theme)
     document.documentElement.className = theme
-    this.setState({ user: this.props.user, theme, loading: false })
+    this.setState({ 
+      user: this.props.user, 
+      theme, 
+      currentlySelectedVehicle: this.props.currentlySelectedVehicle || this.props.user.vehicle[0] || undefined,
+      loading: false })
   }
 
   handleInputChange = (event) => {
@@ -66,6 +65,7 @@ class Settings extends Component {
         ...prevState.user,
         vehicle: [vehicle]
       },
+      currentlySelectedVehicle: vehicle,
       loading: true
     }))
     await this.updateAccount()
@@ -73,7 +73,7 @@ class Settings extends Component {
 
   updateAccount = async (event = '') => {
     if (event) event.preventDefault()
-    console.log(`/updateAccount handler. Axios posting to ${process.env.REACT_APP_API_DOMAIN}/api/update/account`)
+    // console.log(`/updateAccount handler. Axios posting to ${process.env.REACT_APP_API_DOMAIN}/api/update/account`)
 
     const { name, email, password } = this.state.user
     const vehicleYear = this.state.user.vehicle[0].year
@@ -83,7 +83,7 @@ class Settings extends Component {
     const vin = this.state.user.vehicle[0].vin
     try {
       const res = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/update/account`, { name, email, password, vehicleYear, vehicleMake, vehicleModel, vehicleOdometer, vin })
-      console.dir(res)
+      // console.dir(res)
 
       if (res.status === 200) {
         console.log(`updateAccount handler returned success!`)
@@ -92,14 +92,13 @@ class Settings extends Component {
         const name = user.name
         const email = user.email
         const vehicle = [user.vehicle]
-        console.log(vehicle)
+        // console.log(vehicle)
 
         await this.props.updateUserState(this.state.user)
-        console.log('app state updated...')
+        // console.log('app state updated...')
         await this.setState({ user: { name, userID, sessionID, cookies, email, vehicle }, password: '', passwordConfirm: '', loading: false })
-        console.log('settings component state updated...')
-        console.log(this.state)
-
+        // console.log('settings component state updated...')
+        // console.log(this.state)
         return this.props.history.push('/settings')
       } else {
         console.log('Response received but with status code: '+res.status)
@@ -120,15 +119,6 @@ class Settings extends Component {
       }
   }
 
-  vehicleLookupChanger = view => {
-    this.setState({
-      showVin: false,
-      showManual: false,
-      showYearMakeModel: false,
-      [view]: true
-    })
-  }
-
   render() {
     if (this.state.loading) return <Loading message='Updating Account...' />
   
@@ -136,35 +126,7 @@ class Settings extends Component {
       <div className="inner">
         <h2>Settings</h2>
         
-        <div className="card">
-          <h3>Vehicle</h3>
-          <div className="current__vehicle__container">
-            { this.state.user && this.state.user.vehicle && this.state.user.vehicle[0] && <>
-              <h4><strong>Current Vehicle: </strong></h4>
-              <div className="current__vehicle">
-                { this.state.user.vehicle && 
-                  <>
-                    <span>{this.state.user.vehicle[0].year}</span>
-                    <span>{this.state.user.vehicle[0].make}</span>
-                    <span>{this.state.user.vehicle[0].model}</span>
-                  </> 
-                }
-                { Object.keys(this.props.user.vehicle[0]).length === 0 && <span>(none)</span> }
-              </div>
-            </> }
-          </div>
-          <div className="buttons__holder">
-            <span>Find Vehicle By:</span>
-            <button className={`lookup__button ${this.state.showYearMakeModel ? 'lookup__selected' : ''}`} onClick={() => this.vehicleLookupChanger('showYearMakeModel')}>Make &amp; Model</button>
-            <button className={`lookup__button ${this.state.showVin ? 'lookup__selected' : ''}`} onClick={() => this.vehicleLookupChanger('showVin')}>VIN</button>
-            <button className={`lookup__button ${this.state.showManual ? 'lookup__selected' : ''}`} onClick={() => this.vehicleLookupChanger('showManual')}>Manually Enter</button>
-          </div>
-          <div className="lookupSwitcher">
-            <VLVin display={this.state.showVin} currentVehicle={this.state.user.vehicle[0] || {}} saveVehicle={this.saveVehicle} />
-            <VLManual display={this.state.showManual} currentVehicle={this.state.user.vehicle[0] || {}} saveVehicle={this.saveVehicle} /> 
-            <VLYMM display={this.state.showYearMakeModel} currentVehicle={this.state.user.vehicle[0] || {}} saveVehicle={this.saveVehicle} /> 
-          </div>
-        </div>
+        <VehicleSettings currentlySelectedVehicle={this.state.currentlySelectedVehicle} saveVehicle={this.saveVehicle} />
 
         <form className="card" onSubmit={this.updateAccount} method="POST">
           <h3>Account</h3>
