@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import Loading from '../components/Loading'
 import Logout from '../components/account/Logout'
+import ThemeSwitcher from '../components/account/ThemeSwitcher'
 import VLVin from '../components/vehicle/VLVin'
 import VLManual from '../components/vehicle/VLManual'
 import VLYMM from '../components/vehicle/VLYMM'
@@ -128,13 +129,6 @@ class Settings extends Component {
     })
   }
 
-  toggleTheme = () => {
-    const newTheme = this.state.theme === 'dark' ? 'light' : 'dark'
-    localStorage.setItem('theme', newTheme)
-    document.documentElement.className = newTheme
-    this.setState({ theme: newTheme }) 
-  }
-
   render() {
     if (this.state.loading) return <Loading message='Updating Account...' />
   
@@ -182,13 +176,8 @@ class Settings extends Component {
           <input type="password" name="password" placeholder="Enter password..." value={this.state.password} onChange={this.handleInputChange} /> */}
           <input className="button" type="submit" value="Update Account" />
         </form>
-        <div className="card">
-          <h3>Theme Settings</h3>
-          <div className="theme__container">
-            <label htmlFor="theme">{`${this.state.theme.substring(0,1).toUpperCase()}${this.state.theme.substring(1)} Mode Enabled`}</label>
-            <button className="button" onClick={this.toggleTheme}>Switch Theme</button>
-          </div>
-        </div>
+
+        <ThemeSwitcher currentTheme={this.state.theme} />
         <Logout history={this.props.history} />
       </div>
     )  
