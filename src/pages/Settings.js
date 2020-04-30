@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import Loading from '../components/Loading'
+import Logout from '../components/account/Logout'
 import VLVin from '../components/vehicle/VLVin'
 import VLManual from '../components/vehicle/VLManual'
 import VLYMM from '../components/vehicle/VLYMM'
@@ -29,7 +30,6 @@ class Settings extends Component {
       showVin: false,
       showManual: false,
       showYearMakeModel: true,
-      showLogoutButton: false,
       theme: 'dark',
       loading: true
     }
@@ -128,28 +128,6 @@ class Settings extends Component {
     })
   }
 
-  toggleConfirmLogout = event => {
-    event.preventDefault()
-    this.setState({ showLogoutButton: !this.state.showLogoutButton })
-  }
-
-  logout = async event => {
-    event.preventDefault()
-    try {
-      const response = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/logout`)
-      if (response.status === 200) {
-        const userReset = { name: '', userID: '', sessionID: '', cookies: '', email: ''}
-        this.props.updateUserState(userReset)
-        return this.props.history.push('/welcome')
-      } else {
-        const error = new Error(response.error)
-        throw error
-      }
-    } catch(err) {
-      console.err(err)
-    }
-  }
-
   toggleTheme = () => {
     const newTheme = this.state.theme === 'dark' ? 'light' : 'dark'
     localStorage.setItem('theme', newTheme)
@@ -211,13 +189,7 @@ class Settings extends Component {
             <button className="button" onClick={this.toggleTheme}>Switch Theme</button>
           </div>
         </div>
-        <div className="card">
-          <h3>Disconnect Account and Logout</h3>
-          <div className="logout__container">
-            <button className={`button ${this.state.showLogoutButton ? 'confirm--active' : 'confirm'}`} onClick={this.toggleConfirmLogout}>{this.state.showLogoutButton ? 'Cancel Logout' : 'Logout'}</button>
-            { this.state.showLogoutButton && <button className="button disconnect" onClick={this.logout}><span className="red">Confirm and Logout</span></button> }
-          </div>
-        </div>
+        <Logout history={this.props.history} />
       </div>
     )  
   }
@@ -233,7 +205,8 @@ Settings.propTypes = {
     userID: PropTypes.string,
     vehicle: PropTypes.array
   }),
-  currentlySelectedVehicle: PropTypes.object // default vehicle for which to display info
+  currentlySelectedVehicle: PropTypes.object, // default vehicle for which to display info
+  history: PropTypes.object.isRequired
 }
 
 export default Settings
