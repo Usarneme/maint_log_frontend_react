@@ -20,7 +20,9 @@ class Login extends Component {
         userID: '',
         username: '',
         sessionID: '',
-        cookies: ''
+        cookies: '',
+        log: [],
+        currentlySelectedVehicle: {}
       },
       loading: false,
       showForgotPassword: false
@@ -36,21 +38,27 @@ class Login extends Component {
 
   apiLogin = async event => {
     event.preventDefault()
-    await this.setState({ loading: true })
     const { email, password } = this.state
+    await this.setState({ loading: true })
     try {
       // /login success returns a User object containing any Vehicle's registered by that User
       const res = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/login`, { email, password })
       if (res.status === 200) {
-        // console.log(`apiLogin handler returned success!`)
         const { user, sessionID, cookies } = res.data
         const userID = user._id
         const name = user.name
-        const logDataResult = await getLogData()
-        const logData = logDataResult.data
+        const logData = await getLogData()
         const vehicle = logData.vehicle || []
         const log = logData.log || []
-        await this.setState({ user: { name, userID, sessionID, cookies, email, vehicle, log, currentlySelectedVehicle: vehicle[0] }, password: '', loading: false })
+        // object property "primary" is a boolean indicating if it is the default/main vehicle to display
+        const primaryVehicleArray = vehicle.filter(car => car.primary)
+        let currentlySelectedVehicle
+        if (primaryVehicleArray.length === 0) {
+          currentlySelectedVehicle = vehicle[0] // if none is primary, display the first vehicle by default
+        } else {
+          currentlySelectedVehicle = primaryVehicleArray[0]
+        }
+        await this.setState({ user: { name, userID, sessionID, cookies, email, vehicle, log, currentlySelectedVehicle }, password: '', loading: false })
         this.props.updateUserState(this.state.user)
         this.props.history.push('/')
       } else {
@@ -103,7 +111,7 @@ Login.propTypes = {
     sessionID: PropTypes.string,
     userID: PropTypes.string,
     vehicle: PropTypes.array,
-    currentlySelectedVehicle: PropTypes.string
+    currentlySelectedVehicle: PropTypes.object
   }),
   updateUserState: PropTypes.func.isRequired
 }

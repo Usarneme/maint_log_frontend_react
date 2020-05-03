@@ -1,12 +1,11 @@
 import React from 'react'
-
-import '../../styles/vlvin.css'
+import PropTypes from 'prop-types'
 
 class VLVin extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      vin: '',
+      vin: props.currentVehicle.vin || '',
       resultsError: null,
       vehicle: {
         make: '',
@@ -72,6 +71,11 @@ class VLVin extends React.Component {
       </div>
     )
   }
+}
+
+VLVin.propTypes = {
+  currentVehicle: PropTypes.object,
+  saveVehicle: PropTypes.func.isRequired
 }
 
 export default VLVin

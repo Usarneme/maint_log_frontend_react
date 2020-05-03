@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import { manufacturers } from '../../helpers'
 
@@ -6,10 +7,10 @@ class VLYMM extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      year: new Date().getFullYear(),
-      make: '',
+      year: props.currentVehicle.year || new Date().getFullYear(),
+      make: props.currentVehicle.make ||'',
       models: [],
-      model: '',
+      model: props.currentVehicle.model || '',
       showConfirmButton: false
     }
   }
@@ -24,7 +25,7 @@ class VLYMM extends React.Component {
     const localStorageKey = this.state.year.toString() + this.state.make.toString()
     const localStorageModels = localStorage.getItem(localStorageKey)
     if (localStorageModels !== null) {
-      console.log('Duplicate query. Retreiving cache from localStorage...')
+      console.log('Duplicate query. Retrieving cache from localStorage...')
       const localStorageModelsArray = localStorageModels.split(',') // turns comma-delineated string into array of strings
       console.log(localStorageModelsArray)
       this.setState({ models: localStorageModelsArray, showConfirmButton: false })
@@ -62,7 +63,6 @@ class VLYMM extends React.Component {
   }
 
   saveVehicle = () => {
-    // console.log('vlymm saveVehicle called')
     this.props.saveVehicle( this.state )
   }
 
@@ -99,6 +99,11 @@ class VLYMM extends React.Component {
     </div>
     )
   }
+}
+
+VLYMM.propTypes = {
+  currentVehicle: PropTypes.object,
+  saveVehicle: PropTypes.func.isRequired
 }
 
 export default VLYMM

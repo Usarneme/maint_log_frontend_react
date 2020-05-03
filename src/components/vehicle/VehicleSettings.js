@@ -5,6 +5,8 @@ import VLVin from './VLVin'
 import VLManual from './VLManual'
 import VLYMM from './VLYMM'
 
+import '../../styles/vehicle.css'
+
 function VehicleSettings(props) {
   const [manualLookupShowing, showManualLookup] = useState(true)
   const [vinLookupShowing, showVinLookup] = useState(false)

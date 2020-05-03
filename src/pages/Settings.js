@@ -6,6 +6,7 @@ import Logout from '../components/account/Logout'
 import ThemeSwitcher from '../components/account/ThemeSwitcher'
 import VehicleSettings from '../components/vehicle/VehicleSettings'
 
+import { updateUserAccount } from '../helpers'
 import '../styles/settings.css'
 
 const axios = require('axios')
@@ -15,17 +16,10 @@ class Settings extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      user: props.user || {
-        userID: '',
-        name: '',
-        sessionID: '',
-        cookies: '',
-        email: '',
-        password: '',
-        vehicle: [],
-        log: []
-      }, 
-      currentlySelectedVehicle: props.currentlySelectedVehicle || undefined,
+      email: '',
+      name: '',
+      password: '',
+      currentlySelectedVehicle: {},
       theme: 'dark',
       loading: true
     }
@@ -36,88 +30,76 @@ class Settings extends Component {
     localStorage.setItem('theme', theme)
     document.documentElement.className = theme
     this.setState({ 
-      user: this.props.user, 
+      name: this.props.user.name || '',
+      email: this.props.user.email || '',
+      currentlySelectedVehicle: this.props.user.currentlySelectedVehicle || {}, 
       theme, 
-      currentlySelectedVehicle: this.props.currentlySelectedVehicle || this.props.user.vehicle[0] || undefined,
       loading: false 
     })
   }
 
-  handleInputChange = (event) => {
-    const { value, name } = event.target
-    const newState = {...this.state}
-    newState.user[name] = value
-    this.setState({ user: newState.user })
+  componentDidUpdate(prevProps) {
+    if (this.props.user !== prevProps.user) {
+      this.setState({ ...this.props, loading: false })
+    }
+  }
+
+  handleInputChange = event => {
+    this.setState({ [event.target.name]: event.target.value })
   }
 
   saveVehicle = async vehicleData => {
-    // console.log('saving vehicle...')
-    // console.log(vehicleData)
-    const vehicle = {
+    // ensure even optional properties are sent to the server/db...
+    const newVehicle = {
       make: vehicleData.make || '',
       model: vehicleData.model || '',
       odometer: vehicleData.odometer || '',
       vin: vehicleData.vin || '',
-      year: vehicleData.year || ''
+      year: vehicleData.year || '',
+      primary: vehicleData.primary || false,
+      id: vehicleData.id || ''
     } 
-    await this.setState(prevState => ({ 
-      ...prevState,
-      user: { 
-        ...prevState.user,
-        vehicle: [vehicle]
-      },
-      currentlySelectedVehicle: vehicle,
-      loading: true
-    }))
-    await this.updateAccount()
+
+    // a new vehicle won't have an ID
+    // this is for overwriting changes made to an extant vehicle 
+    const vehicles = this.props.user.vehicle.filter(car => {
+      return car.id !== vehicleData.id
+    })
+
+    const userUpdates = {...this.props.user}
+    userUpdates.vehicle = [...vehicles, newVehicle]
+    userUpdates.currentlySelectedVehicle = newVehicle
+
+    // response = { log: [], vehicle: [] }
+    const updates = await updateUserAccount(userUpdates)
+    // console.log('Returned updated User from backend: ')
+    // console.log(updates)
+    const updatedUser = this.props.user
+    updatedUser.log = updates.log
+    updatedUser.vehicle = updates.vehicle
+    updatedUser.currentlySelectedVehicle = newVehicle
+    // console.log(updatedUser)
+    this.props.updateUserState(updatedUser)
   }
 
   updateAccount = async (event = '') => {
+    // called via form (with event) and via onChange of children components (without event)
     if (event) event.preventDefault()
-    // console.log(`/updateAccount handler. Axios posting to ${process.env.REACT_APP_API_DOMAIN}/api/update/account`)
+    const userUpdates = {...this.props.user}
+    userUpdates.name = this.state.name
+    userUpdates.email = this.state.email
+    // TODO confirmation and password changing option
 
-    const { name, email, password } = this.state.user
-    const vehicleYear = this.state.user.vehicle[0].year
-    const vehicleMake = this.state.user.vehicle[0].make
-    const vehicleModel = this.state.user.vehicle[0].model
-    const vehicleOdometer = this.state.user.vehicle[0].odometer
-    const vin = this.state.user.vehicle[0].vin
-    try {
-      const res = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/update/account`, { name, email, password, vehicleYear, vehicleMake, vehicleModel, vehicleOdometer, vin })
-      // console.dir(res)
-
-      if (res.status === 200) {
-        console.log(`updateAccount handler returned success!`)
-        const { user, sessionID, cookies } = res.data
-        const userID = user._id
-        const name = user.name
-        const email = user.email
-        const vehicle = [user.vehicle]
-        // console.log(vehicle)
-
-        await this.props.updateUserState(this.state.user)
-        // console.log('app state updated...')
-        await this.setState({ user: { name, userID, sessionID, cookies, email, vehicle }, password: '', passwordConfirm: '', loading: false })
-        // console.log('settings component state updated...')
-        // console.log(this.state)
-        return this.props.history.push('/settings')
-      } else {
-        console.log('Response received but with status code: '+res.status)
-        const error = new Error(res.error)
-        throw error
-      }
-    } catch(err) {
-        console.log('Error posting to /update.')
-        console.dir(err)
-        // console.log(Object.keys(err))
-        // console.log(err.message)
-        // console.log(err.config.validateStatus())
-        // console.log(err.request)
-        // console.log(err.response)
-        // console.log(err.isAxiosError)
-        // console.dir(err.toJSON())
-        alert('Error updating account. Please try again.')
-      }
+    // response = { log: [], vehicle: [] }
+    const updates = await updateUserAccount(userUpdates)
+    // console.log('Returned updated User from backend: ')
+    // console.log(updates)
+    const updatedUser = this.props.user
+    updatedUser.log = updates.log
+    updatedUser.vehicle = updates.vehicle
+    updatedUser.currentlySelectedVehicle = this.state.currentlySelectedVehicle
+    // console.log(updatedUser)
+    this.props.updateUserState(updatedUser)
   }
 
   render() {
@@ -127,14 +109,14 @@ class Settings extends Component {
       <div className="inner">
         <h2>Settings</h2>
         
-        <VehicleSettings currentlySelectedVehicle={this.state.currentlySelectedVehicle} saveVehicle={this.saveVehicle} />
+        <VehicleSettings currentlySelectedVehicle={this.props.user.currentlySelectedVehicle} saveVehicle={this.saveVehicle} />
 
         <form className="card" onSubmit={this.updateAccount} method="POST">
           <h3>Account</h3>
           <label htmlFor="name">Name</label>
-          <input type="text" name="name" placeholder="Enter name..." value={this.state.user.name} onChange={this.handleInputChange} />
+          <input type="text" name="name" placeholder={this.props.user.name ? this.props.user.name : `Enter name...`} value={this.state.name} onChange={this.handleInputChange} />
           <label htmlFor="email">Email Address</label>
-          <input type="email" name="email" placeholder="Enter email..." value={this.state.user.email} onChange={this.handleInputChange} />
+          <input type="email" name="email" placeholder={this.props.user.email ? this.props.user.email : `Enter email...`} value={this.state.email} onChange={this.handleInputChange} />
           {/* <label htmlFor="password">Password</label>
           <input type="password" name="password" placeholder="Enter password..." value={this.state.password} onChange={this.handleInputChange} /> */}
           <input className="button" type="submit" value="Update Account" />
@@ -155,9 +137,9 @@ Settings.propTypes = {
     name: PropTypes.string,
     sessionID: PropTypes.string,
     userID: PropTypes.string,
-    vehicle: PropTypes.array
+    vehicle: PropTypes.array,
+    currentlySelectedVehicle: PropTypes.object
   }),
-  currentlySelectedVehicle: PropTypes.object, // default vehicle for which to display info
   history: PropTypes.object.isRequired
 }
 
