@@ -22,7 +22,7 @@ Project Description
 - [ ] Unit Test All Components  
 - [ ] Unit Test All Pages  
 - [ ] Loading component - make animation  
-- [ ] Break up Settings page components, pull out api setting/getting to a separate module and import was needed  
+- [ ] Currently selected/default ehicle passing to props and components  
 
 ### Done ✓
 
@@ -42,4 +42,5 @@ Project Description
 - [x] Simplify AppRouter via useContext  
 - [x] Light Mode and switcher  
 - [x] Color Scheme and abstraction  
+- [x] Break up Settings page components, pull out api setting/getting to a separate module and import was needed  
 

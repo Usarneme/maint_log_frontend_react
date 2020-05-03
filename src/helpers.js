@@ -5,16 +5,11 @@ axios.defaults.withCredentials = true
 export async function getLogData() {
   try {
     const response = await axios.get(`${process.env.REACT_APP_API_DOMAIN}/api/log`)
-    if (response.status === 200) {
-      // response data = { user: {...}, vehicle: [...] }
-      // console.log('getLogData returned success!')
-      // console.log(response)
-      return response.data
-    } else {
-      console.log('Response received but with status code: '+response.status)
-      const error = new Error(response.error)
-      throw error
-    }
+    if (response.status === 200) return response.data
+    // otherwise ERROR
+    console.log('Response received but with status code: '+response.status)
+    const error = new Error(response.error)
+    throw error
   } catch (err) {
       console.log('Error getting data from /api/log/')
       console.dir(err)
@@ -35,20 +30,11 @@ export async function updateUserAccount(userObject) {
 
   try {
     const res = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/update/account`, { name, email, vehicleYear, vehicleMake, vehicleModel, vehicleOdometer, primary, vin })
-    if (res.status === 200) {
-      return getLogData()
-      // const { user, sessionID, cookies } = res.data
-      // const userID = user._id
-      // const name = user.name
-      // const email = user.email
-      // const vehicle = [user.vehicle]
-      // const primaryVehicle = vehicle.filter(car => car.primary)
-      // return { user: { name, userID, sessionID, cookies, email, vehicle, currentlySelectedVehicle: primaryVehicle[0] } }
-    } else {
-      console.log('Response received but with status code: '+res.status)
-      const error = new Error(res.error)
-      throw error
-    }
+    if (res.status === 200) return getLogData()
+    // otherwise ERROR
+    console.log('Response received but with status code: '+res.status)
+    const error = new Error(res.error)
+    throw error
   } catch(err) {
       console.log('Error posting to /update.')
       console.dir(err)
