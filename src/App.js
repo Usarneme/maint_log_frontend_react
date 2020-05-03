@@ -26,7 +26,7 @@ class App extends React.Component {
   }
 
   updateUserState = user => {
-    this.saveUserToLocalStorage(user)
+    // this.saveUserToLocalStorage(user)
     this.setState({ user })
   }
 
@@ -41,16 +41,6 @@ class App extends React.Component {
   getUserFromLocalStorage = email => {
     return JSON.parse(localStorage.getItem(email))
   }
-
-  // componentDidMount() {
-  //   // TODO - check localStorage for a valid user and set it to state
-  //   const savedUser = this.getUserFromLocalStorage()
-  //   const age = Date.now() - savedUser.timestamp
-  //   // 60 * 60 * 24 * 14 = 1'209'600 2 weeks
-  //   if (age < 1209600) {
-  //     this.updateUserState(savedUser)
-  //   }
-  // }
 
   render() {
     const context = { user: this.state.user, updateUserState: this.updateUserState }

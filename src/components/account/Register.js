@@ -3,7 +3,6 @@ import axios from 'axios'
 import PropTypes from 'prop-types'
 
 import Loading from '../Loading'
-import { getLogData } from '../../helpers'
 
 class Register extends Component {
   constructor(props) {
@@ -27,11 +26,7 @@ class Register extends Component {
   }
 
   handleInputChange = event => {
-    // event.preventDefault()
-    // console.log(`input change handler... e.target.name: ${event.target.name}. e.target.value: ${event.target.value}`)
-    // console.log(event.target)
     const { value, name } = event.target
-    // console.log(`name: ${name}, val: ${value}`)
     this.setState({
       [name]: value
     })
@@ -43,7 +38,7 @@ class Register extends Component {
     // client-side check on password fields before sending to server
     if (this.state.password !== this.state.passwordConfirm) {
       alert('Your passwords do not match!')
-      return
+      return this.setState({ loading: false })
     }
 
     const url = `${process.env.REACT_APP_API_DOMAIN}/api/register`
@@ -57,20 +52,14 @@ class Register extends Component {
 
     try {
       const res = await axios.post(url, formData)
-      // console.log(`Returned successfully!`)
-      // console.dir(res)
-
       if (res.status === 200) {
         // console.log(`apiRegister handler returned success!`)
         const { user, sessionID, cookies } = res.data
         const userID = user._id
         const name = user.name
         const email = this.state.email
-
-        const logDataResult = await getLogData()
-        const logData = logDataResult.data
-        const vehicle = logData.vehicle || []
-        const log = logData.log || []
+        const vehicle = []
+        const log = []
         await this.setState({ user: { name, userID, sessionID, cookies, email, vehicle, log, currentlySelectedVehicle: vehicle[0] }, password: '', loading: false })
         this.props.updateUserState(this.state.user)
         this.props.history.push('/')
@@ -81,12 +70,9 @@ class Register extends Component {
       }
     } catch(err) {
         console.log('Error posting to /api/register.')
-        // console.log(Object.keys(err).forEach(r => console.log(err[r])))
-        // console.warn(Object.keys(err))
-        // console.log(err.response.data)
         console.log(err.response.status)
         this.setState({ loading: false })
-        alert(`${err.response.data} The email may be malformed (typo?), banned, or already in use. Please try again.`)
+        alert(`${err.response.data} That email address may be malformed (typo?), banned, or already in use. Please try again.`)
       }
   }
 

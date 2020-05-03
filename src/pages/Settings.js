@@ -39,7 +39,8 @@ class Settings extends Component {
       user: this.props.user, 
       theme, 
       currentlySelectedVehicle: this.props.currentlySelectedVehicle || this.props.user.vehicle[0] || undefined,
-      loading: false })
+      loading: false 
+    })
   }
 
   handleInputChange = (event) => {

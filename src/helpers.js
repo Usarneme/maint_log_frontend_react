@@ -1,14 +1,11 @@
 import axios from 'axios'
 
+// Returns a User's Log and Vehicle arrays
 export async function getLogData() {
-  // console.log(`/api/getLogData handler. Axios getting from ${process.env.REACT_APP_API_DOMAIN}/api/getLogData`)
-
   try {
-    const response = await axios.get(`${process.env.REACT_APP_API_DOMAIN}/api/getLogData`)
-
+    const response = await axios.get(`${process.env.REACT_APP_API_DOMAIN}/api/log`)
     if (response.status === 200) {
-      // console.log(`getLogData handler returned success!`)
-      // console.dir(response)
+      // response = { user: {...}, vehicle: [...] }
       return response
     } else {
       console.log('Response received but with status code: '+response.status)
@@ -16,7 +13,7 @@ export async function getLogData() {
       throw error
     }
   } catch (err) {
-      console.log('Error posting to /api/getLogData.')
+      console.log('Error getting data from /api/log/')
       console.dir(err)
       alert('Error getting log data please try again')
     }

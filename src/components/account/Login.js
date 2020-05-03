@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import ForgotPassword from './ForgotPassword'
-import { getLogData } from '../../helpers'
 import Loading from '../Loading'
+
+import { getLogData } from '../../helpers'
 import '../../styles/login.css'
 
 const axios = require('axios')
@@ -35,9 +36,10 @@ class Login extends Component {
 
   apiLogin = async event => {
     event.preventDefault()
-    this.setState(prevState => ({loading: true}))
+    await this.setState({ loading: true })
     const { email, password } = this.state
     try {
+      // /login success returns a User object containing any Vehicle's registered by that User
       const res = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/login`, { email, password })
       if (res.status === 200) {
         // console.log(`apiLogin handler returned success!`)
@@ -70,6 +72,8 @@ class Login extends Component {
   }
 
   render() {
+    if (this.state.loading) return <Loading message="Logging in..." /> 
+
     return (
       <form className="card" onSubmit={this.apiLogin} method="POST">
         <h2>Login</h2>
@@ -78,7 +82,6 @@ class Login extends Component {
         <label htmlFor="password">Password</label>
         <input type="password" name="password" placeholder="Enter password..." value={this.state.password} onChange={this.handleInputChange} />
         <input className="button" type="submit" value="Log In →" />
-        { this.state.loading && <Loading message="logging in..." /> }
 
         { !this.state.showForgotPassword && 
           <button className="button forgot__password__button" onClick={this.toggleForgotPassword}>Forgot Your Password?</button> }
