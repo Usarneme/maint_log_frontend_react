@@ -48,8 +48,8 @@ class Settings extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  saveVehicle = async vehicleData => {
-    // ensure even optional properties are sent to the server/db...
+  saveVehicleChanges = async vehicleData => {
+    // ensure even optional properties are sent to the server/db
     const newVehicle = {
       make: vehicleData.make || '',
       model: vehicleData.model || '',
@@ -59,46 +59,33 @@ class Settings extends Component {
       primary: vehicleData.primary || false,
       id: vehicleData.id || ''
     } 
-
-    // a new vehicle won't have an ID
-    // this is for overwriting changes made to an extant vehicle 
+    // for overwriting changes made to an extant vehicle as new vehicles do not have an ID
     const vehicles = this.props.user.vehicle.filter(car => {
       return car.id !== vehicleData.id
     })
-
     const userUpdates = {...this.props.user}
     userUpdates.vehicle = [...vehicles, newVehicle]
     userUpdates.currentlySelectedVehicle = newVehicle
-
-    // response = { log: [], vehicle: [] }
     const updates = await updateUserAccount(userUpdates)
-    // console.log('Returned updated User from backend: ')
-    // console.log(updates)
     const updatedUser = this.props.user
     updatedUser.log = updates.log
     updatedUser.vehicle = updates.vehicle
     updatedUser.currentlySelectedVehicle = newVehicle
-    // console.log(updatedUser)
     this.props.updateUserState(updatedUser)
   }
 
-  updateAccount = async (event = '') => {
+  saveAccountChanges = async (event = '') => {
     // called via form (with event) and via onChange of children components (without event)
     if (event) event.preventDefault()
     const userUpdates = {...this.props.user}
     userUpdates.name = this.state.name
     userUpdates.email = this.state.email
     // TODO confirmation and password changing option
-
-    // response = { log: [], vehicle: [] }
     const updates = await updateUserAccount(userUpdates)
-    // console.log('Returned updated User from backend: ')
-    // console.log(updates)
     const updatedUser = this.props.user
     updatedUser.log = updates.log
     updatedUser.vehicle = updates.vehicle
     updatedUser.currentlySelectedVehicle = this.state.currentlySelectedVehicle
-    // console.log(updatedUser)
     this.props.updateUserState(updatedUser)
   }
 
@@ -109,9 +96,13 @@ class Settings extends Component {
       <div className="inner">
         <h2>Settings</h2>
         
-        <VehicleSettings currentlySelectedVehicle={this.props.user.currentlySelectedVehicle} saveVehicle={this.saveVehicle} />
+        <VehicleSettings 
+          currentlySelectedVehicle={this.props.user.currentlySelectedVehicle} 
+          saveVehicleChanges={this.saveVehicleChanges} 
+          vehicles={this.props.user.vehicle}
+        />
 
-        <form className="card" onSubmit={this.updateAccount} method="POST">
+        <form className="card" onSubmit={this.saveAccountChanges} method="POST">
           <h3>Account</h3>
           <label htmlFor="name">Name</label>
           <input type="text" name="name" placeholder={this.props.user.name ? this.props.user.name : `Enter name...`} value={this.state.name} onChange={this.handleInputChange} />

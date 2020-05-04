@@ -4,7 +4,6 @@ import { ReactSVG } from 'react-svg'
 import PropTypes from 'prop-types'
 
 import SearchBox from '../components/SearchBox'
-import VehicleHeader from '../components/vehicle/VehicleHeader'
 
 import SearchIcon from '../images/search.svg'
 import AddIcon from '../images/addLog.svg'
@@ -15,14 +14,8 @@ import LogIcon from '../images/log.svg'
 import '../styles/home.css'
 
 function Home(props) {
-  let vehicle = {}
-  if (props.user.vehicle && props.user.vehicle[0]) {
-    vehicle = props.user.vehicle[0]
-  }
-
   return (
     <div className="inner">
-      <VehicleHeader vehicle={vehicle} />
       <div className="home__actions__container">
         <Link className="home__actions history" to="/log">
           <ReactSVG src={LogIcon} role="img" aria-label="Log Icon" fallback={() => <img src={LogIcon} alt="log icon" description="log icon" className="svg" />} /> 

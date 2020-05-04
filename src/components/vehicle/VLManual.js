@@ -24,14 +24,7 @@ class VLManual extends React.Component {
     this.setState({ primary: bool })
   }
 
-  saveVehicle = () => {
-    this.props.saveVehicle(this.state)
-  }
-
   render() {
-    // console.log('rendering VLManual... props:')
-    // console.dir(this.props)
-
     return (
       <div className="form manualVehicleEntryDiv">
         <label htmlFor="year">Year</label>
@@ -48,7 +41,7 @@ class VLManual extends React.Component {
           <label htmlFor="primaryCheckbox">Main Vehicle</label>
           <input type="checkbox" name="primaryCheckbox" checked={this.state.primary} onChange={this.togglePrimary} />
         </div>
-        <button className="button" onClick={this.saveVehicle}>Vehicle Info Is Correct</button>
+        <button className="button" onClick={() => this.props.saveVehicleChanges(this.state)}>Vehicle Info Is Correct</button>
       </div>
     )
   }
@@ -56,7 +49,7 @@ class VLManual extends React.Component {
 
 VLManual.propTypes = {
   currentVehicle: PropTypes.object,
-  saveVehicle: PropTypes.func.isRequired
+  saveVehicleChanges: PropTypes.func.isRequired
 }
 
 export default VLManual

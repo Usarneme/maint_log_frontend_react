@@ -49,9 +49,9 @@
   position: absolute;
 }
 
-label[for=previousPhotos] {
+/* label[for=previousPhotos] {
   margin-top: 15px;
-}
+} */
 
 .delete__photo {
   z-index: 4;

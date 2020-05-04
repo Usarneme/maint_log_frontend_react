@@ -5,7 +5,6 @@ import moment from 'moment'
 import { ReactSVG } from 'react-svg'
 
 import PhotoEditor from '../components/PhotoEditor'
-import VehicleHeader from '../components/vehicle/VehicleHeader'
 import EditPencil from '../images/editPencil.svg'
 
 import '../styles/singleLogEntry.css'
@@ -14,14 +13,18 @@ function SingleLogEntry(props) {
   const { slug } = props.match.params
   const log = props.user.log.filter(entry => entry.slug === slug)
   const { id, shortDescription, longDescription, dateStarted, dateCompleted, dateEntered, dateDue, mileageDue, name, odometer, tools, parts, partsCost, laborCost, serviceLocation, photos } = log[0]
-  let vehicle = {}
-  if (props.user.vehicle && props.user.vehicle[0]) vehicle = props.user.vehicle[0]
+  const vehicleID = log[0].vehicle
+  const vehicleArray = props.user.vehicle.filter(vehicle => vehicle.id === vehicleID)
+  const vehicle = vehicleArray[0]
 
   return (
     <div className="inner">
-      <h2>{name.length > 120 ? `${name.substring(0,120)}...` : name}</h2>
-      <VehicleHeader vehicle={vehicle} />
       <div className="card single__details">
+        <h3>{name.length > 120 ? `${name.substring(0,120)}...` : name}</h3>
+        <p>
+          <strong>Vehicle: </strong>
+          <span>{vehicle.year} {vehicle.make} {vehicle.model}</span>
+        </p>
         <p>
           <strong>Short Description: </strong>
           <span>{shortDescription}</span>
@@ -74,15 +77,20 @@ function SingleLogEntry(props) {
           <strong>Odometer: </strong>
           <span>{Number(odometer).toLocaleString()}</span>
         </p>
-        <Link className="button editPencil" to={`/log/${id}/edit`}>
-          <ReactSVG src={EditPencil} role="img" aria-label="Edit Pencil Icon" fallback={() => <img src={EditPencil} alt="edit pencil icon" description="edit pencil icon" className="svg" />} /> 
-          <span>Edit</span>
-        </Link>
-
-        { photos && <PhotoEditor photos={photos} editingBlocked={true} /> }
-        <input type="hidden" name="previousPhotos" value={photos.toString()} />
       </div>
 
+      <Link className="button editPencil" to={`/log/${id}/edit`}>
+        <ReactSVG src={EditPencil} role="img" aria-label="Edit Pencil Icon" fallback={() => <img src={EditPencil} alt="edit pencil icon" description="edit pencil icon" className="svg" />} /> 
+        <span>Edit</span>
+      </Link>
+
+      { photos && photos.length > 0 && 
+        <div className="card">
+          <label htmlFor="previousPhotos"><h3>Photos:</h3></label>
+          <PhotoEditor photos={photos} editingBlocked={true} /> 
+          <input type="hidden" name="previousPhotos" value={photos.toString()} />
+        </div>
+      }
     </div>
   )
 }

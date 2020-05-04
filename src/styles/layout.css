@@ -10,8 +10,8 @@
   --backgroundLayerFour: #454545;
   --backgroundLayerFive: #898989;
   --textColorOne: #E8E8E8;
-  --textColorTwo: #AAAAAA;
-  --textColorThree: #DDDDDD;
+  --textColorTwo: #DDDDDD;
+  --textColorThree: #AAAAAA;
 }
 
 .light {
@@ -74,7 +74,7 @@ img, svg {
 input, select, textarea, .button {
   background: var(--backgroundLayerFive);
   width: 100%;
-  border: 1px solid var(--backgroundLayerFive);
+  border: 1px solid var(--backgroundLayerThree);
   padding-left: 8px;
   height: 40px;
   border-radius: 5px;
@@ -83,7 +83,7 @@ input, select, textarea, .button {
 .button {
   cursor: pointer;
   border: 0;
-  color: var(--textColorThree);
+  color: var(--textColorOne);
   background-color: #004c7d;
   border: 1px solid #004c7d;
   font-family: 'Panama';

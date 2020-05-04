@@ -1,8 +1,8 @@
 import React from 'react'
-import axios from 'axios'
 import PropTypes from 'prop-types'
-import moment from 'moment'
 import { Link } from 'react-router-dom'
+import moment from 'moment'
+import axios from 'axios'
 
 import Loading from '../Loading'
 import PhotoEditor from '../PhotoEditor' 
@@ -79,28 +79,14 @@ class LogForm extends React.Component {
     formData.append('vehicle', this.state.vehicle)
     formData.append('api', true)
 
-    // console.log('Form Data prepared:')
-    // for (let item of formData.entries()) console.dir(`${item[0]} : ${item[1]}`)
-    // console.log(`Posting to ${url}.`)
-
     try {
       const result = await axios.post(url, formData)
-      // console.log(`Returned successfully!`)
-      // console.dir(result)
-
       if (result.status === 200) {
         const log = result.data.fullLog
         const newLogEntry = result.data.newLogEntry
-
-        // console.log('New log entry returned:')
-        // console.dir(newLogEntry)
-        // console.log('Full log:')
-        // console.dir(log)
-
         const user = this.props.user
         user.log = log
         this.props.updateUserState(user)
-        // console.log('updateUserState complete')
         this.props.history.push(`/log/${newLogEntry.slug}`)
       } else {
         console.log('Response received but with status code: '+result.status)
@@ -127,15 +113,11 @@ class LogForm extends React.Component {
       if (result.data === null) {
         console.log('Server unable to find specified log entry. Was it already deleted?')
       } else if (result.status === 200) {
-        // console.log('Log entry removed successfully.')
-        // console.log(result)
         // update State to remove the deleted entry
         const updatedLog = this.props.user.log.filter(entry => entry.id !== this.state.id)
         const user = this.props.user
         user.log = updatedLog
         this.props.updateUserState(user)
-        // console.log('updateUserState completed.')
-
         // redirect back to the log page
         this.props.history.push('/log')
       }
@@ -149,21 +131,15 @@ class LogForm extends React.Component {
     // pathname has a leading slash: /api/remove/photo/name.filetype
     // console.log('Deleting photo: '+event.target.pathname)
     const url = `${process.env.REACT_APP_API_DOMAIN}${event.target.pathname}`
-    // console.log('posting to url: '+url)
     try {
       const result = await axios.post(url)
       if (result.data === null) {
         console.log('Server unable to find specified photo to delete. Was it already deleted?')
       } else if (result.status === 200) {
-        // console.log('Photo deleted successfully.')
-        // console.log(result)
         // update State to remove the deleted entry
         const user = this.props.user
         user.log = result.data
         this.props.updateUserState(user)
-        // console.log('updateUserState completed.')
-
-        // flash success message and re-render...
         this.props.history.push(`/log/${this.props.log.id}/edit`)
       }
     } catch(err) {
@@ -231,18 +207,18 @@ class LogForm extends React.Component {
     } else {
       return (
         <div className="inner">
-          <h2>
-            {this.state.id ? 
-              <>
-                <Link to={`/log/${this.props.log.slug}`}> 
-                  {this.state.name.length > 120 ? `${this.state.name.substring(0,120)}... ` : `${this.state.name} ` }
-                </Link>
-                <span> > Edit</span>
-              </>
-              :
-              `Add New Log Entry`}
-          </h2>
           <form className="card form" id="logForm" onSubmit={this.apiEditLog} method="POST" encType="multipart/form-data" multiple="multiple">
+            <h3>
+              {this.state.id ? 
+                <>
+                  <Link to={`/log/${this.props.log.slug}`}> 
+                    {this.state.name.length > 120 ? `${this.state.name.substring(0,120)}... ` : `${this.state.name} ` }
+                  </Link>
+                  <span> > Edit</span>
+                </>
+                :
+                `Add New Log Entry`}
+            </h3>
             <label htmlFor="name">Name</label>
             <input type="text" name="name" autoFocus value={this.state.name} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
             <label htmlFor="vehicle">Vehicle</label>
@@ -286,12 +262,12 @@ class LogForm extends React.Component {
             <input className="button submit" type="submit" value="Save Log Changes" onFocus={this.alignViewToElement} />
           </form>
 
-          { this.state.photos && 
-            <>
-              <label htmlFor="previousPhotos">Log Entry Photos:</label>
+          { this.state.photos && this.state.photos.length > 0 && 
+            <div className="card">
+              <label htmlFor="previousPhotos"><h3>Photos:</h3></label>
               <PhotoEditor photos={this.state.photos} deletePhoto={this.deletePhoto} /> 
               <input type="hidden" name="previousPhotos" value={this.state.photos.toString()} />
-            </>  
+            </div>
             }
 
           { this.state.id &&
@@ -313,7 +289,7 @@ LogForm.propTypes = {
   user: PropTypes.object.isRequired,
   updateUserState: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
-  currentlySelectedVehicle: PropTypes.string
+  currentlySelectedVehicle: PropTypes.object
 }
 
 export default LogForm

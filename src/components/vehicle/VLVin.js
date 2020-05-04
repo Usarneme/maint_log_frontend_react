@@ -43,10 +43,6 @@ class VLVin extends React.Component {
     }
   }
 
-  saveVehicle = () => {
-    this.props.saveVehicle({ vin: this.state.vin, ...this.state.vehicle })
-  }
-
   render() {
     return (
       <div className="card searchByVinDiv">
@@ -64,7 +60,7 @@ class VLVin extends React.Component {
               <span>{`Year: ${this.state.vehicle.year}`}</span>
               <span>{`Make: ${this.state.vehicle.make}`}</span>
               <span>{`Model: ${this.state.vehicle.model}`}</span>
-              <button className="button" onClick={this.saveVehicle}>Vehicle Info Is Correct</button>
+              <button className="button" onClick={() => this.props.saveVehicleChanges({ vin: this.state.vin, ...this.state.vehicle })}>Vehicle Info Is Correct</button>
             </>          
           }
         </div>
@@ -75,7 +71,7 @@ class VLVin extends React.Component {
 
 VLVin.propTypes = {
   currentVehicle: PropTypes.object,
-  saveVehicle: PropTypes.func.isRequired
+  saveVehicleChanges: PropTypes.func.isRequired
 }
 
 export default VLVin

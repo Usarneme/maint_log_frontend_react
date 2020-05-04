@@ -62,10 +62,6 @@ class VLYMM extends React.Component {
     }
   }
 
-  saveVehicle = () => {
-    this.props.saveVehicle( this.state )
-  }
-
   render() {
     const thisYear = new Date().getFullYear()
 
@@ -94,7 +90,7 @@ class VLYMM extends React.Component {
           </select>
       </div>
       { this.state.showConfirmButton && 
-        <button className="button" onClick={this.saveVehicle}>Vehicle Info Is Correct</button>
+        <button className="button" onClick={() => this.props.saveVehicleChanges(this.state)}>Vehicle Info Is Correct</button>
       }
     </div>
     )
@@ -103,7 +99,7 @@ class VLYMM extends React.Component {
 
 VLYMM.propTypes = {
   currentVehicle: PropTypes.object,
-  saveVehicle: PropTypes.func.isRequired
+  saveVehicleChanges: PropTypes.func.isRequired
 }
 
 export default VLYMM

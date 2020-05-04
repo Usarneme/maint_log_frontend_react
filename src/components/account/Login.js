@@ -59,7 +59,7 @@ class Login extends Component {
           currentlySelectedVehicle = primaryVehicleArray[0]
         }
         await this.setState({ user: { name, userID, sessionID, cookies, email, vehicle, log, currentlySelectedVehicle }, password: '', loading: false })
-        this.props.updateUserState(this.state.user)
+        await this.props.updateUserState(this.state.user)
         this.props.history.push('/')
       } else {
         // console.log('Response received but with status code: '+res.status)
