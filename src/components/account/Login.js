@@ -24,8 +24,7 @@ class Login extends Component {
         log: [],
         currentlySelectedVehicle: {}
       },
-      loading: false,
-      showForgotPassword: false
+      loading: false
     }
   }
 
@@ -75,29 +74,22 @@ class Login extends Component {
       }
   }
 
-  toggleForgotPassword = () => {
-    this.setState({ showForgotPassword: !this.state.showForgotPassword })
-  }
-
   render() {
     if (this.state.loading) return <Loading message="Logging in..." /> 
 
     return (
-      <form className="card" onSubmit={this.apiLogin} method="POST">
-        <h2>Login</h2>
-        <label htmlFor="email">Email Address</label>
-        <input type="email" name="email" placeholder="Enter email..." value={this.state.email} onChange={this.handleInputChange} />
-        <label htmlFor="password">Password</label>
-        <input type="password" name="password" placeholder="Enter password..." value={this.state.password} onChange={this.handleInputChange} />
-        <input className="button" type="submit" value="Log In →" />
+      <div className="card">
+        <form onSubmit={this.apiLogin} method="POST">
+          <h2>Login</h2>
+          <label htmlFor="email">Email Address</label>
+          <input type="email" name="email" placeholder="Enter email..." value={this.state.email} onChange={this.handleInputChange} />
+          <label htmlFor="password">Password</label>
+          <input type="password" name="password" placeholder="Enter password..." value={this.state.password} onChange={this.handleInputChange} />
+          <input className="button" type="submit" value="Log In →" />
+        </form>
 
-        { !this.state.showForgotPassword && 
-          <button className="button forgot__password__button" onClick={this.toggleForgotPassword}>Forgot Your Password?</button> }
-
-        { this.state.showForgotPassword &&
-          <ForgotPassword toggleForgotPassword={this.toggleForgotPassword} /> }
-
-      </form>
+        <ForgotPassword email={this.state.email || ''} /> 
+      </div>
     )
   }
 }

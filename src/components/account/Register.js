@@ -80,18 +80,20 @@ class Register extends Component {
     if (this.state.loading) return <Loading message="Registering New User..." />
 
     return (
-      <form className="card" onSubmit={this.apiRegister} method="POST" encType="multipart/form-data" multiple="multiple">
-        <h2>Register</h2>
-        <label htmlFor="name">name</label>
-        <input type="text" name="name" placeholder="Enter name..." value={this.state.name} onChange={this.handleInputChange} />
-        <label htmlFor="email">Email Address</label>
-        <input type="email" name="email" placeholder="Enter email..." value={this.state.email} onChange={this.handleInputChange} />
-        <label htmlFor="password">Password</label>
-        <input type="password" name="password" placeholder="Enter password..." value={this.state.password} onChange={this.handleInputChange} />
-        <label htmlFor="passwordConfirm">Confirm Password</label>
-        <input type="password" name="passwordConfirm" placeholder="Confirm password..." value={this.state.passwordConfirm} onChange={this.handleInputChange} />
-        <input className="button" type="submit" value="Register →" />
-      </form>
+      <div className="card">
+        <form onSubmit={this.apiRegister} method="POST" encType="multipart/form-data" multiple="multiple">
+          <h2>Register</h2>
+          <label htmlFor="name">Name</label>
+          <input type="text" name="name" placeholder="Enter name..." value={this.state.name} onChange={this.handleInputChange} />
+          <label htmlFor="email">Email Address</label>
+          <input type="email" name="email" placeholder="Enter email..." value={this.state.email} onChange={this.handleInputChange} />
+          <label htmlFor="password">Password</label>
+          <input type="password" name="password" placeholder="Enter password..." value={this.state.password} onChange={this.handleInputChange} />
+          <label htmlFor="passwordConfirm">Confirm Password</label>
+          <input type="password" name="passwordConfirm" placeholder="Confirm password..." value={this.state.passwordConfirm} onChange={this.handleInputChange} />
+          <input className="button" type="submit" value="Register →" />
+        </form>
+      </div>
     )
   }
 }

@@ -27,11 +27,10 @@ ul, a {
 
 /* Document
    ========================================================================== */
-
 html {
   font-size: 10px;
   font-family: sans-serif; /* 1 */
-  line-height: 1.15; /* 2 */
+  line-height: 1.4; /* 2 */
   -ms-text-size-adjust: 100%; /* 3 */
   -webkit-text-size-adjust: 100%; /* 3 */
 }
@@ -482,4 +481,5 @@ template {
 h1, h2, h3, h4, h5 {
   margin: 0;
   padding: 1px;
+  line-height: 1.2;
 }

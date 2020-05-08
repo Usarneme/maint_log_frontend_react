@@ -48,8 +48,8 @@ h2 {
   text-transform: uppercase;
 }
 
-h3 {
-  border-bottom: 1px solid var(--textColorOne);
+h2, h3 {
+  border-bottom: 1px dotted var(--textColorTwo);
 }
 
 .inner {
@@ -77,20 +77,24 @@ input, select, textarea, .button {
   border: 1px solid var(--backgroundLayerThree);
   padding-left: 8px;
   height: 40px;
-  border-radius: 5px;
+  /* border-radius: 5px; */
 }
 
 .button {
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  display: block;
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  font-weight: 700;
+  text-align: center;
   cursor: pointer;
-  border: 0;
   color: var(--textColorOne);
   background-color: #004c7d;
-  border: 1px solid #004c7d;
+  border: 1px solid lighten(#004c7d, 50%);
   font-family: 'Panama';
-  font-weight: 600;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
 }
 
 .input--error {
@@ -111,16 +115,14 @@ label {
 }
 
 .card {
+  position: relative;
+  border: 1px solid var(--backgroundLayerThree);
   background: var(--backgroundLayerTwo);
   padding: 5px;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   box-shadow: 0px 0px 10px -3px var(--backgroundLayerThree);
   max-width: 900px;
   margin: 10px auto
-}
-
-.card > h2 {
-  border-bottom: 1px solid var(--textColorTwo);
 }
 
 .no__log,

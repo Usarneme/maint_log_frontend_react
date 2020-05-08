@@ -1,54 +1,45 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import Loading from '../Loading'
-const axios = require('axios')
+import '../../styles/forgotPassword.css'
 
-class ForgotPassword extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      email: '',
-      password: '',
-      user: {
-        userID: '',
-        username: '',
-        sessionID: '',
-        cookies: ''
-      },
-      loading: false,
-    }
-  }
+function ForgotPassword(props) {
+  const [formDisplayed, toggleFormDisplay] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const inputRef = React.createRef()
 
-  handleInputChange = event => {
-    const { value, name } = event.target
-    this.setState({
-      [name]: value
-    })
-  }
-
-  apiForgot = event => {
+  const handleSubmit = event => {
     event.preventDefault()
-    const { email } = this.state
-    console.log(`/apiForgot handler: ${email}`)
-    // TODO - create back end route and handler
+    console.log('Forgot password form submitted.')
+    console.log(inputRef.current.value)
+    // console.dir(event)
+    setLoading(true)
+    alert('Password resets are not currently enabled. Apologies.')
+    // TODO - import helper to reach /forgot api... 
+    setTimeout(() => {
+      setLoading(false)
+    }, 500)
   }
 
-  render() {
-    return (
-      <form className="card" onSubmit={this.apiForgot} method="POST">
+  if (loading) return <Loading message="Sending password reset email..." />
+  if (!formDisplayed) return <button className="button" onClick={() => toggleFormDisplay(true)}>Forgot Your Password?</button> 
+
+  if (formDisplayed) return ( 
+    <div className="forgot__password__container">
+      <button className="button close__button" onClick={() => toggleFormDisplay(false)}>&times;</button> 
+      <form onSubmit={handleSubmit} method="POST">
         <h2>I forgot my password!</h2>
         <label htmlFor="email">Email Address</label>
-        <input type="email" name="email" placeholder="Enter email..." value={this.state.email} onChange={this.handleInputChange} />
+        <input type="email" name="email" placeholder="Enter email..." defaultValue={props.email} ref={inputRef} />
         <input className="button" type="submit" value="Send a Reset" />
-        <button className="button forgot__password__button" onClick={this.props.toggleForgotPassword}>Hide Forgot Password Input</button> 
       </form>
-    )
-  }
+    </div>
+  )
 }
 
 ForgotPassword.propTypes = {
-  toggleForgotPassword: PropTypes.func.isRequired
+  email: PropTypes.string.isRequired
 }
 
 export default ForgotPassword
