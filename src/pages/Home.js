@@ -16,24 +16,25 @@ import '../styles/home.css'
 function Home(props) {
   return (
     <div className="inner">
+      <h2>Home</h2>
       <div className="home__actions__container">
-        <Link className="home__actions history" to="/log">
+        <Link className="card home__actions history" to="/log">
           <ReactSVG src={LogIcon} role="img" aria-label="Log Icon" fallback={() => <img src={LogIcon} alt="log icon" description="log icon" className="svg" />} /> 
           <h4 className="button">View Full Maintenance Log History</h4>
         </Link>
-        <Link className="home__actions add" to="/add">
+        <Link className="card home__actions add" to="/add">
           <ReactSVG src={AddIcon} role="img" aria-label="Add Icon" fallback={() => <img src={AddIcon} alt="add icon" description="add icon" className="svg" />} /> 
           <h4 className="button">Add New Log Entry</h4>
         </Link>
-        <Link className="home__actions todo upcoming-maintenance" to="/todo">
+        <Link className="card home__actions todo upcoming-maintenance" to="/todo">
           <ReactSVG src={TodoIcon} role="img" aria-label="Todo Icon" fallback={() => <img src={TodoIcon} alt="todo icon" description="todo icon" className="svg" />} /> 
           <h4 className="button">View Upcoming Scheduled Maintenance</h4>
         </Link>
-        <div className="home__actions search__main search">
+        <div className="card home__actions search__main search">
           <ReactSVG src={SearchIcon} role="img" aria-label="Search Icon" fallback={() => <img src={SearchIcon} alt="search icon" description="search icon" className="svg" />} /> 
           <SearchBox homepage={true} />
         </div>
-        <Link className="home__actions settings" to="/settings">
+        <Link className="card home__actions settings" to="/settings">
           <ReactSVG src={SettingsIcon} role="img" aria-label="Settings Icon" fallback={() => <img src={SettingsIcon} alt="settings icon" description="settings icon" className="svg" />} /> 
           <h4 className="button">Add Your Vehicle and View Other Settings</h4>
         </Link>

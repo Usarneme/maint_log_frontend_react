@@ -22,7 +22,9 @@
 .siteTitle > div.svg,
 .siteTitle > div > div > svg {
   position: absolute;
-  top: 0;
+  /* vertical align/perfectly center an absolute element: */
+  top: 50%;
+  transform: translateY(-50%);
   left: 0;
   /* fill: var(--textColorThree); */
 }

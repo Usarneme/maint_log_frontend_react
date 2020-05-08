@@ -1,104 +1,69 @@
 *, html {
   font-size: 10px;
   box-sizing: border-box;
+  --buttonBlue: #004C7D;
+  --buttonTextWhite: #EFDEFD;
 }
 
 .dark {
-  --backgroundLayerOne: #000000;
-  --backgroundLayerTwo: #151515;
-  --backgroundLayerThree: #252525;
-  --backgroundLayerFour: #454545;
-  --backgroundLayerFive: #898989;
-  --textColorOne: #E8E8E8;
-  --textColorTwo: #DDDDDD;
-  --textColorThree: #AAAAAA;
+  --backgroundLayerOne: #191919;
+  --backgroundLayerTwo: #252525;
+  --backgroundLayerThree: #545454;
+  --backgroundLayerFour: #898989;
+  --textColorOne: #EFEFEF;
+  --textColorTwo: #BCBCBC;
 }
 
 .light {
-  --backgroundLayerOne: #DEFDEF;
+  --backgroundLayerOne: #EFEFEF;
   --backgroundLayerTwo: #DDDDDD;
-  --backgroundLayerThree: #BBABBA;
+  --backgroundLayerThree: #BABABA;
   --backgroundLayerFour: #A9A9A9;
-  --backgroundLayerFive: #888888;
-  --textColorOne: #111111;
-  --textColorTwo: #666666;
-  --textColorThree: #EFEFEF;
+  --textColorOne: #232323;
+  --textColorTwo: #232323;
 }
 
-body {
-  background: var(--backgroundLayerOne);
-}
-
-body * {
-  font-size: 1.3rem;
-}
-
+*,
+html,
 body, 
-a {
+a,
+ul li {
   color: var(--textColorOne);
 }
 
-h2, h3, h4, h5 {
-  padding: 7px;
-  margin: 7px;
+li::before {
+  content: "•"; 
+  color: var(--buttonBlue);
+  display: inline-block; 
+  width: 1em;
+  margin-left: -1em;
+}
+
+h1, h2, h3, h4, h5 {
+  font-size: 1.45rem;
+  padding: 15px;
+  padding-bottom: 2px;
+}
+
+h1 {
+  padding: 15px;
+  font-size: 2.5rem;
 }
 
 h2 {
   text-align: center;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
+  border-bottom: 3px solid var(--textColorTwo);
 }
 
-h2, h3 {
+h3 {
   border-bottom: 1px dotted var(--textColorTwo);
-}
-
-.inner {
-  padding: 3px;
-  padding-bottom: 56px;
-  margin: 0 auto;
-  background: var(--backgroundLayerFour);
-  /* ~40px title + ~55px bottom-nav */
-  min-height: calc(100vh - 45px);
-}
-
-.inner--flashes {
-  padding: 0;
 }
 
 img, svg {
   fill: var(--textColorOne);
   width: 40px;
   height: 40px;
-}
-
-input, select, textarea, .button {
-  background: var(--backgroundLayerFive);
-  width: 100%;
-  border: 1px solid var(--backgroundLayerThree);
-  padding-left: 8px;
-  height: 40px;
-  /* border-radius: 5px; */
-}
-
-.button {
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  display: block;
-  font-size: 1rem;
-  padding: 0.75rem 1rem;
-  text-decoration: none;
-  font-weight: 700;
-  text-align: center;
-  cursor: pointer;
-  color: var(--textColorOne);
-  background-color: #004c7d;
-  border: 1px solid lighten(#004c7d, 50%);
-  font-family: 'Panama';
-}
-
-.input--error {
-  border-color: red;
 }
 
 textarea {
@@ -114,15 +79,58 @@ label {
   display: block;
 }
 
+.inner {
+  padding: 3px;
+  padding-bottom: 56px;
+  margin: 0 auto;
+  background: var(--backgroundLayerOne);
+  /* ~54px title + ~55px bottom-nav */
+  min-height: calc(100vh - 99px);
+}
+
+.inner--flashes {
+  padding: 0;
+}
+
+input, select, textarea, .button {
+  width: 100%;
+  background: var(--backgroundLayerTwo);
+  border: 1px solid var(--backgroundLayerOne);
+  padding-left: 8px;
+  height: 40px;
+  /* border-radius: 5px; */
+}
+
 .card {
   position: relative;
-  border: 1px solid var(--backgroundLayerThree);
-  background: var(--backgroundLayerTwo);
-  padding: 5px;
-  /* border-radius: 5px; */
-  box-shadow: 0px 0px 10px -3px var(--backgroundLayerThree);
+  padding: 12px;
   max-width: 900px;
-  margin: 10px auto
+  margin: 10px auto;
+  background: var(--backgroundLayerThree);
+  border: 1px solid var(--backgroundLayerTwo);
+  box-shadow: 2px 4px 25px var(--backgroundLayerOne);
+}
+
+.button {
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  display: block;
+  font-size: 1rem;
+  margin: 0.25rem auto;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  color: var(--buttonTextWhite);
+  background-color: var(--buttonBlue);
+  border: 1px solid lighten(var(--buttonBlue), 50%);
+  font-family: 'Panama';
+}
+
+.input--error {
+  border-color: red;
 }
 
 .no__log,
@@ -136,43 +144,43 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background: url('../images/add.svg') 99% / 6% no-repeat var(--backgroundLayerFive);
+  background: url('../images/add.svg') 99% / 6% no-repeat var(--backgroundLayerTwo);
 }
 
 @media all and (min-width: 768px) {
   select {
-    background: url('../images/add.svg') 99% / 4% no-repeat var(--backgroundLayerFive);
+    background: url('../images/add.svg') 99% / 4% no-repeat var(--backgroundLayerTwo);
   }
-  body * {
+  /* body * {
     font-size: 1.4rem;
-  }  
+  }   */
 }
 
 @media all and (min-width: 900px) {
   select {
-    background: url('../images/add.svg') 99% / 4% no-repeat var(--backgroundLayerFive);
+    background: url('../images/add.svg') 99% / 4% no-repeat var(--backgroundLayerTwo);
   }
-  body * {
+  /* body * {
     font-size: 1.5rem;
-  }  
+  }   */
 }
 
 @media all and (min-width: 1200px) {
   select {
-    background: url('../images/add.svg') 99% / 4% no-repeat var(--backgroundLayerFive);
+    background: url('../images/add.svg') 99% / 4% no-repeat var(--backgroundLayerTwo);
   }
-  body * {
+  /* body * {
     font-size: 1.6rem;
-  }  
+  }   */
 }
 
 @media all and (min-width: 1920px) {
   select {
-    background: url('../images/add.svg') 99% / 4% no-repeat var(--backgroundLayerFive);
+    background: url('../images/add.svg') 99% / 4% no-repeat var(--backgroundLayerTwo);
   }
-  body * {
+  /* body * {
     font-size: 1.7rem;
-  }  
+  }   */
 }
 
 select::-ms-expand {

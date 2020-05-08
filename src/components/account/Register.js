@@ -82,7 +82,7 @@ class Register extends Component {
     return (
       <div className="card">
         <form onSubmit={this.apiRegister} method="POST" encType="multipart/form-data" multiple="multiple">
-          <h2>Register</h2>
+          <h3>Register</h3>
           <label htmlFor="name">Name</label>
           <input type="text" name="name" placeholder="Enter name..." value={this.state.name} onChange={this.handleInputChange} />
           <label htmlFor="email">Email Address</label>

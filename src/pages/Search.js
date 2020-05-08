@@ -7,7 +7,9 @@ function Search() {
   return (
     <div className="inner">
       <h2>Search</h2>
-      <SearchBox />
+      <div className="card">
+        <SearchBox />
+      </div>
     </div>
   )  
 }

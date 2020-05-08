@@ -1,3 +1,14 @@
+.welcome__guest__container {
+  max-width: 555px;
+  margin: 1rem auto;
+  padding: 1rem;
+  font-size: 1.25rem;
+}
+
+.welcome__guest__hero {
+  font-size: 1.15rem;
+}
+
 .guest__options {
   display: flex;
   align-items: center;

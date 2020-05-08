@@ -197,8 +197,8 @@ class LogForm extends React.Component {
     if (!this.state.vehicle) {
       return (
         <div className="inner">
+          <h2>No Vehicle Associated With This Account</h2>
           <div className="card no__vehicle warning">
-            <h3>No Vehicle Associated With This Account</h3>
             <p>Before entering a service record, please: </p>
             <Link to="/settings" className="button">Click Here To Add A Vehicle To Your Account</Link>
           </div>
@@ -207,18 +207,18 @@ class LogForm extends React.Component {
     } else {
       return (
         <div className="inner">
+          <h2>
+            {this.state.id ? 
+              <span>Editing 
+                <Link to={`/log/${this.props.log.slug}`}> 
+                  {this.state.name.length > 120 ? ` ${this.state.name.substring(0,120)}... ` : ` ${this.state.name} ` }
+                </Link>
+              </span>
+              :
+              `Add New Log Entry`}
+          </h2>
+
           <form className="card form" id="logForm" onSubmit={this.apiEditLog} method="POST" encType="multipart/form-data" multiple="multiple">
-            <h3>
-              {this.state.id ? 
-                <>
-                  <Link to={`/log/${this.props.log.slug}`}> 
-                    {this.state.name.length > 120 ? `${this.state.name.substring(0,120)}... ` : `${this.state.name} ` }
-                  </Link>
-                  <span> > Edit</span>
-                </>
-                :
-                `Add New Log Entry`}
-            </h3>
             <label htmlFor="name">Name</label>
             <input type="text" name="name" autoFocus value={this.state.name} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
             <label htmlFor="vehicle">Vehicle</label>

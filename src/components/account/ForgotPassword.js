@@ -29,7 +29,7 @@ function ForgotPassword(props) {
     <div className="forgot__password__container">
       <button className="button close__button" onClick={() => toggleFormDisplay(false)}>&times;</button> 
       <form onSubmit={handleSubmit} method="POST">
-        <h2>I forgot my password!</h2>
+        <h3>I forgot my password!</h3>
         <label htmlFor="email">Email Address</label>
         <input type="email" name="email" placeholder="Enter email..." defaultValue={props.email} ref={inputRef} />
         <input className="button" type="submit" value="Send a Reset" />

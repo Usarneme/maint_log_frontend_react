@@ -1,6 +1,6 @@
-# Project Name
+# Vehicle Maintenance Log
 
-Project Description
+[https://github.com/Usarneme/maint_log_frontend_react]
 
 ### Todo
 
@@ -15,6 +15,7 @@ Project Description
 - [ ] Integration Test all components  
 - [ ] Registration -> 1st time Login -> Should prompt w/component on Home page to enter vehicle for new account  
 - [ ] ForgotPassword Component - hook up and test  
+- [ ] Vehicle details - images, purchase info, photos of receipts, manual pdf, etc.  
 
 ### In Progress
 

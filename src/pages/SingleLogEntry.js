@@ -19,8 +19,8 @@ function SingleLogEntry(props) {
 
   return (
     <div className="inner">
+      <h2>{name.length > 120 ? `${name.substring(0,120)}...` : name}</h2>
       <div className="card single__details">
-        <h3>{name.length > 120 ? `${name.substring(0,120)}...` : name}</h3>
         <p>
           <strong>Vehicle: </strong>
           <span>{vehicle.year} {vehicle.make} {vehicle.model}</span>

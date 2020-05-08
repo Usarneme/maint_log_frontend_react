@@ -80,7 +80,7 @@ class Login extends Component {
     return (
       <div className="card">
         <form onSubmit={this.apiLogin} method="POST">
-          <h2>Login</h2>
+          <h3>Login</h3>
           <label htmlFor="email">Email Address</label>
           <input type="email" name="email" placeholder="Enter email..." value={this.state.email} onChange={this.handleInputChange} />
           <label htmlFor="password">Password</label>

@@ -95,11 +95,11 @@ class SearchBox extends React.Component {
 
   render() {
     const buttonImg = this.state.query && this.state.query.length > 0 ? 
-      <strong>X</strong> :
+      <strong>&times;</strong> :
       <ReactSVG src={MagnifyingGlassIcon} role="img" aria-label="Magnifying Glass Icon" fallback={() => <img src={MagnifyingGlassIcon} alt="magnifying glass icon" description="magnifying glass icon" className="svg" />} /> 
 
     return (
-      <form className="card search__form">
+      <form className="search__form">
         <div className="search__input__container">
           <input
             placeholder="Search parts, service, etc..."
