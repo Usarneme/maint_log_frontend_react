@@ -1,12 +1,11 @@
 .welcome__guest__container {
   max-width: 555px;
-  margin: 1rem auto;
-  padding: 1rem;
-  font-size: 1.25rem;
+  margin: 0 auto;
+  padding: 0.5rem;
 }
 
 .welcome__guest__hero {
-  font-size: 1.15rem;
+  /* font-size: 1.15rem; */
 }
 
 .guest__options {
@@ -14,11 +13,11 @@
   align-items: center;
   flex-direction: column;
   justify-content: space-evenly;
-  margin: 5px;
+  margin: 1rem auto;
 }
 
 .button.guest__option {
-  margin: 4px;
+  margin: 0.5rem auto;
   display: flex;
   align-items: center;
   justify-content: center;

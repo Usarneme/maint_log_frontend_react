@@ -259,7 +259,7 @@ class LogForm extends React.Component {
             <label htmlFor="file">Upload other images
               <input type="file" name="file" accept="image/gif, image/png, image/jpeg" onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
             </label>
-            <input className="button submit" type="submit" value="Save Log Changes" onFocus={this.alignViewToElement} />
+            <input className="button submit" type="submit" value="Save Log" onFocus={this.alignViewToElement} />
           </form>
 
           { this.state.photos && this.state.photos.length > 0 && 

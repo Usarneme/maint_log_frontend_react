@@ -273,7 +273,7 @@ optgroup,
 select,
 textarea {
   font-family: sans-serif; /* 1 */
-  font-size: 100%; /* 1 */
+  /* font-size: 10px; 1 */
   line-height: 1.15; /* 1 */
   margin: 0; /* 2 */
 }
@@ -482,4 +482,9 @@ h1, h2, h3, h4, h5 {
   margin: 0;
   padding: 1px;
   line-height: 1.2;
+}
+
+p {
+  margin: 0;
+  padding: 0;
 }

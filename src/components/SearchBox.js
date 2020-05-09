@@ -113,10 +113,7 @@ class SearchBox extends React.Component {
         </div>
         {this.state.loading && <Loading message={`Searching for: ${this.state.query}`} />}
         {this.state.results && this.state.results.length > 0 &&
-          <>
-            <h5>Results:</h5>
-              <SearchResults homepage={this.props.homepage} results={this.state.results} /> 
-          </>
+          <SearchResults homepage={this.props.homepage} results={this.state.results} /> 
         }
         {this.state.results.length === 0 && this.state.query.length > 0 &&
           <h5>No match found for that search...</h5>

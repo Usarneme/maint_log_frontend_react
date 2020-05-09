@@ -5,13 +5,16 @@
 }
 
 .card.home__actions {
-  /* margin: 5px;
-  padding: 16px 10px; */
   display: flex;
   flex-direction: row;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   justify-content: space-between;
-  align-items: center;
+  /* align-items: center; */
+  height: calc((100vh - 150px) / 6);
+}
+
+.card.home__actions > span {
+  flex-grow: 1;
 }
 
 .card.home__actions:focus,
@@ -19,23 +22,3 @@
 .card.home__actions:hover {
   transform: scale(1.02);
 }
-
-.card.home__actions > input, 
-.card.home__actions > h4 {
-  margin: 0 auto;
-  width: 85%;
-  padding: 0;
-}
-
-.card.home__actions > h4,
-.search__main > form {
-  text-align: right;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-/* .search__main > div {
-  flex-grow: 5;
-} */

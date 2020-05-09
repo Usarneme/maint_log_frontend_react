@@ -40,12 +40,12 @@ function VehicleSettings(props) {
       { (props.vehicles && props.vehicles.length > 0) ?
         props.vehicles.map(vehicle => {
           return <div className={`${vehicle.primary ? 'vehicle__container primary' : 'vehicle__container'}`}>
-            <div className="vehicle__data__container">
+            <div className="well vehicle__data__container">
               <span>{vehicle.year}</span>
               <span>{vehicle.make}</span>
               <span>{vehicle.model}</span>
             </div>
-            <div className="checkboxes__container">
+            <div className="well checkboxes__container">
               <label htmlFor={vehicle.id} >Main Vehicle</label>
               <input type="checkbox" name={vehicle.id} disabled checked={vehicle.primary} onChange={() => vehicleLookupChanger('showManualLookup')} />
             </div>
@@ -74,6 +74,7 @@ function VehicleSettings(props) {
               { yearMakeModelLookupShowing && <VLYMM currentVehicle={props.currentlySelectedVehicle} saveVehicleChanges={props.saveVehicleChanges} /> }
             </div>
           </> }
+          
         { !vehicleLookupsShowing && 
             <div className="buttons__holder">
               <button className="button" onClick={() => showVehicleLookups(true)} >Search For A Vehicle</button>

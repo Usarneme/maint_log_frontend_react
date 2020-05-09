@@ -1,4 +1,4 @@
-*, html {
+html {
   font-size: 10px;
   box-sizing: border-box;
   --buttonBlue: #004C7D;
@@ -6,8 +6,8 @@
 }
 
 .dark {
-  --backgroundLayerOne: #191919;
-  --backgroundLayerTwo: #252525;
+  --backgroundLayerOne: #1A1919;
+  --backgroundLayerTwo: #282828;
   --backgroundLayerThree: #545454;
   --backgroundLayerFour: #898989;
   --textColorOne: #EFEFEF;
@@ -31,34 +31,57 @@ ul li {
   color: var(--textColorOne);
 }
 
+body {
+  font-size: 1.15rem;
+}
+
+ul {
+  margin-bottom: 2rem;
+}
+
 li::before {
   content: "•"; 
   color: var(--buttonBlue);
   display: inline-block; 
-  width: 1em;
-  margin-left: -1em;
+  width: 1rem;
+  margin-left: -1rem;
 }
 
 h1, h2, h3, h4, h5 {
   font-size: 1.45rem;
-  padding: 15px;
-  padding-bottom: 2px;
+  padding: 1rem;
 }
 
 h1 {
-  padding: 15px;
-  font-size: 2.5rem;
+  padding: 1.5rem;
+  font-size: 2.35rem;
 }
 
 h2 {
   text-align: center;
-  /* text-transform: uppercase; */
-  border-bottom: 3px solid var(--textColorTwo);
+  text-transform: uppercase;
+  /* border-bottom: 3px solid var(--textColorTwo); */
 }
 
-h3 {
-  border-bottom: 1px dotted var(--textColorTwo);
+h3,
+h4 {
+  /* border-bottom: 1px dotted var(--textColorTwo); */
+  padding: 0.9rem;
+  background: rgba(255,255,255,0.17);
+  position: relative;
+  margin: 0.5rem 0.35rem 1.5rem;
 }
+
+h3:after,
+h4:after {
+  content: "";
+  background: var(--textColorTwo);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 4px;
+} 
 
 img, svg {
   fill: var(--textColorOne);
@@ -75,17 +98,17 @@ textarea {
 }
 
 label {
-  padding: 10px 0;
+  padding: 0.75rem 0 0 0;
   display: block;
 }
 
 .inner {
-  padding: 3px;
+  padding: 8px;
   padding-bottom: 56px;
   margin: 0 auto;
   background: var(--backgroundLayerOne);
-  /* ~54px title + ~55px bottom-nav */
-  min-height: calc(100vh - 99px);
+  /* ~54px title + ~56px bottom-nav */
+  min-height: calc(100vh - 100px);
 }
 
 .inner--flashes {
@@ -97,17 +120,22 @@ input, select, textarea, .button {
   background: var(--backgroundLayerTwo);
   border: 1px solid var(--backgroundLayerOne);
   padding-left: 8px;
-  height: 40px;
+  height: 4rem;
+  /* margin: 0 auto 0.35rem; */
   /* border-radius: 5px; */
+}
+
+input[type="checkbox"] {
+  height: initial;
 }
 
 .card {
   position: relative;
-  padding: 12px;
+  padding: 1.25rem;
   max-width: 900px;
-  margin: 10px auto;
+  margin: 0.15rem auto 2.75rem;
   background: var(--backgroundLayerThree);
-  border: 1px solid var(--backgroundLayerTwo);
+  border: 1px solid var(--backgroundLayerFour);
   box-shadow: 2px 4px 25px var(--backgroundLayerOne);
 }
 
@@ -116,21 +144,30 @@ input, select, textarea, .button {
   align-content: center;
   align-items: center;
   display: block;
-  font-size: 1rem;
-  margin: 0.25rem auto;
-  padding: 0.75rem 1rem;
+  display: flex;
+  margin: 0.5rem auto;
   text-decoration: none;
   font-weight: 700;
   text-align: center;
   cursor: pointer;
   color: var(--buttonTextWhite);
   background-color: var(--buttonBlue);
-  border: 1px solid lighten(var(--buttonBlue), 50%);
+  /* border: 1px solid lighten(var(--buttonBlue), 50%); */
   font-family: 'Panama';
+}
+
+input.button {
+  margin-top: 1.75rem;
 }
 
 .input--error {
   border-color: red;
+}
+
+.well {
+  margin: 0;
+  padding: 0.9rem;
+  background: rgba(255,255,255,0.15);
 }
 
 .no__log,

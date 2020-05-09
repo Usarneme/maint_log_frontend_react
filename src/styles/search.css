@@ -22,8 +22,8 @@ form.search__form {
 
 .button.search__button {
   /* border-radius: 0 5px 5px 0; */
-  height: 40px;
-  margin: 0;
+  /* height: 40px; */
+  /* margin: 0; */
   width: initial;
   border-left: 0;
 }
@@ -38,6 +38,7 @@ form.search__form {
   flex-direction: column;
   margin: 1px;
   padding: 2px;
+  background: var(--backgroundLayerOne);
 }
 
 .search__on__homepage {
@@ -45,18 +46,11 @@ form.search__form {
 }
 
 .search__result {
-  margin: 5px 0 0 0;
-  background: var(--backgroundLayerThree);
-  padding: 17px 4px 17px 7px;
-  border-radius: 5px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-content: center;
-  color: var(--textColorTwo);
+  padding: 0.5rem;
+  margin: 1rem 0.25rem;
+  background: var(--backgroundLayerTwo);
 }
 
-.search__result__buttons > .button {
-  margin: 0;
-  margin-left: 5px;
+.search__result__buttons {
+  display: flex;
 }
