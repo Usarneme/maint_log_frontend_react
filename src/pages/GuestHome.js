@@ -17,10 +17,9 @@ function GuestHome(props) {
 
   return (
     <div className="inner">
-      <h2>Welcome!</h2>
       <div className="welcome__guest__container">
-        <section>
-          <h3 className="welcome__guest__hero">Keep track of the service history of your vehicles.</h3>
+        <section className="welcome__guest__hero">
+          <h3>Keep track of the service history of your vehicles.</h3>
           <ul>
             <li>Record what was done, when, by whom, and where.</li>
             <li>Include photos of before and after the service, parts used, and receipts.</li>

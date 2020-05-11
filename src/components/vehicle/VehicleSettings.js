@@ -45,10 +45,7 @@ function VehicleSettings(props) {
               <span>{vehicle.make}</span>
               <span>{vehicle.model}</span>
             </div>
-            <div className="well checkboxes__container">
-              <label htmlFor={vehicle.id} >Main Vehicle</label>
-              <input type="checkbox" name={vehicle.id} disabled checked={vehicle.primary} onChange={() => vehicleLookupChanger('showManualLookup')} />
-            </div>
+            { vehicle.primary && <span className="flexy">Main <input type="checkbox" checked disabled /></span> }
             <div className="buttons__holder">
               <button className="button" onClick={() => vehicleLookupChanger('showManualLookup')} >Edit Vehicle</button>
             </div>

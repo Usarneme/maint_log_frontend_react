@@ -1,8 +1,12 @@
-.single__details {
+.card.single__details {
   margin: 2px;
-  background: var(--backgroundLayerTwo);
+  background: var(--backgroundLayerThree);
   padding: 5px;
   border-radius: 5px;
+}
+
+.card.single__details > * {
+  margin: 1.25rem 0;
 }
 
 .editPencil {

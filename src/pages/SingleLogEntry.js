@@ -21,76 +21,87 @@ function SingleLogEntry(props) {
     <div className="inner">
       <h2>{name.length > 120 ? `${name.substring(0,120)}...` : name}</h2>
       <div className="card single__details">
-        <p>
-          <strong>Vehicle: </strong>
-          <span>{vehicle.year} {vehicle.make} {vehicle.model}</span>
-        </p>
-        <p>
-          <strong>Short Description: </strong>
-          <span>{shortDescription}</span>
-        </p>
+        <div>
+          <p>
+            <strong>Short Description: </strong>
+            <span>{shortDescription}</span>
+          </p>
+          <p>
+            <strong>Date Entered into Log: </strong>
+            <span>{moment(dateEntered).format("MMM Do YYYY")}</span>
+          </p>
+          <p>
+            <strong>Vehicle: </strong>
+            <span>{vehicle.year} {vehicle.make} {vehicle.model}</span>
+          </p>
+          <p>
+            <strong>Odometer: </strong>
+            <span>{Number(odometer).toLocaleString()}</span>
+          </p>
+        </div>
         <p>
           <strong>Long Description: </strong>
           <span>{longDescription}</span>
         </p>
-        <p>
-          <strong>Date Started: </strong>
-          <span>{moment(dateStarted).format("MMM Do YYYY")}</span>
-        </p>
-        <p>
-          <strong>Date Completed: </strong>
-          <span>{moment(dateCompleted).format("MMM Do YYYY")}</span>
-        </p>
-        <p>
-          <strong>Date Entered into Log: </strong>
-          <span>{moment(dateEntered).format("MMM Do YYYY")}</span>
-        </p>
-        <p>
-          <strong>Date When Service is Due Next: </strong>
-          <span>{moment(dateDue).format("MMM Do YYYY")}</span>
-        </p>
-        <p>
-          <strong>Mileage When Service is Due Next: </strong>
-          <span>{Number(mileageDue).toLocaleString()}</span>
-        </p>
-        <p>
-          <strong>Tools: </strong>
-          <span>{tools}</span>
-        </p>
-        <p>
-          <strong>Parts: </strong>
-          <span>{parts}</span>
-        </p>
-        <p>
-          <strong>Parts Cost: </strong>
-          <span>${partsCost}</span>
-        </p>
-        <p>
-          <strong>Labor Cost: </strong>
-          <span>${laborCost}</span>
-        </p>
+        <div className="dates__container">
+          <p>
+            <strong>Date Started: </strong>
+            <span>{moment(dateStarted).format("MMM Do YYYY")}</span>
+          </p>
+          <p>
+            <strong>Date Completed: </strong>
+            <span>{moment(dateCompleted).format("MMM Do YYYY")}</span>
+          </p>
+        </div>
+        <div>
+          <p>
+            <strong>Mileage When Service is Due Next: </strong>
+            <span>{Number(mileageDue).toLocaleString()}</span>
+          </p>
+          <p>
+            <strong>Date When Service is Due Next: </strong>
+            <span>{moment(dateDue).format("MMM Do YYYY")}</span>
+          </p>
+        </div>
+        <div>
+          <p>
+            <strong>Tools: </strong>
+            <span>{tools}</span>
+          </p>
+          <p>
+            <strong>Parts: </strong>
+            <span>{parts}</span>
+          </p>
+        </div>
+        <div>
+          <p>
+            <strong>Parts Cost: </strong>
+            <span>${partsCost}</span>
+          </p>
+          <p>
+            <strong>Labor Cost: </strong>
+            <span>${laborCost}</span>
+          </p>
+        </div>
         <p>
           <strong>Service Location: </strong>
           <span>{serviceLocation}</span>
         </p>
-        <p>
-          <strong>Odometer: </strong>
-          <span>{Number(odometer).toLocaleString()}</span>
-        </p>
-      </div>
 
-      <Link className="button editPencil" to={`/log/${id}/edit`}>
-        <ReactSVG src={EditPencil} role="img" aria-label="Edit Pencil Icon" fallback={() => <img src={EditPencil} alt="edit pencil icon" description="edit pencil icon" className="svg" />} /> 
-        <span>Edit</span>
-      </Link>
+        <Link className="button editPencil" to={`/log/${id}/edit`}>
+          <ReactSVG src={EditPencil} role="img" aria-label="Edit Pencil Icon" fallback={() => <img src={EditPencil} alt="edit pencil icon" description="edit pencil icon" className="svg" />} /> 
+          <span>Edit</span>
+        </Link>
 
       { photos && photos.length > 0 && 
-        <div className="card">
+        <>
           <label htmlFor="previousPhotos"><h3>Photos:</h3></label>
           <PhotoEditor photos={photos} editingBlocked={true} /> 
           <input type="hidden" name="previousPhotos" value={photos.toString()} />
-        </div>
+        </>
       }
+      </div>
+
     </div>
   )
 }

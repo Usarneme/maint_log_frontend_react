@@ -1,8 +1,5 @@
 .card.log__entry {
   margin: 1.5rem auto;
-  background: var(--backgroundLayerTwo);
-  border: 1px solid var(--backgroundLayerThree);
-  padding: 0.35rem;
 }
 
 .log__entry > a > h5 {

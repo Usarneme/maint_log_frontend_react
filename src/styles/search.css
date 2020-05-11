@@ -54,3 +54,7 @@ form.search__form {
 .search__result__buttons {
   display: flex;
 }
+
+.search__result__buttons > a.button {
+  margin: 0 0.15rem;
+}

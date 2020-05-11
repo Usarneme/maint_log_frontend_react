@@ -33,13 +33,6 @@
   padding: 0;
 }
 
-.checkboxes__container > label, 
-.checkboxes__container > input {
-  margin: 0;
-  padding: 0;
-  align-self: center;
-}
-
 .vehicleResults {
   display: flex;
   flex-direction: column;
