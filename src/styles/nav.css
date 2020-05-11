@@ -7,7 +7,7 @@
   grid-template-columns: repeat(5, 1fr);
   background: var(--backgroundLayerFour);
   padding: 1px;
-  transition: transform 0.25s;
+  transition: all 0.2s ease;
 }
 
 .navLink {
