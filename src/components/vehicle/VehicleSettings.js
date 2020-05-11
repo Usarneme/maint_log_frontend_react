@@ -39,7 +39,7 @@ function VehicleSettings(props) {
       <h3>{`Vehicle${(props.vehicles && props.vehicles.length) > 1 ? "s": ""}`}</h3>
       { (props.vehicles && props.vehicles.length > 0) ?
         props.vehicles.map(vehicle => {
-          return <div className={`${vehicle.primary ? 'vehicle__container primary' : 'vehicle__container'}`}>
+          return <div key={vehicle.make+vehicle.year+vehicle.model} className={`${vehicle.primary ? 'vehicle__container primary' : 'vehicle__container'}`}>
             <div className="well vehicle__data__container">
               <span>{vehicle.year}</span>
               <span>{vehicle.make}</span>

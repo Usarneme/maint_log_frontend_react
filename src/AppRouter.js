@@ -21,14 +21,14 @@ import ProtectedRoute from './components/account/ProtectedRoute'
 import ScrollToTop from './components/ScrollToTop'
 import SiteTitle from './components/SiteTitle'
 
-import { userContext } from './contexts/userContext'
+import { UserConsumer } from './contexts/UserContext'
 
 function AppRouter() {
   return (
     <Router>
       <ScrollToTop />
       <Switch>
-        <userContext.Consumer>
+        <UserConsumer>
           {({ user, updateUserState }) => 
           <>
             <SiteTitle />
@@ -45,7 +45,7 @@ function AppRouter() {
             <Route path="*" component={NotFound} />
           </>
           }
-        </userContext.Consumer>
+        </UserConsumer>
       </Switch>
     </Router>
   )

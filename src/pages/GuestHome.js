@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { userContext } from '../contexts/userContext'
+import UserContext from '../contexts/UserContext'
 import Login from '../components/account/Login'
 import Register from '../components/account/Register'
 
 import '../styles/guestHome.css'
 
 function GuestHome(props) {
-  const {user, updateUserState} = useContext(userContext)
+  const {user, updateUserState} = useContext(UserContext)
   const [theme, changeTheme] = useState('dark')
   
   useEffect(() => {

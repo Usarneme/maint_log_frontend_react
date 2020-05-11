@@ -2,11 +2,11 @@ import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
 
-import { userContext } from '../../contexts/userContext'
+import UserContext from '../../contexts/UserContext'
 
 const Logout = props => {
   const [showLogoutButton, toggleShowLogoutButton] = useState(false)
-  const {user, updateUserState} = useContext(userContext)
+  const {user, updateUserState} = useContext(UserContext)
 
   function toggleConfirmLogout(event) {
     event.preventDefault()

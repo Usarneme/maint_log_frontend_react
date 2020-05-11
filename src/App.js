@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { userContext } from './contexts/userContext'
+import { UserProvider } from './contexts/UserContext'
 import AppRouter from './AppRouter'
 
 import './styles/normalize.css'
@@ -26,28 +26,19 @@ class App extends React.Component {
 
   updateUserState = user => {
     // this.saveUserToLocalStorage(user)
-    this.setState({ user })
-  }
-
-  saveUserToLocalStorage = user => {
-    const key = user.email
-    if (!user.timestamp) {
-      user.timestamp = Date.now()
-    }
-    localStorage.setItem(key, JSON.stringify(user))
-  }
-
-  getUserFromLocalStorage = email => {
-    return JSON.parse(localStorage.getItem(email))
+    this.setState(prevState => ({ user }))
+    // TODO Test these update options: 
+    // this.setState(prevState => ({ ...prevState, ...user }))
+    // this.setState({ user })
   }
 
   render() {
     const context = { user: this.state.user, updateUserState: this.updateUserState }
 
     return (
-      <userContext.Provider value={context}>
+      <UserProvider value={context}>
         <AppRouter />
-      </userContext.Provider>
+      </UserProvider>
     )
   }
 }

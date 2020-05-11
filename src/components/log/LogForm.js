@@ -6,6 +6,7 @@ import axios from 'axios'
 
 import Loading from '../Loading'
 import PhotoEditor from '../PhotoEditor' 
+// axios.defaults.withCredentials = true
 
 class LogForm extends React.Component {
   constructor(props) {
@@ -46,6 +47,7 @@ class LogForm extends React.Component {
   }
 
   apiEditLog = async event => {
+    console.log('apiEditLog func...')
     event.preventDefault()
     this.setState({ loading: true })
     let url = ''
@@ -73,14 +75,17 @@ class LogForm extends React.Component {
     formData.append('partsCost', this.state.partsCost) 
     formData.append('laborCost', this.state.laborCost) 
     formData.append('serviceLocation', this.state.serviceLocation) 
-    formData.append('previousPhotos', this.state.photos) 
     formData.append('photos', this.state.photos) 
+    formData.append('previousPhotos', this.state.photos) 
     formData.append('receipts', this.state.receipts)
     formData.append('vehicle', this.state.vehicle)
     formData.append('api', true)
 
+    console.log('Before trying api POST')
     try {
       const result = await axios.post(url, formData)
+      console.log('result received')
+      console.log(result)
       if (result.status === 200) {
         const log = result.data.fullLog
         const newLogEntry = result.data.newLogEntry
@@ -96,6 +101,8 @@ class LogForm extends React.Component {
     } catch(error) {
       console.log('Error with LogForm')
       console.dir(error)
+      console.log(error)
+      console.table(error)
       this.setState({ loading: false })
       alert(error)
       // TODO redirect? try again?
@@ -266,9 +273,9 @@ class LogForm extends React.Component {
             <div className="card">
               <label htmlFor="previousPhotos"><h3>Photos:</h3></label>
               <PhotoEditor photos={this.state.photos} deletePhoto={this.deletePhoto} /> 
-              <input type="hidden" name="previousPhotos" value={this.state.photos.toString()} />
+              {/* <input type="hidden" name="previousPhotos" value={this.state.photos.toString()} /> */}
             </div>
-            }
+          }
 
           { this.state.id &&
             <>

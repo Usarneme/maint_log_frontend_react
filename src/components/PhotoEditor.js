@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 function PhotoEditor(props) {
   return (
     <div className="photos__div">
-      { props.photos && props.photos.map(photo => {
+      { props.photos.map(photo => {
         if (photo === "" || photo.length === 0) return null
         return (
           <div key={photo} className="single__photo__div">
@@ -16,6 +17,10 @@ function PhotoEditor(props) {
       )}
     </div>
   )
+}
+
+PhotoEditor.propTypes = {
+  photos: PropTypes.array.isRequired
 }
 
 export default PhotoEditor

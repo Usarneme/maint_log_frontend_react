@@ -49,6 +49,7 @@ class Settings extends Component {
   }
 
   saveVehicleChanges = async vehicleData => {
+    await this.setState({ loading: true })
     // ensure even optional properties are sent to the server/db
     const newVehicle = {
       make: vehicleData.make || '',
@@ -71,10 +72,12 @@ class Settings extends Component {
     updatedUser.log = updates.log
     updatedUser.vehicle = updates.vehicle
     updatedUser.currentlySelectedVehicle = newVehicle
-    this.props.updateUserState(updatedUser)
+    await this.props.updateUserState(updatedUser)
+    this.setState({ loading: false })
   }
 
   saveAccountChanges = async (event = '') => {
+    await this.setState({ loading: true })
     // called via form (with event) and via onChange of children components (without event)
     if (event) event.preventDefault()
     const userUpdates = {...this.props.user}
@@ -86,11 +89,12 @@ class Settings extends Component {
     updatedUser.log = updates.log
     updatedUser.vehicle = updates.vehicle
     updatedUser.currentlySelectedVehicle = this.state.currentlySelectedVehicle
-    this.props.updateUserState(updatedUser)
+    await this.props.updateUserState(updatedUser)
+    this.setState({ loading: false })
   }
 
   render() {
-    if (this.state.loading) return <Loading message='Updating Account...' />
+    if (this.state.loading) return <Loading message='Loading Account Details...' />
   
     return (
       <div className="inner">

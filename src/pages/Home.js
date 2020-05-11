@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom'
 import { ReactSVG } from 'react-svg'
 import PropTypes from 'prop-types'
 
-import SearchBox from '../components/SearchBox'
-
 import SearchIcon from '../images/search.svg'
 import AddIcon from '../images/addLog.svg'
 import TodoIcon from '../images/todo.svg'

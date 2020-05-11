@@ -5,6 +5,21 @@ html {
   --buttonTextWhite: #EFDEFD;
 }
 
+@font-face {
+  font-family: 'Bitter';
+  src: local('./Bitter-Regular.ttf'), format('ttf');
+}
+
+@font-face {
+  font-family: 'Cairo';
+  src: local('./Cairo-Regular.ttf'), format('ttf');
+}
+
+@font-face {
+  font-family: 'Cuprum';
+  src: local('./Cuprum-Regular.ttf'), format('ttf');
+}
+
 .dark {
   --backgroundLayerOne: #282828;
   --backgroundLayerTwo: #1A1919;
@@ -34,6 +49,15 @@ ul li {
 body {
   font-size: 1.4rem;
   background: var(--backgroundLayerOne);
+  margin: 0;
+  font-family: 'Bitter', 'Cairo', 'Cuprum', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 ul {

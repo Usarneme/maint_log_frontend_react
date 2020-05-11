@@ -23,20 +23,19 @@ function SingleLogEntry(props) {
       <div className="card single__details">
         <div>
           <p>
-            <strong>Short Description: </strong>
+            <strong>Service Performed: </strong>
             <span>{shortDescription}</span>
           </p>
           <p>
-            <strong>Date Entered into Log: </strong>
+            <strong>Date Entered: </strong>
             <span>{moment(dateEntered).format("MMM Do YYYY")}</span>
           </p>
           <p>
             <strong>Vehicle: </strong>
             <span>{vehicle.year} {vehicle.make} {vehicle.model}</span>
+            <span>at {Number(odometer).toLocaleString()} miles</span>
           </p>
           <p>
-            <strong>Odometer: </strong>
-            <span>{Number(odometer).toLocaleString()}</span>
           </p>
         </div>
         <p>
@@ -45,23 +44,23 @@ function SingleLogEntry(props) {
         </p>
         <div className="dates__container">
           <p>
-            <strong>Date Started: </strong>
+            <strong>Started: </strong>
             <span>{moment(dateStarted).format("MMM Do YYYY")}</span>
           </p>
           <p>
-            <strong>Date Completed: </strong>
+            <strong>Completed: </strong>
             <span>{moment(dateCompleted).format("MMM Do YYYY")}</span>
           </p>
         </div>
         <div>
-          <p>
-            <strong>Mileage When Service is Due Next: </strong>
-            <span>{Number(mileageDue).toLocaleString()}</span>
-          </p>
-          <p>
-            <strong>Date When Service is Due Next: </strong>
-            <span>{moment(dateDue).format("MMM Do YYYY")}</span>
-          </p>
+          {(mileageDue || dateDue) && 
+            <p>
+              <strong>Service is Due Next: </strong>
+              <span>{Number(mileageDue).toLocaleString()} miles </span>
+              {dateDue && <span> and/or on </span>}
+              <span>{moment(dateDue).format("MMM Do YYYY")}</span>
+            </p>
+          }
         </div>
         <div>
           <p>
@@ -76,11 +75,11 @@ function SingleLogEntry(props) {
         <div>
           <p>
             <strong>Parts Cost: </strong>
-            <span>${partsCost}</span>
+            <span>${partsCost.toLocaleString()}</span>
           </p>
           <p>
             <strong>Labor Cost: </strong>
-            <span>${laborCost}</span>
+            <span>${laborCost.toLocaleString()}</span>
           </p>
         </div>
         <p>
