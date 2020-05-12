@@ -106,16 +106,18 @@ class Settings extends Component {
           vehicles={this.props.user.vehicle}
         />
 
-        <form className="card" onSubmit={this.saveAccountChanges} method="POST">
+        <div className="card">
           <h3>Account</h3>
-          <label htmlFor="name">Name</label>
-          <input type="text" name="name" placeholder={this.props.user.name ? this.props.user.name : `Enter name...`} value={this.state.name} onChange={this.handleInputChange} />
-          <label htmlFor="email">Email Address</label>
-          <input type="email" name="email" placeholder={this.props.user.email ? this.props.user.email : `Enter email...`} value={this.state.email} onChange={this.handleInputChange} />
-          {/* <label htmlFor="password">Password</label>
-          <input type="password" name="password" placeholder="Enter password..." value={this.state.password} onChange={this.handleInputChange} /> */}
-          <input className="button" type="submit" value="Update Account" />
-        </form>
+          <form className="padded" onSubmit={this.saveAccountChanges} method="POST">
+            <label htmlFor="name">Name</label>
+            <input type="text" name="name" placeholder={this.props.user.name ? this.props.user.name : `Enter name...`} value={this.state.name} onChange={this.handleInputChange} />
+            <label htmlFor="email">Email Address</label>
+            <input type="email" name="email" placeholder={this.props.user.email ? this.props.user.email : `Enter email...`} value={this.state.email} onChange={this.handleInputChange} />
+            {/* <label htmlFor="password">Password</label>
+            <input type="password" name="password" placeholder="Enter password..." value={this.state.password} onChange={this.handleInputChange} /> */}
+            <input className="button" type="submit" value="Update Account" />
+          </form>
+        </div>
 
         <ThemeSwitcher currentTheme={this.state.theme} />
         <Logout history={this.props.history} />

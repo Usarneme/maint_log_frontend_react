@@ -19,88 +19,89 @@ function SingleLogEntry(props) {
 
   return (
     <div className="inner">
-      <h2>{name.length > 120 ? `${name.substring(0,120)}...` : name}</h2>
-      <div className="card single__details">
-        <div>
-          <p>
-            <strong>Service Performed: </strong>
-            <span>{shortDescription}</span>
-          </p>
-          <p>
-            <strong>Date Entered: </strong>
-            <span>{moment(dateEntered).format("MMM Do YYYY")}</span>
-          </p>
-          <p>
-            <strong>Vehicle: </strong>
-            <span>{vehicle.year} {vehicle.make} {vehicle.model}</span>
-            <span>at {Number(odometer).toLocaleString()} miles</span>
-          </p>
-          <p>
-          </p>
-        </div>
-        <p>
-          <strong>Long Description: </strong>
-          <span>{longDescription}</span>
-        </p>
-        <div className="dates__container">
-          <p>
-            <strong>Started: </strong>
-            <span>{moment(dateStarted).format("MMM Do YYYY")}</span>
-          </p>
-          <p>
-            <strong>Completed: </strong>
-            <span>{moment(dateCompleted).format("MMM Do YYYY")}</span>
-          </p>
-        </div>
-        <div>
-          {(mileageDue || dateDue) && 
+      <div className="card">
+        <h3>{name.length > 120 ? `${name.substring(0,120)}...` : name}</h3>
+        <div className="padded single__details">
+          <div>
             <p>
-              <strong>Service is Due Next: </strong>
-              <span>{Number(mileageDue).toLocaleString()} miles </span>
-              {dateDue && <span> and/or on </span>}
-              <span>{moment(dateDue).format("MMM Do YYYY")}</span>
+              <strong>Service Performed: </strong>
+              <span>{shortDescription}</span>
             </p>
-          }
-        </div>
-        <div>
+            <p>
+              <strong>Date Entered: </strong>
+              <span>{moment(dateEntered).format("MMM Do YYYY")}</span>
+            </p>
+            <p>
+              <strong>Vehicle: </strong>
+              <span>{vehicle.year} {vehicle.make} {vehicle.model}</span>
+              <span> at {Number(odometer).toLocaleString()} miles</span>
+            </p>
+            <p>
+            </p>
+          </div>
           <p>
-            <strong>Tools: </strong>
-            <span>{tools}</span>
+            <strong>Long Description: </strong>
+            <span>{longDescription}</span>
           </p>
+          <div className="dates__container">
+            <p>
+              <strong>Started: </strong>
+              <span>{moment(dateStarted).format("MMM Do YYYY")}</span>
+            </p>
+            <p>
+              <strong>Completed: </strong>
+              <span>{moment(dateCompleted).format("MMM Do YYYY")}</span>
+            </p>
+          </div>
+          <div>
+            {(mileageDue || dateDue) && 
+              <p>
+                <strong>Service is Due Next: </strong>
+                <span>{Number(mileageDue).toLocaleString()} miles </span>
+                {dateDue && <span> and/or on </span>}
+                <span>{moment(dateDue).format("MMM Do YYYY")}</span>
+              </p>
+            }
+          </div>
+          <div>
+            <p>
+              <strong>Tools: </strong>
+              <span>{tools}</span>
+            </p>
+            <p>
+              <strong>Parts: </strong>
+              <span>{parts}</span>
+            </p>
+          </div>
+          <div>
+            <p>
+              <strong>Parts Cost: </strong>
+              <span>${partsCost.toLocaleString()}</span>
+            </p>
+            <p>
+              <strong>Labor Cost: </strong>
+              <span>${laborCost.toLocaleString()}</span>
+            </p>
+          </div>
           <p>
-            <strong>Parts: </strong>
-            <span>{parts}</span>
+            <strong>Service Location: </strong>
+            <span>{serviceLocation}</span>
           </p>
-        </div>
-        <div>
-          <p>
-            <strong>Parts Cost: </strong>
-            <span>${partsCost.toLocaleString()}</span>
-          </p>
-          <p>
-            <strong>Labor Cost: </strong>
-            <span>${laborCost.toLocaleString()}</span>
-          </p>
-        </div>
-        <p>
-          <strong>Service Location: </strong>
-          <span>{serviceLocation}</span>
-        </p>
 
-        <Link className="button editPencil" to={`/log/${id}/edit`}>
-          <ReactSVG src={EditPencil} role="img" aria-label="Edit Pencil Icon" fallback={() => <img src={EditPencil} alt="edit pencil icon" description="edit pencil icon" className="svg" />} /> 
-          <span>Edit</span>
-        </Link>
+          <Link className="button editPencil" to={`/log/${id}/edit`}>
+            <ReactSVG src={EditPencil} role="img" aria-label="Edit Pencil Icon" fallback={() => <img src={EditPencil} alt="edit pencil icon" description="edit pencil icon" className="svg" />} /> 
+            <span>Edit</span>
+          </Link>
 
-      { photos && photos.length > 0 && 
-        <>
-          <label htmlFor="previousPhotos"><h3>Photos:</h3></label>
-          <PhotoEditor photos={photos} editingBlocked={true} /> 
-          <input type="hidden" name="previousPhotos" value={photos.toString()} />
-        </>
-      }
+        { photos && photos.length > 0 && 
+          <>
+            <label htmlFor="previousPhotos"><h3>Photos:</h3></label>
+            <PhotoEditor photos={photos} editingBlocked={true} /> 
+            <input type="hidden" name="previousPhotos" value={photos.toString()} />
+          </>
+        }
+        </div>
       </div>
-
     </div>
   )
 }

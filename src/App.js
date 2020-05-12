@@ -24,12 +24,9 @@ class App extends React.Component {
     }
   }
 
-  updateUserState = user => {
+  updateUserState = async user => {
     // this.saveUserToLocalStorage(user)
-    this.setState(prevState => ({ user }))
-    // TODO Test these update options: 
-    // this.setState(prevState => ({ ...prevState, ...user }))
-    // this.setState({ user })
+    await this.setState({ user })
   }
 
   render() {

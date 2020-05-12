@@ -32,7 +32,7 @@ const Logout = props => {
   return (
     <div className="card">
       <h3>Disconnect Account and Logout</h3>
-      <div className="logout__container">
+      <div className="logout__container padded">
         <button className={`button ${showLogoutButton ? 'confirm--active' : 'confirm'}`} onClick={toggleConfirmLogout}>{showLogoutButton ? 'Cancel Logout' : 'Logout'}</button>
         { showLogoutButton && <button className="button disconnect" onClick={apiLogout}><span className="red">Confirm and Logout</span></button> }
       </div>

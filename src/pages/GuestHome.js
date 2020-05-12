@@ -29,7 +29,7 @@ function GuestHome(props) {
         </section>
         <p><strong>Returning user? </strong>Please login to access your log.</p>
         <Login user={user} updateUserState={updateUserState} history={props.history} />
-        <p><strong>New user? </strong>Please register an account to start tracking your vehicle's services.</p>
+        <p><strong>New user? </strong>Register an account & start tracking your vehicle maintenance.</p>
         <Register user={user} updateUserState={updateUserState} history={props.history} />
       </div> 
     </div>

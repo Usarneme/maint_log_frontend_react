@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route
-} from "react-router-dom"
+} from 'react-router-dom'
 
 import Add from './pages/Add'
 import Edit from './pages/Edit'
@@ -27,11 +27,11 @@ function AppRouter() {
   return (
     <Router>
       <ScrollToTop />
+      <SiteTitle />
       <Switch>
         <UserConsumer>
           {({ user, updateUserState }) => 
-          <>
-            <SiteTitle />
+          <div className="container">
             <Route path="/welcome" component={GuestHome} />
             <ProtectedRoute path="/" exact={true} component={Home} />
             <ProtectedRoute path="/add" component={Add} />
@@ -43,7 +43,7 @@ function AppRouter() {
             <ProtectedRoute path="/todo" component={Todo} />
             { user && user.cookies && user.cookies.length > 0 && <Nav /> }
             <Route path="*" component={NotFound} />
-          </>
+          </div>
           }
         </UserConsumer>
       </Switch>

@@ -1,13 +1,18 @@
-.card.single__details {
-  margin: 2px;
+.single__details {
+  margin: 0 0.5rem;
+  padding: 0 0.5rem;
   background: var(--backgroundLayerThree);
-  padding: 5px;
-  border-radius: 5px;
+  /* border-radius: 5px; */
 }
 
-.card.single__details > * {
-  margin: 1.25rem 0;
+.single__details > * {
+  margin: 1rem 0;
 }
+
+/* .car.single__details div,
+.car.single__details p {
+  padding-bottom: 1.25rem;
+} */
 
 .editPencil {
   display: flex;

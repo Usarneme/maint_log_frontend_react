@@ -48,7 +48,6 @@ ul li {
 
 body {
   font-size: 1.4rem;
-  background: var(--backgroundLayerOne);
   margin: 0;
   font-family: 'Bitter', 'Cairo', 'Cuprum', -apple-system, BlinkMacSystemFont, sans-serif;
   /* 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; */
@@ -89,10 +88,8 @@ h2 {
 }
 
 h3, h4 {
-  padding: 0.9rem;
-  background: rgba(0,0,0,0.45);
   position: relative;
-  margin: 0 auto 1.5rem;
+  background: rgba(0,0,0,0.45);
 }
 
 h3:after,
@@ -112,6 +109,10 @@ img, svg {
   height: 40px;
 }
 
+.padded {
+  padding: 1rem;
+}
+
 textarea {
   min-height: 80px;
 }
@@ -125,15 +126,20 @@ label {
   display: block;
 }
 
+.container {
+  min-height: calc(100vh - 52px);
+  background: var(--backgroundLayerOne);
+  transition: all 0.2s ease;
+  padding: 1rem;
+}
+
 .inner {
   background: var(--backgroundLayerTwo);
-  width: 85vw;
   max-width: 1200px;
-  padding: 8px;
-  padding-bottom: 56px;
-  margin: 0 auto;
-  /* ~50px title + ~50px bottom-sticky nav */
-  min-height: calc(100vh - 105px);
+  padding: 1rem;
+  margin: 0 auto 6rem;
+  /* ~55px title + ~55px bottom-sticky nav */
+  /* min-height: calc(100vh - 110px); */
 }
 
 .inner--flashes {
@@ -153,10 +159,10 @@ input[type="checkbox"] {
 }
 
 .card {
-  padding: 1rem;
+  /* padding: 0 0 1.65rem 0; */
+  /* padding: 1rem; */
   max-width: 666px;
   position: relative;
-  transition: all 0.3s ease;
   margin: 0.15rem auto 3rem;
   background: var(--backgroundLayerThree);
 }

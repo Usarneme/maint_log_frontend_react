@@ -1,13 +1,14 @@
 .nav {
   position: fixed;
+  left: 0;
   bottom: 0;
-  width: 100%;
   margin: 0;
+  width: 100%;
   display: inline-grid;
   grid-template-columns: repeat(5, 1fr);
-  background: var(--backgroundLayerFour);
+  /* background: var(--backgroundLayerFour); */
   padding: 1px;
-  transition: all 0.2s ease;
+  /* transition: all 0.2s ease; */
 }
 
 .navLink {

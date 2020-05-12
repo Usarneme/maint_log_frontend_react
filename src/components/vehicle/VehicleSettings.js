@@ -39,7 +39,7 @@ function VehicleSettings(props) {
       <h3>{`Vehicle${(props.vehicles && props.vehicles.length) > 1 ? "s": ""}`}</h3>
       { (props.vehicles && props.vehicles.length > 0) ?
         props.vehicles.map(vehicle => {
-          return <div key={vehicle.make+vehicle.year+vehicle.model} className={`${vehicle.primary ? 'vehicle__container primary' : 'vehicle__container'}`}>
+          return <div key={vehicle.make+vehicle.year+vehicle.model} className={`${vehicle.primary ? 'vehicle__container padded primary' : 'vehicle__container padded'}`}>
             <div className="well vehicle__data__container">
               <span>{vehicle.year}</span>
               <span>{vehicle.make}</span>
@@ -53,7 +53,7 @@ function VehicleSettings(props) {
         }) : <span>(none)</span>
       }
       
-      <div className="add__vehicle__container">
+      <div className="add__vehicle__container padded">
         { vehicleLookupsShowing && 
           <>
             <div className="buttons__holder">

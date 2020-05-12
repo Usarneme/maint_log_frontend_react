@@ -23,13 +23,13 @@ function ForgotPassword(props) {
   }
 
   if (loading) return <Loading message="Sending password reset email..." />
-  if (!formDisplayed) return <button className="button" onClick={() => toggleFormDisplay(true)}>Forgot Your Password?</button> 
+  if (!formDisplayed) return <div className="padded"><button className="button" onClick={() => toggleFormDisplay(true)}>Forgot Your Password?</button></div> 
 
   if (formDisplayed) return ( 
-    <div className="forgot__password__container">
+    <div className="forgot__password__container padded">
       <button className="button close__button" onClick={() => toggleFormDisplay(false)}>&times;</button> 
+      <h3>I forgot my password!</h3>
       <form onSubmit={handleSubmit} method="POST">
-        <h3>I forgot my password!</h3>
         <label htmlFor="email">Email Address</label>
         <input type="email" name="email" placeholder="Enter email..." defaultValue={props.email} ref={inputRef} />
         <input className="button" type="submit" value="Send a Reset" />

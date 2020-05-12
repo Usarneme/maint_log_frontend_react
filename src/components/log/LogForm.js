@@ -225,7 +225,7 @@ class LogForm extends React.Component {
               `Add New Log Entry`}
           </h2>
 
-          <form className="card form" id="logForm" onSubmit={this.apiEditLog} method="POST" encType="multipart/form-data" multiple="multiple">
+          <form className="card form padded" id="logForm" onSubmit={this.apiEditLog} method="POST" encType="multipart/form-data" multiple="multiple">
             <label htmlFor="name">Name</label>
             <input type="text" name="name" autoFocus value={this.state.name} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
             <label htmlFor="vehicle">Vehicle</label>

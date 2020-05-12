@@ -45,7 +45,7 @@ class VLVin extends React.Component {
 
   render() {
     return (
-      <div className="card searchByVinDiv">
+      <div className="searchByVinDiv">
         <div className="vinSearchInput">
           <label htmlFor="vin">VIN</label>
           <input type="text" name="vin" onChange={this.handleInputChange} />

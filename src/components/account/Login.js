@@ -79,8 +79,8 @@ class Login extends Component {
 
     return (
       <div className="card">
-        <form onSubmit={this.apiLogin} method="POST">
-          <h3>Login</h3>
+        <h3>Login</h3>
+        <form className="padded" onSubmit={this.apiLogin} method="POST">
           <label htmlFor="email">Email Address</label>
           <input type="email" name="email" placeholder="Enter email..." value={this.state.email} onChange={this.handleInputChange} />
           <label htmlFor="password">Password</label>
