@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import ForgotPassword from './ForgotPassword'
 import Loading from '../Loading'
 
-import { getLogData } from '../../helpers'
 import '../../styles/login.css'
 
 const axios = require('axios')
@@ -40,34 +39,28 @@ class Login extends Component {
     const { email, password } = this.state
     await this.setState({ loading: true })
     try {
-      // /login success returns a User object containing any Vehicle's registered by that User
       const res = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/login`, { email, password })
       if (res.status === 200) {
-        const { user, sessionID, cookies } = res.data
-        const userID = user._id
-        const name = user.name
-        const logData = await getLogData()
-        const vehicle = logData.vehicle || []
-        const log = logData.log || []
+        const user = res.data
+        user.userID = res.data._id
         // object property "primary" is a boolean indicating if it is the default/main vehicle to display
-        const primaryVehicleArray = vehicle.filter(car => car.primary)
-        let currentlySelectedVehicle
+        const primaryVehicleArray = user.vehicles.filter(car => car.primary)
         if (primaryVehicleArray.length === 0) {
-          currentlySelectedVehicle = vehicle[0] // if none is primary, display the first vehicle by default
+          user.currentlySelectedVehicle = user.vehicles[0] // if none is primary, display the first vehicle by default
         } else {
-          currentlySelectedVehicle = primaryVehicleArray[0]
+          user.currentlySelectedVehicle = primaryVehicleArray[0]
         }
-        await this.setState({ user: { name, userID, sessionID, cookies, email, vehicle, log, currentlySelectedVehicle }, password: '', loading: false })
+        await this.setState({ user, password: '', loading: false })
         await this.props.updateUserState(this.state.user)
         this.props.history.push('/')
       } else {
-        // console.log('Response received but with status code: '+res.status)
+        console.log('Response received but with status code: '+res.status)
         this.setState({loading: false})
         const error = new Error(res.error)
         throw error
       }
     } catch(err) {
-        this.setState({loading: false})
+        await this.setState({ loading: false })
         console.log(`Error posting to ${process.env.REACT_APP_API_DOMAIN}/api/login`)
         console.dir(err)
         alert('Error logging in please try again')

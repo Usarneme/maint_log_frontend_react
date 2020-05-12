@@ -5,6 +5,8 @@ axios.defaults.withCredentials = true
 export async function getLogData() {
   try {
     const response = await axios.get(`${process.env.REACT_APP_API_DOMAIN}/api/log`)
+    console.log('getLogData returned: ')
+    console.dir(response)
     if (response.status === 200) return response.data
     // otherwise ERROR
     console.log('Response received but with status code: '+response.status)
