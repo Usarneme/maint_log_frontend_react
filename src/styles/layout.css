@@ -34,15 +34,21 @@ html {
   --backgroundLayerTwo: #CCCCCC;
   --backgroundLayerThree: #AAAAAA;
   --backgroundLayerFour: #999999;
-  --textColorOne: #010101;
+  --textColorOne: #CDCDCD;
   --textColorTwo: #121212;
 }
 
 *,
 html,
 body, 
-a,
-ul li {
+ul li,
+h2,
+a, 
+span {
+  color: var(--textColorTwo);
+}
+
+h1, h3, h4, h5, p {
   color: var(--textColorOne);
 }
 
@@ -103,8 +109,11 @@ h4:after {
   width: 4px;
 } 
 
-img, svg {
+img, svg, a {
   fill: var(--textColorOne);
+}
+
+img, svg {
   width: 40px;
   height: 40px;
 }
@@ -165,6 +174,7 @@ input[type="checkbox"] {
   position: relative;
   margin: 0.15rem auto 3rem;
   background: var(--backgroundLayerThree);
+  /* box-shadow: 1px 1px 5px var(--backgroundLayerOne); */
 }
 
 .card:hover {

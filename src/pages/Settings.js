@@ -61,16 +61,16 @@ class Settings extends Component {
       id: vehicleData.id || ''
     } 
     // for overwriting changes made to an extant vehicle as new vehicles do not have an ID
-    const vehicles = this.props.user.vehicle.filter(car => {
+    const vehicles = this.props.user.vehicles.filter(car => {
       return car.id !== vehicleData.id
     })
     const userUpdates = {...this.props.user}
-    userUpdates.vehicle = [...vehicles, newVehicle]
+    userUpdates.vehicles = [...vehicles, newVehicle]
     userUpdates.currentlySelectedVehicle = newVehicle
     const updates = await updateUserAccount(userUpdates)
     const updatedUser = this.props.user
     updatedUser.log = updates.log
-    updatedUser.vehicle = updates.vehicle
+    updatedUser.vehicles = updates.vehicles
     updatedUser.currentlySelectedVehicle = newVehicle
     await this.props.updateUserState(updatedUser)
     this.setState({ loading: false })
@@ -87,7 +87,7 @@ class Settings extends Component {
     const updates = await updateUserAccount(userUpdates)
     const updatedUser = this.props.user
     updatedUser.log = updates.log
-    updatedUser.vehicle = updates.vehicle
+    updatedUser.vehicles = updates.vehicles
     updatedUser.currentlySelectedVehicle = this.state.currentlySelectedVehicle
     await this.props.updateUserState(updatedUser)
     this.setState({ loading: false })
@@ -103,7 +103,7 @@ class Settings extends Component {
         <VehicleSettings 
           currentlySelectedVehicle={this.props.user.currentlySelectedVehicle} 
           saveVehicleChanges={this.saveVehicleChanges} 
-          vehicles={this.props.user.vehicle}
+          vehicles={this.props.user.vehicles}
         />
 
         <div className="card">
@@ -134,7 +134,7 @@ Settings.propTypes = {
     name: PropTypes.string,
     sessionID: PropTypes.string,
     userID: PropTypes.string,
-    vehicle: PropTypes.array,
+    vehicles: PropTypes.array,
     currentlySelectedVehicle: PropTypes.object
   }),
   history: PropTypes.object.isRequired

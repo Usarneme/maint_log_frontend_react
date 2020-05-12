@@ -45,6 +45,9 @@ export async function updateUserAccount(userObject) {
     }
 }
 
+// saveVehicleChanges
+// saveNewVehicle
+
 export const manufacturers = [
   "ACG",
   "Aston Martin",

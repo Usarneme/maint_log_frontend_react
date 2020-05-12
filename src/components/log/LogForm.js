@@ -30,7 +30,7 @@ class LogForm extends React.Component {
       serviceLocation: '', 
       photos: '', 
       receipts: '',
-      vehicle: props.user.currentlySelectedVehicle || '',
+      vehicle: '', // String vehicle ID associated with this log entry
       showDeleteButton: false,
       loading: true
     }
@@ -188,7 +188,8 @@ class LogForm extends React.Component {
       serviceLocation: this.props.log.serviceLocation, 
       photos: this.props.log.photos, 
       receipts: this.props.log.receipts,
-      vehicle: this.props.log.vehicle,
+      vehicle: this.props.log.vehicle, 
+      currentlySelectedVehicle: this.props.user.currentlySelectedVehicle || this.props.user.vehicles[0] || {},
       loading: false
     })
   }
@@ -200,6 +201,11 @@ class LogForm extends React.Component {
 
   render() {
     if (this.state.loading) return <Loading message="Formatting and Saving Log Data..." />
+    let previouslyAssociatedVehicle
+    if (this.props && this.props.log && this.props.log.vehicle && this.props.log.vehicle.length > 0) {
+      const vehicleArray = this.props.user.vehicles.filter(car => car.id === this.props.log.vehicle)
+      previouslyAssociatedVehicle = vehicleArray[0]
+    }
 
     if (!this.state.vehicle) {
       return (
@@ -225,66 +231,73 @@ class LogForm extends React.Component {
               `Add New Log Entry`}
           </h2>
 
-          <form className="card form padded" id="logForm" onSubmit={this.apiEditLog} method="POST" encType="multipart/form-data" multiple="multiple">
-            <label htmlFor="name">Name</label>
-            <input type="text" name="name" autoFocus value={this.state.name} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
-            <label htmlFor="vehicle">Vehicle</label>
-            <select id="vehicle" name="vehicle" required="required" defaultValue={this.props && this.props.log && this.props.log.vehicle ? this.props.log.vehicle : 'Vehicle Required'} onChange={this.handleInputChange} onFocus={this.alignViewToElement}>
-              { this.props.user.vehicle && this.props.user.vehicle.length > 0 &&
-                this.props.user.vehicle.map(model => <option key={model._id} value={model._id}>{`${model.year} ${model.make} ${model.model}`}</option>)
-              }
-            </select>
-            <label htmlFor="dateStarted">Date Started</label>
-            <input type="date" name="dateStarted" value={this.state.dateStarted} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
-            <label htmlFor="dateCompleted">Date Completed</label>
-            <input type="date" name="dateCompleted" value={this.state.dateCompleted} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
-            <label htmlFor="dateDue">On what date will this item need to be completed next?</label>
-            <input type="date" name="dateDue" value={this.state.dateDue} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
-            <label htmlFor="mileageDue">At what mileage will this item need to be completed next?</label>
-            <input type="number" name="mileageDue" min="0" step="1" value={this.state.mileageDue} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
-            <label htmlFor="shortDescription">Short Description</label>
-            <textarea name="shortDescription" autoComplete="on" spellCheck="true" value={this.state.shortDescription} onChange={this.handleInputChange} onFocus={this.alignViewToElement} ></textarea>
-            <label htmlFor="longDescription">Long Description</label>
-            <textarea name="longDescription" autoComplete="on" spellCheck="true" value={this.state.longDescription} onChange={this.handleInputChange} onFocus={this.alignViewToElement} ></textarea>
-            <label htmlFor="tools">Tools</label>
-            <input type="text" name="tools" value={this.state.tools} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
-            <label htmlFor="parts">Parts</label>
-            <input type="text" name="parts" value={this.state.parts} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
-            <label htmlFor="partsCost">Cost of Parts</label>
+          <div className="card padded">
+            <form className="form" id="logForm" onSubmit={this.apiEditLog} method="POST" encType="multipart/form-data" multiple="multiple">
+              <label htmlFor="name">Name</label>
+              <input type="text" name="name" autoFocus value={this.state.name} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
+              <label htmlFor="vehicle">Vehicle</label>
+              <select 
+                id="vehicle" 
+                name="vehicle" 
+                required="required" 
+                defaultValue="Please select a vehicle..."
+                onChange={this.handleInputChange} 
+                onFocus={this.alignViewToElement}>
+                { Object.keys(previouslyAssociatedVehicle).length > 0 &&
+                  <option key={previouslyAssociatedVehicle._id} value={previouslyAssociatedVehicle._id}>{`${previouslyAssociatedVehicle.year} ${previouslyAssociatedVehicle.make} ${previouslyAssociatedVehicle.model}`}</option>
+                }
+                { this.props.user.vehicles && this.props.user.vehicles.length > 0 &&
+                  this.props.user.vehicles.map(model => {
+                    if (model._id !== previouslyAssociatedVehicle._id) return <option key={model._id} value={model._id}>{`${model.year} ${model.make} ${model.model}`}</option>
+                })
+                }
+              </select>
+              <label htmlFor="dateStarted">Date Started</label>
+              <input type="date" name="dateStarted" value={this.state.dateStarted} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
+              <label htmlFor="dateCompleted">Date Completed</label>
+              <input type="date" name="dateCompleted" value={this.state.dateCompleted} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
+              <label htmlFor="dateDue">On what date will this item need to be completed next?</label>
+              <input type="date" name="dateDue" value={this.state.dateDue} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
+              <label htmlFor="mileageDue">At what mileage will this item need to be completed next?</label>
+              <input type="number" name="mileageDue" min="0" step="1" value={this.state.mileageDue} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
+              <label htmlFor="shortDescription">Short Description</label>
+              <textarea name="shortDescription" autoComplete="on" spellCheck="true" value={this.state.shortDescription} onChange={this.handleInputChange} onFocus={this.alignViewToElement} ></textarea>
+              <label htmlFor="longDescription">Long Description</label>
+              <textarea name="longDescription" autoComplete="on" spellCheck="true" value={this.state.longDescription} onChange={this.handleInputChange} onFocus={this.alignViewToElement} ></textarea>
+              <label htmlFor="tools">Tools</label>
+              <input type="text" name="tools" value={this.state.tools} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
+              <label htmlFor="parts">Parts</label>
+              <input type="text" name="parts" value={this.state.parts} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
+              <label htmlFor="partsCost">Cost of Parts</label>
+                <span className="moneySign">$
+                  <input className="moneyInput" type="number" name="partsCost" min="0" step="0.01" value={this.state.partsCost} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
+                </span>
+              <label htmlFor="laborCost">Cost of Labor</label>
               <span className="moneySign">$
-                <input className="moneyInput" type="number" name="partsCost" min="0" step="0.01" value={this.state.partsCost} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
+                <input className="moneyInput" type="text" name="laborCost" min="0" step="0.01" value={this.state.laborCost} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
               </span>
-            <label htmlFor="laborCost">Cost of Labor</label>
-            <span className="moneySign">$
-              <input className="moneyInput" type="text" name="laborCost" min="0" step="0.01" value={this.state.laborCost} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
-            </span>
-            <label htmlFor="serviceLocation">Service Location (Name and Address of Mechanic or Self)</label>
-            <input type="text" name="serviceLocation" value={this.state.serviceLocation} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
-            <label htmlFor="odometer">Odometer</label>
-            <input type="number" name="odometer" min="0" value={this.state.odometer} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
+              <label htmlFor="serviceLocation">Service Location (Name and Address of Mechanic or Self)</label>
+              <input type="text" name="serviceLocation" value={this.state.serviceLocation} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
+              <label htmlFor="odometer">Odometer</label>
+              <input type="number" name="odometer" min="0" value={this.state.odometer} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
 
-            <label htmlFor="file">Upload other images
-              <input type="file" name="file" accept="image/gif, image/png, image/jpeg" onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
-            </label>
-            <input className="button submit" type="submit" value="Save Log" />
-          </form>
+              <label htmlFor="file">Upload other images
+                <input type="file" name="file" accept="image/gif, image/png, image/jpeg" onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
+              </label>
+              <input className="button submit" type="submit" value="Save Log" />
+            </form>
 
-          { this.state.photos && this.state.photos.length > 0 && 
-            <div className="card">
-              <label htmlFor="previousPhotos"><h3>Photos:</h3></label>
-              <PhotoEditor photos={this.state.photos} deletePhoto={this.deletePhoto} /> 
-              {/* <input type="hidden" name="previousPhotos" value={this.state.photos.toString()} /> */}
-            </div>
-          }
+            { this.state.photos && this.state.photos.length > 0 && <PhotoEditor photos={this.state.photos} deletePhoto={this.deletePhoto} /> }
 
-          { this.state.id &&
-            <>
-            <button className="button delete__log__entry" onClick={this.toggleDeleteButton} title="Delete Log Entry">Delete Log Entry</button>
-            { this.state.showDeleteButton &&
-              <button className="button delete__log__entry__confirm" onClick={this.deleteLogEntry} title="Permanently Delete Log Entry">Permanently Delete Log Entry</button>
+            { this.state.id &&
+              <>
+              <button className="button delete__log__entry" onClick={this.toggleDeleteButton} title="Delete Log Entry">Delete Log Entry</button>
+              { this.state.showDeleteButton &&
+                <button className="button delete__log__entry__confirm" onClick={this.deleteLogEntry} title="Permanently Delete Log Entry">Permanently Delete Log Entry</button>
+              }
+              </>
             }
-            </>
-          }
+          </div>
         </div>
       )
     }

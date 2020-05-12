@@ -17,23 +17,23 @@ function Home(props) {
       <div className="home__actions__container">
         <Link className="button card home__actions history" to="/log">
           <ReactSVG src={LogIcon} role="img" aria-label="Log Icon" fallback={() => <img src={LogIcon} alt="log icon" description="log icon" className="svg" />} /> 
-          <span>View Full Maintenance Log History</span>
+          <p>View Full Maintenance Log History</p>
         </Link>
         <Link className="button card home__actions add" to="/add">
           <ReactSVG src={AddIcon} role="img" aria-label="Add Icon" fallback={() => <img src={AddIcon} alt="add icon" description="add icon" className="svg" />} /> 
-          <span>Add New Log Entry</span>
+          <p>Add New Log Entry</p>
         </Link>
         <Link className="button card home__actions todo upcoming-maintenance" to="/todo">
           <ReactSVG src={TodoIcon} role="img" aria-label="Todo Icon" fallback={() => <img src={TodoIcon} alt="todo icon" description="todo icon" className="svg" />} /> 
-          <span>View Upcoming Scheduled Maintenance</span>
+          <p>View Upcoming Scheduled Maintenance</p>
         </Link>
         <Link className="button card home__actions search__main search" to="/search">
           <ReactSVG src={SearchIcon} role="img" aria-label="Search Icon" fallback={() => <img src={SearchIcon} alt="search icon" description="search icon" className="svg" />} /> 
-          <span>Search Log Entries</span>
+          <p>Search Log Entries</p>
         </Link>
         <Link className="button card home__actions settings" to="/settings">
           <ReactSVG src={SettingsIcon} role="img" aria-label="Settings Icon" fallback={() => <img src={SettingsIcon} alt="settings icon" description="settings icon" className="svg" />} /> 
-          <span>Add Your Vehicle and View Other Settings</span>
+          <p>Add Your Vehicle and View Other Settings</p>
         </Link>
       </div>
     </div>

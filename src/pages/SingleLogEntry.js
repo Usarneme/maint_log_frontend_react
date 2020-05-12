@@ -14,7 +14,7 @@ function SingleLogEntry(props) {
   const log = props.user.log.filter(entry => entry.slug === slug)
   const { id, shortDescription, longDescription, dateStarted, dateCompleted, dateEntered, dateDue, mileageDue, name, odometer, tools, parts, partsCost, laborCost, serviceLocation, photos } = log[0]
   const vehicleID = log[0].vehicle
-  const vehicleArray = props.user.vehicle.filter(vehicle => vehicle.id === vehicleID)
+  const vehicleArray = props.user.vehicles.filter(vehicle => vehicle.id === vehicleID)
   const vehicle = vehicleArray[0]
 
   return (
@@ -23,83 +23,73 @@ function SingleLogEntry(props) {
         <h3>{name.length > 120 ? `${name.substring(0,120)}...` : name}</h3>
         <div className="padded single__details">
           <div>
-            <p>
+            <div>
               <strong>Service Performed: </strong>
               <span>{shortDescription}</span>
-            </p>
-            <p>
+            </div>
+            <div>
               <strong>Date Entered: </strong>
               <span>{moment(dateEntered).format("MMM Do YYYY")}</span>
-            </p>
-            <p>
+            </div>
+            <div>
               <strong>Vehicle: </strong>
-              <span>{vehicle.year} {vehicle.make} {vehicle.model}</span>
-              <span> at {Number(odometer).toLocaleString()} miles</span>
-            </p>
-            <p>
-            </p>
+              <span>{vehicle.year} {vehicle.make} {vehicle.model} {` at `} {Number(odometer).toLocaleString()} {` miles`}</span>
+            </div>
           </div>
-          <p>
+          <div>
             <strong>Long Description: </strong>
             <span>{longDescription}</span>
-          </p>
-          <div className="dates__container">
-            <p>
+          </div>
+          <div>
+            <div>
               <strong>Started: </strong>
               <span>{moment(dateStarted).format("MMM Do YYYY")}</span>
-            </p>
-            <p>
+            </div>
+            <div>
               <strong>Completed: </strong>
               <span>{moment(dateCompleted).format("MMM Do YYYY")}</span>
-            </p>
+            </div>
           </div>
           <div>
             {(mileageDue || dateDue) && 
-              <p>
-                <strong>Service is Due Next: </strong>
-                <span>{Number(mileageDue).toLocaleString()} miles </span>
-                {dateDue && <span> and/or on </span>}
-                <span>{moment(dateDue).format("MMM Do YYYY")}</span>
-              </p>
+            <>
+              <strong>Service is Due Next: </strong>
+              <span>{mileageDue > 0 ? `At ${Number(mileageDue).toLocaleString()} miles. ` : "[unset] miles. "} {dateDue && "On"} {moment(dateDue).format("MMM Do YYYY")}</span>
+            </>
             }
           </div>
           <div>
-            <p>
+            <div>
               <strong>Tools: </strong>
               <span>{tools}</span>
-            </p>
-            <p>
+            </div>
+            <div>
               <strong>Parts: </strong>
               <span>{parts}</span>
-            </p>
+            </div>
           </div>
           <div>
-            <p>
+            <div>
               <strong>Parts Cost: </strong>
-              <span>${partsCost.toLocaleString()}</span>
-            </p>
-            <p>
+              <span>${partsCost.toLocaleString()}</span>            
+            </div>
+            <div>
               <strong>Labor Cost: </strong>
               <span>${laborCost.toLocaleString()}</span>
-            </p>
+            
+            </div>
           </div>
-          <p>
+          <div>
             <strong>Service Location: </strong>
             <span>{serviceLocation}</span>
-          </p>
+          </div>
 
           <Link className="button editPencil" to={`/log/${id}/edit`}>
             <ReactSVG src={EditPencil} role="img" aria-label="Edit Pencil Icon" fallback={() => <img src={EditPencil} alt="edit pencil icon" description="edit pencil icon" className="svg" />} /> 
-            <span>Edit</span>
+            <p>Edit</p>
           </Link>
 
-        { photos && photos.length > 0 && 
-          <>
-            <label htmlFor="previousPhotos"><h3>Photos:</h3></label>
-            <PhotoEditor photos={photos} editingBlocked={true} /> 
-            <input type="hidden" name="previousPhotos" value={photos.toString()} />
-          </>
-        }
+        { photos && photos.length > 0 && <PhotoEditor photos={photos} editingBlocked={true} /> }
         </div>
       </div>
     </div>
@@ -115,7 +105,7 @@ SingleLogEntry.propTypes = {
     name: PropTypes.string,
     sessionID: PropTypes.string,
     userID: PropTypes.string,
-    vehicle: PropTypes.array
+    vehicles: PropTypes.array
   }),
   updateUserState: PropTypes.func.isRequired
 }

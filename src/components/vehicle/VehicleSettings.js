@@ -34,6 +34,9 @@ function VehicleSettings(props) {
     }
   }
 
+  // saveNewVehicle
+  // saveVehicleChanges
+
   return (
     <div className="card">
       <h3>{`Vehicle${(props.vehicles && props.vehicles.length) > 1 ? "s": ""}`}</h3>

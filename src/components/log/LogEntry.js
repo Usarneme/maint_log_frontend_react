@@ -15,20 +15,20 @@ function LogEntry(props) {
       </Link>
       <div className="log__details__container">
         <div className="log__details log__details__service">
-          <span>{log.shortDescription}</span>
-          <span>{log.serviceLocation}</span>
+          <p>{log.shortDescription}</p>
+          <p>{log.serviceLocation}</p>
         </div>
         <div className="log__details log__details__dates">
-          <span>{moment(log.dateCompleted).fromNow()}</span>
-          { log.dateDue && <span>Next <span>{moment(log.dateDue).fromNow()}</span></span> }
+          <p>{moment(log.dateCompleted).fromNow()}</p>
+          { log.dateDue && <p>Next <p>{moment(log.dateDue).fromNow()}</p></p> }
         </div>
         <div className="log__details log__details__mileage">
-          <span>{Number(log.odometer).toLocaleString()} miles</span>
-          { log.mileageDue && <span>Next <span>{Number(log.mileageDue).toLocaleString()}</span></span> }
+          <p>{Number(log.odometer).toLocaleString()} miles</p>
+          { log.mileageDue && <p>Next <p>{Number(log.mileageDue).toLocaleString()}</p></p> }
         </div>
         <div className="log__details log__details__costs">
-          <span>P ${log.partsCost}</span>
-          <span>L ${log.laborCost}</span>
+          <p>P ${log.partsCost}</p>
+          <p>L ${log.laborCost}</p>
         </div>
       </div>
     </div>

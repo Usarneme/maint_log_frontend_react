@@ -14,7 +14,7 @@
   transition: all 0.3s ease;
 }
 
-.card.home__actions > span {
+.card.home__actions > p {
   flex-grow: 1;
 }
 
