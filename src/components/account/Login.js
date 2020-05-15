@@ -35,11 +35,13 @@ class Login extends Component {
   }
 
   apiLogin = async event => {
+    console.log('1')
     event.preventDefault()
     const { email, password } = this.state
     await this.setState({ loading: true })
     try {
       const res = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/login`, { email, password })
+      console.log('2')
       if (res.status === 200) {
         const user = res.data
         user.userID = res.data._id
@@ -50,8 +52,11 @@ class Login extends Component {
         } else {
           user.currentlySelectedVehicle = primaryVehicleArray[0]
         }
+        console.log('3')
         await this.setState({ user, password: '', loading: false })
+        console.log('4')
         await this.props.updateUserState(this.state.user)
+        console.log('5')
         this.props.history.push('/')
       } else {
         console.log('Response received but with status code: '+res.status)

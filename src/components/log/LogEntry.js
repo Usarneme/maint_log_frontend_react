@@ -20,11 +20,11 @@ function LogEntry(props) {
         </div>
         <div className="log__details log__details__dates">
           <p>{moment(log.dateCompleted).fromNow()}</p>
-          { log.dateDue && <p>Next <p>{moment(log.dateDue).fromNow()}</p></p> }
+          { log.dateDue && <p>Next <span>{moment(log.dateDue).fromNow()}</span></p> }
         </div>
         <div className="log__details log__details__mileage">
           <p>{Number(log.odometer).toLocaleString()} miles</p>
-          { log.mileageDue && <p>Next <p>{Number(log.mileageDue).toLocaleString()}</p></p> }
+          { log.mileageDue && <p>Next <span>{Number(log.mileageDue).toLocaleString()}</span></p> }
         </div>
         <div className="log__details log__details__costs">
           <p>P ${log.partsCost}</p>

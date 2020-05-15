@@ -32,7 +32,8 @@ class LogForm extends React.Component {
       receipts: '',
       vehicle: '', // String vehicle ID associated with this log entry
       showDeleteButton: false,
-      loading: true
+      loading: true,
+      api: true
     }
   }
 
@@ -47,7 +48,7 @@ class LogForm extends React.Component {
   }
 
   apiEditLog = async event => {
-    console.log('apiEditLog func...')
+    // console.log('apiEditLog func...')
     event.preventDefault()
     this.setState({ loading: true })
     let url = ''
@@ -55,37 +56,23 @@ class LogForm extends React.Component {
     if (this.props && this.props.log) {
       url = `${process.env.REACT_APP_API_DOMAIN}/add/${this.props.log.id}`
     } else {
-      url = `${process.env.REACT_APP_API_DOMAIN}/add/`
+      url = `${process.env.REACT_APP_API_DOMAIN}/add`
     }
 
-    let formData = new FormData()
-    formData.append('id', this.state.id) 
-    formData.append('shortDescription', this.state.shortDescription) 
-    formData.append('longDescription', this.state.longDescription) 
-    formData.append('dateStarted', this.state.dateStarted) 
-    formData.append('dateCompleted', this.state.dateCompleted) 
-    formData.append('dateEntered', moment(Date.now()).format('YYYY-MM-DD')) 
-    formData.append('dateDue', this.state.dateDue) 
-    formData.append('file', this.state.file)
-    formData.append('mileageDue', this.state.mileageDue) 
-    formData.append('name', this.state.name) 
-    formData.append('odometer', this.state.odometer) 
-    formData.append('tools', this.state.tools) 
-    formData.append('parts', this.state.parts) 
-    formData.append('partsCost', this.state.partsCost) 
-    formData.append('laborCost', this.state.laborCost) 
-    formData.append('serviceLocation', this.state.serviceLocation) 
-    formData.append('photos', this.state.photos) 
-    formData.append('previousPhotos', this.state.photos) 
-    formData.append('receipts', this.state.receipts)
-    formData.append('vehicle', this.state.vehicle)
-    formData.append('api', true)
+    const formDatums = new FormData(document.getElementById('logForm'))
+    formDatums.append("dateEntered", moment(Date.now()).format('YYYY-MM-DD'))
+    formDatums.append("api", true)
+    formDatums.append("photos", this.state.photos)
+    if (this.state.id) formDatums.append("id", this.state.id)
 
-    console.log('Before trying api POST')
+    // for (var x of formDatums) {
+    //   console.log(x[0], x[1])
+    // }
+    // console.log('Sending log updates to back end: ')
     try {
-      const result = await axios.post(url, formData)
-      console.log('result received')
-      console.log(result)
+      const result = await axios.post(url, formDatums)
+      // console.log('result received')
+      // console.log(result)
       if (result.status === 200) {
         const log = result.data.fullLog
         const newLogEntry = result.data.newLogEntry
@@ -99,7 +86,7 @@ class LogForm extends React.Component {
         throw error
       }
     } catch(error) {
-      console.log('Error with LogForm')
+      console.log('Error with LogForm. Unable to add/edit Log Entry. Please try again later.')
       console.dir(error)
       console.log(error)
       console.table(error)
@@ -207,12 +194,12 @@ class LogForm extends React.Component {
       previouslyAssociatedVehicle = vehicleArray[0]
     }
 
-    if (!this.state.vehicle) {
+    if (!this.state.currentlySelectedVehicle) {
       return (
         <div className="inner">
           <h2>No Vehicle Associated With This Account</h2>
           <div className="card no__vehicle warning">
-            <p>Before entering a service record, please: </p>
+            <span>Before entering a service record, please: </span>
             <Link to="/settings" className="button">Click Here To Add A Vehicle To Your Account</Link>
           </div>
         </div>
@@ -284,6 +271,7 @@ class LogForm extends React.Component {
               <label htmlFor="file">Upload other images
                 <input type="file" name="file" accept="image/gif, image/png, image/jpeg" onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
               </label>
+
               <input className="button submit" type="submit" value="Save Log" />
             </form>
 
