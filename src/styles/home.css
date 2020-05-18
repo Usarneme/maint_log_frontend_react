@@ -6,16 +6,28 @@
 
 .card.home__actions {
   display: flex;
+  margin: 0;
+  margin-bottom: 0.15rem;
   flex-direction: row;
-  /* border-radius: 5px; */
   justify-content: space-between;
-  /* align-items: center; */
-  height: calc((100vh - 150px) / 6);
-  transition: all 0.3s ease;
+  transition: scale 0.3s ease;
+  background: var(--backgroundLayerThree);
+}
+
+.card.home__actions > div {
+  height: calc((100vh - 150px) / 7);
+  width: 10rem;
+  border-right: 1px solid var(--backgroundLayerThree);
+  margin-right: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--buttonBlue);
 }
 
 .card.home__actions > p {
   flex-grow: 1;
+  color: var(--buttonGreen);
 }
 
 .card.home__actions:focus,

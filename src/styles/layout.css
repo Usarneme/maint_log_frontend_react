@@ -1,7 +1,9 @@
 html {
   font-size: 10px;
   box-sizing: border-box;
-  --buttonBlue: #004C7D;
+  --buttonBlue: #164766;
+  /* --buttonBlue: #004C7D */
+  --buttonGreen: #3bae37;
   --buttonTextWhite: #EFDEFD;
 }
 
@@ -21,35 +23,28 @@ html {
 }
 
 .dark {
-  --backgroundLayerOne: #282828;
-  --backgroundLayerTwo: #1A1919;
-  --backgroundLayerThree: #545454;
+  --backgroundLayerOne: #121212;
+  --backgroundLayerTwo: rgba(255,255,255,0.16);
+  --backgroundLayerThree: rgba(0,0,0,0.84);
   --backgroundLayerFour: #898989;
-  --textColorOne: #EFEFEF;
+  --textColorOne: #A9A9A9;
   --textColorTwo: #BCBCBC;
 }
 
 .light {
-  --backgroundLayerOne: #BBBBBB;
-  --backgroundLayerTwo: #CCCCCC;
-  --backgroundLayerThree: #AAAAAA;
+  --backgroundLayerOne: #CDCDCD;
+  --backgroundLayerTwo: rgba(0,0,0,0.16);
+  --backgroundLayerThree: rgba(255,255,255,0.84);
   --backgroundLayerFour: #999999;
-  --textColorOne: #CDCDCD;
-  --textColorTwo: #121212;
+  --textColorOne: #414141;
+  --textColorTwo: #262626;
 }
 
 *,
 html,
 body, 
-ul li,
-h2,
-a, 
-span {
+ul li {
   color: var(--textColorTwo);
-}
-
-h1, h3, h4, h5, p {
-  color: var(--textColorOne);
 }
 
 body {
@@ -60,6 +55,40 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+h1, h2, h3, h4, h5 {
+  font-size: 1.5rem;
+  padding: 1rem;
+  width: 100%;
+}
+
+h1 {
+  padding: 1.5rem 0;
+  font-size: 2.35rem;
+  color: var(--buttonBlue);
+}
+
+h2 {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+h3, h4 {
+  position: relative;
+  background: var(--buttonBlue);
+  color: var(--buttonTextWhite);
+}
+
+h3:after,
+h4:after {
+  content: "";
+  background: var(--textColorOne);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 4px;
+} 
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
@@ -77,45 +106,14 @@ li::before {
   margin-left: -1rem;
 }
 
-h1, h2, h3, h4, h5 {
-  font-size: 1.5rem;
-  padding: 1rem;
-  width: 100%;
-}
-
-h1 {
-  padding: 1.5rem 0;
-  font-size: 2.35rem;
-}
-
-h2 {
-  text-align: center;
-  text-transform: uppercase;
-}
-
-h3, h4 {
-  position: relative;
-  background: rgba(0,0,0,0.45);
-}
-
-h3:after,
-h4:after {
-  content: "";
-  background: var(--textColorTwo);
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 100%;
-  width: 4px;
-} 
-
-img, svg, a {
-  fill: var(--textColorOne);
-}
-
 img, svg {
+  fill: var(--buttonTextWhite);
   width: 40px;
   height: 40px;
+}
+
+.svg__dark__fill * {
+  fill: var(--textColorOne);
 }
 
 .padded {
@@ -135,27 +133,26 @@ label {
   display: block;
 }
 
-.container {
-  min-height: calc(100vh - 52px);
+#root {
+  min-height: calc(100vh);
   background: var(--backgroundLayerOne);
   transition: all 0.2s ease;
-  padding: 1rem;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 5rem;
 }
 
 .inner {
-  background: var(--backgroundLayerTwo);
   max-width: 1200px;
-  padding: 1rem;
+  padding: 0.6rem;
   margin: 0 auto 6rem;
-  /* ~55px title + ~55px bottom-sticky nav */
-  /* min-height: calc(100vh - 110px); */
 }
 
 .inner--flashes {
   padding: 0;
 }
 
-input, select, textarea, .button {
+input, select, textarea {
   border: 0;
   width: 100%;
   height: 4rem;
@@ -168,13 +165,11 @@ input[type="checkbox"] {
 }
 
 .card {
-  /* padding: 0 0 1.65rem 0; */
-  /* padding: 1rem; */
   max-width: 666px;
   position: relative;
   margin: 0.15rem auto 3rem;
   background: var(--backgroundLayerThree);
-  /* box-shadow: 1px 1px 5px var(--backgroundLayerOne); */
+  box-shadow: 1px 1px 5px var(--backgroundLayerTwo);
 }
 
 .card:hover {
@@ -182,6 +177,9 @@ input[type="checkbox"] {
 }
 
 .button {
+  border: 0;
+  width: 100%;
+  min-height: 4rem;
   display: block;
   display: flex;
   cursor: pointer;
@@ -194,7 +192,7 @@ input[type="checkbox"] {
   justify-content: center;
   color: var(--buttonTextWhite);
   background-color: var(--buttonBlue);
-  /* border: 1px solid lighten(var(--buttonBlue), 50%); */
+  border: 1px solid lighten(var(--buttonBlue), 50%);
 }
 
 input.button {

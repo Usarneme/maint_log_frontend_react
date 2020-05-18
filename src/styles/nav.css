@@ -2,93 +2,45 @@
   position: fixed;
   left: 0;
   bottom: 0;
-  margin: 0;
-  width: 100%;
+  right: 0;
   display: inline-grid;
   grid-template-columns: repeat(5, 1fr);
-  /* background: var(--backgroundLayerFour); */
-  padding: 1px;
-  /* transition: all 0.2s ease; */
+  background: var(--backgroundLayerTwo);
 }
 
-.navLink {
-  background: rgba(0,0,0,0.25);
-  /* background: var(--backgroundLayerTwo); */
-  min-height: 20px;
-  margin: 1px;
-  /* border-radius: 5px; */
+.card.navLink {
+  background: var(--backgroundLayerThree);
+  margin: 0.1rem !important;
+  padding-top: 1rem !important;
+  color: var(--buttonBlue);
+  fill: var(--buttonBlue);
 }
 
-.navLink > h5 {
-  visibility: collapse;
-  display: none;
-}
-
-.navLink:hover,
-.navLink--active {
+.card.navLink:hover,
+.card.navLink--active {
   background: linear-gradient(90deg, #48ded4 0%, hsla(219, 93%, 48%, 1) 10%, #3bae37 100%) fixed;
-  margin: 1px;
-  padding: 1px;
+  color: var(--buttonTextWhite);
 }
 
-.navLink:hover > img {
-  transform: scale(0.85);
-  margin: 1px;
-  padding: 1px;
+.card.navLink:hover *,
+.card.navLink--active * {
+  color: var(--buttonTextWhite);
+  fill: var(--buttonTextWhite);
 }
 
-.navLink:hover > h5 {
-  visibility: visible;
-  display: block;
-  margin: 1px;
-  padding: 1px;
-}
-
-.nav > a,
-.nav > div > a {
-  color: var(--textColorOne);
+.nav a,
+.nav h5 {
   text-transform: uppercase;
   display: flex;
   align-items: center;
   justify-content: space-around;
   flex-direction: column;
   text-align: center;
-  padding: 4px 0;
+  margin: 0;
+  padding: 0;
 }
 
-a.navLink > img,
+/* a.navLink > img,
 a.navLink > img > g {
-  fill: var(--textColorOne);
-  margin: 1px;
-  width: 30px;
-  height: 30px;
-}
-
-@media all and (min-width: 550px) {
-  a.navLink > img,
-  a.navLink > img > g {
-    max-width: 40px;
-    max-height: 40px;
-  }
-  .nav > a,
-  .nav > div > a {
-    flex-direction: column;
-  }
-}
-
-@media all and (min-width: 768px) {
-  a.navLink > img,
-  a.navLink > img > g {
-    max-width: 45px;
-    max-height: 45px;
-    padding: 4px;
-    margin: 2px;
-  }
-}
-
-@media all and (min-width: 1200px) {
-  .nav > a,
-  .nav > div > a {
-    flex-direction: row;
-  }
-}
+  fill: var(--buttonBlue);
+} */

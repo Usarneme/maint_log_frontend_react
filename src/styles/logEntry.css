@@ -1,5 +1,5 @@
 .card.log__entry {
-  margin: 1.5rem auto;
+  margin: 2.2rem auto;
 }
 
 .log__entry > a > h5 {
@@ -20,8 +20,8 @@ div.log__details__container {
 div.log__details {
   display: flex;
   flex-direction: column;
-  height: 60px;
-  padding: 1px 3px;
+  min-height: 8rem;
+  padding: 2px;
 }
 
 div.log__details > p {
