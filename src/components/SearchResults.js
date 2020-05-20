@@ -6,7 +6,7 @@ function SearchResults(props) {
     <section className="search__results" >
       <h4>Results: </h4>
       {props.results.map(result => (
-        <div key={result.id} className="search__result">
+        <div key={result.id} className="card search__result">
           <h3>{result.name}</h3>
           <p className="result__detail">{result.shortDescription}</p>
           <div className="search__result__buttons">

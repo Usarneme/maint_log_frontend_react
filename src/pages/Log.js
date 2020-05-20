@@ -9,8 +9,7 @@ import LogSorter from '../components/log/LogSorter'
 function Log(props) {
   let log = []
   if (props.user.log && props.user.log.length > 0) log = props.user.log
-  let vehicle = {}
-  if (props.user.vehicle && props.user.vehicle[0]) vehicle = props.user.vehicle[0]
+  const vehicle = props.user.currentlySelectedVehicle || props.user.vehicle[0]
 
   return (
     <div className="inner">
@@ -21,12 +20,13 @@ function Log(props) {
           <Link className="button" to="/add">Add A Log Entry Now</Link>
         </div>
       }
-
+ 
       { Object.keys(log).length > 0 &&
-        <VehicleHeader vehicle={vehicle}>
+        <div className="padded">
+          <VehicleHeader vehicle={vehicle} vehicles={props.user.vehicles || []} />
           <LogSorter {...props} />
           {log && log.map(entry => <LogEntry key={entry._id} data={entry} />)}
-        </VehicleHeader>
+        </div>
       }
     </div>
   )

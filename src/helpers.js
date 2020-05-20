@@ -45,8 +45,21 @@ export async function updateUserAccount(userObject) {
     }
 }
 
-// saveVehicleChanges
-// saveNewVehicle
+// saveNewVehicle = /api/vehicle/add
+export async function addNew(vehicle) {
+  console.log("Adding a new vehicle to user account: ")
+  console.dir(vehicle)
+  return 1
+  // try/catch axios post
+}
+
+// saveVehicleChanges, post route = /api/vehicle/update
+export async function update(vehicle) {
+  console.log("Updating an extant vehicle: ")
+  console.dir(vehicle)
+  return 1
+  // try/catch axios post
+}
 
 export const manufacturers = [
   "ACG",

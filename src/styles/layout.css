@@ -3,8 +3,8 @@ html {
   box-sizing: border-box;
   --buttonBlue: #164766;
   /* --buttonBlue: #004C7D */
-  --buttonGreen: #3bae37;
-  --buttonTextWhite: #EFDEFD;
+  --lightBlue: rgb(8, 126, 139);
+  --buttonTextWhite: #DDDDDD;
 }
 
 @font-face {
@@ -34,7 +34,7 @@ html {
 .light {
   --backgroundLayerOne: #CDCDCD;
   --backgroundLayerTwo: rgba(0,0,0,0.16);
-  --backgroundLayerThree: rgba(255,255,255,0.84);
+  --backgroundLayerThree: rgba(255,255,255,0.64);
   --backgroundLayerFour: #999999;
   --textColorOne: #414141;
   --textColorTwo: #262626;
@@ -56,29 +56,30 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4 {
   font-size: 1.5rem;
   padding: 1rem;
   width: 100%;
 }
 
 h1 {
-  padding: 1.5rem 0;
-  font-size: 2.35rem;
-  color: var(--buttonBlue);
+  font-size: 3rem;
+  color: var(--lightBlue);
 }
 
 h2 {
-  text-align: center;
-  text-transform: uppercase;
-}
-
-h3, h4 {
-  position: relative;
   background: var(--buttonBlue);
-  color: var(--buttonTextWhite);
+  margin-bottom: 2rem;
+  font-size: 2rem;
 }
 
+h2, h3, h4 {
+  position: relative;
+  color: var(--buttonTextWhite);
+  background: var(--lightBlue);
+}
+
+h2:after,
 h3:after,
 h4:after {
   content: "";
@@ -145,7 +146,7 @@ label {
 .inner {
   max-width: 1200px;
   padding: 0.6rem;
-  margin: 0 auto 6rem;
+  margin: 0 auto 3rem;
 }
 
 .inner--flashes {
@@ -169,11 +170,12 @@ input[type="checkbox"] {
   position: relative;
   margin: 0.15rem auto 3rem;
   background: var(--backgroundLayerThree);
-  box-shadow: 1px 1px 5px var(--backgroundLayerTwo);
+  /* box-shadow: 1px 1px 5px var(--backgroundLayerTwo); */
+  box-shadow: 0px 0px 4px var(--lightBlue);
 }
 
 .card:hover {
-  box-shadow: 2px 2px 10px var(--buttonBlue);
+  box-shadow: 0px 0px 13px var(--lightBlue);
 }
 
 .button {
@@ -193,6 +195,15 @@ input[type="checkbox"] {
   color: var(--buttonTextWhite);
   background-color: var(--buttonBlue);
   border: 1px solid lighten(var(--buttonBlue), 50%);
+}
+
+.button * {
+  color: var(--buttonTextWhite);
+}
+
+.button:hover,
+.button:focus {
+  box-shadow: 0px 0px 4px var(--lightBlue);
 }
 
 input.button {

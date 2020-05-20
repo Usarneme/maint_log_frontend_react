@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-function CurrentVehicleChooser(props) {
+function VehiclesSelector(props) {
   const {selectedVehicle, changeSelectedVehicle} = useState({})
 
   return (
@@ -28,9 +28,9 @@ function CurrentVehicleChooser(props) {
   )
 }
 
-CurrentVehicleChooser.propTypes = {
+VehiclesSelector.propTypes = {
   vehicles: PropTypes.array,
   currentlySelectedVehicle: PropTypes.object
 }
 
-export default CurrentVehicleChooser
+export default VehiclesSelector

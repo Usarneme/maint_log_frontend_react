@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import CurrentVehicleChooser from './CurrentVehicleChooser'
 import VLVin from './VLVin'
 import VLManual from './VLManual'
 import VLYMM from './VLYMM'
@@ -13,7 +12,6 @@ function VehicleSettings(props) {
   const [manualLookupShowing, showManualLookup] = useState(true)
   const [vinLookupShowing, showVinLookup] = useState(false)
   const [yearMakeModelLookupShowing, showYearMakeModelLookup] = useState(false)
-  const [currentVehicleChooserShowing, showCurrentVehicleChooser] = useState(false)
 
   function vehicleLookupChanger(view) {
     showVehicleLookups(true)
@@ -57,9 +55,6 @@ function VehicleSettings(props) {
           </div>
         }) : <span>(none)</span>
       }
-
-      <CurrentVehicleChooser {...props} />
-      <hr />
       
       <div className="add__vehicle__container padded">
         { vehicleLookupsShowing && 
@@ -82,7 +77,7 @@ function VehicleSettings(props) {
           
         { !vehicleLookupsShowing && 
             <div className="buttons__holder">
-              <button className="button" onClick={() => showVehicleLookups(true)} >Search For A Vehicle</button>
+              <button className="button" onClick={() => showVehicleLookups(true)} >Add A New Vehicle</button>
             </div>
         }
       </div>

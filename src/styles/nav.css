@@ -8,22 +8,26 @@
   background: var(--backgroundLayerTwo);
 }
 
-.card.navLink {
+a.card.navLink {
+  background: none;
+  border: none;
+  box-shadow: none;
   background: var(--backgroundLayerThree);
-  margin: 0.1rem !important;
-  padding-top: 1rem !important;
+  margin: 0.2rem;
+  padding-top: 0.5rem;
   color: var(--buttonBlue);
   fill: var(--buttonBlue);
 }
 
-.card.navLink:hover,
-.card.navLink--active {
-  background: linear-gradient(90deg, #48ded4 0%, hsla(219, 93%, 48%, 1) 10%, #3bae37 100%) fixed;
+a.card.navLink:hover,
+a.card.navLink--active {
+  /* background: linear-gradient(90deg, var(--buttonBlue) 20%, var(--lightBlue) 80%) fixed; */
+  background: var(--buttonBlue);
   color: var(--buttonTextWhite);
 }
 
-.card.navLink:hover *,
-.card.navLink--active * {
+a.card.navLink:hover *,
+a.card.navLink--active * {
   color: var(--buttonTextWhite);
   fill: var(--buttonTextWhite);
 }
@@ -40,7 +44,11 @@
   padding: 0;
 }
 
-/* a.navLink > img,
-a.navLink > img > g {
+a.navLink img,
+a.navLink svg {
+  max-width: 29px;
+  max-height: 29px;
+  padding: 0;
+  margin: 0;
   fill: var(--buttonBlue);
-} */
+}

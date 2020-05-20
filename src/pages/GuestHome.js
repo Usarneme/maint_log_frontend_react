@@ -24,7 +24,7 @@ function GuestHome(props) {
             <li>Record what was done, when, by whom, and where.</li>
             <li>Include photos of before and after the service, parts used, and receipts.</li>
             <li>Write short and long descriptions of work done.</li>
-            <li>Recurring services (such as oil and filter changes) can be scheduled with a future due date or mileage.</li>
+            <li>Recurring services can be scheduled for a future due date or mileage.</li>
           </ul>
         </section>
         <p><strong>Returning user? </strong>Please login to access your log.</p>

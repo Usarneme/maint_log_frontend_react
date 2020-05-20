@@ -45,7 +45,7 @@ form.search__form {
   padding-left: 6px;
 }
 
-.search__result {
+div.card.search__result {
   padding: 0.5rem;
   margin: 1rem 0.25rem;
   background: var(--backgroundLayerTwo);
@@ -57,4 +57,9 @@ form.search__form {
 
 .search__result__buttons > a.button {
   margin: 0 0.15rem;
+}
+
+.result__detail {
+  padding: 1rem 0.25rem;
+  text-overflow: ellipsis;
 }

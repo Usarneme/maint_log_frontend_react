@@ -176,7 +176,7 @@ class LogForm extends React.Component {
       photos: this.props.log.photos, 
       receipts: this.props.log.receipts,
       vehicle: this.props.log.vehicle, 
-      currentlySelectedVehicle: this.props.user.currentlySelectedVehicle || this.props.user.vehicles[0] || {},
+      currentlySelectedVehicle: this.props.user.currentlySelectedVehicle || this.props.user.vehicles[0],
       loading: false
     })
   }
@@ -188,13 +188,8 @@ class LogForm extends React.Component {
 
   render() {
     if (this.state.loading) return <Loading message="Formatting and Saving Log Data..." />
-    let previouslyAssociatedVehicle
-    if (this.props && this.props.log && this.props.log.vehicle && this.props.log.vehicle.length > 0) {
-      const vehicleArray = this.props.user.vehicles.filter(car => car.id === this.props.log.vehicle)
-      previouslyAssociatedVehicle = vehicleArray[0]
-    }
 
-    if (!this.state.currentlySelectedVehicle) {
+    if (!this.props.user.currentlySelectedVehicle) {
       return (
         <div className="inner">
           <h2>No Vehicle Associated With This Account</h2>
@@ -228,14 +223,17 @@ class LogForm extends React.Component {
                 name="vehicle" 
                 required="required" 
                 defaultValue="Please select a vehicle..."
-                onChange={this.handleInputChange} 
-                onFocus={this.alignViewToElement}>
-                { Object.keys(previouslyAssociatedVehicle).length > 0 &&
-                  <option key={previouslyAssociatedVehicle._id} value={previouslyAssociatedVehicle._id}>{`${previouslyAssociatedVehicle.year} ${previouslyAssociatedVehicle.make} ${previouslyAssociatedVehicle.model}`}</option>
+                onChange={this.handleInputChange} >
+                { Object.keys(this.props.user.currentlySelectedVehicle).length > 0 &&
+                  <option 
+                    key={this.props.user.currentlySelectedVehicle._id} 
+                    value={this.props.user.currentlySelectedVehicle._id}>
+                      {`${this.props.user.currentlySelectedVehicle.year} ${this.props.user.currentlySelectedVehicle.make} ${this.props.user.currentlySelectedVehicle.model}`}
+                  </option>
                 }
                 { this.props.user.vehicles && this.props.user.vehicles.length > 0 &&
                   this.props.user.vehicles.map(model => {
-                    if (model._id !== previouslyAssociatedVehicle._id) return <option key={model._id} value={model._id}>{`${model.year} ${model.make} ${model.model}`}</option>
+                    if (model._id !== this.props.user.currentlySelectedVehicle._id) return <option key={model._id} value={model._id}>{`${model.year} ${model.make} ${model.model}`}</option>
                 })
                 }
               </select>
@@ -293,7 +291,7 @@ class LogForm extends React.Component {
 }
 
 LogForm.propTypes = {
-  log: PropTypes.object,
+  log: PropTypes.object, // optional: extant log to edit can be passed otherwise blank new log form
   user: PropTypes.object.isRequired,
   updateUserState: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
