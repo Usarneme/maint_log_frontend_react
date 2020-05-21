@@ -33,7 +33,7 @@ function Home(props) {
         </Link>
         <Link className="button card home__actions settings" to="/settings">
           <ReactSVG src={SettingsIcon} role="img" aria-label="Settings Icon" fallback={() => <img src={SettingsIcon} alt="settings icon" description="settings icon" className="svg" />} /> 
-          <p>Add Your Vehicle and View Other Settings</p>
+          <p>Edit Your Vehicle & Account Settings</p>
         </Link>
       </div>
     </div>

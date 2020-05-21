@@ -26,7 +26,8 @@
     "build": "REACT_APP_API_DOMAIN=http://maint-log.herokuapp.com react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "cov": "npm run test -- --coverage --watchAll=false --env=jsdom --coverageDirectory=src/__tests__/coverage/"
+    "cov": "npm run test -- --coverage --watchAll=false --env=jsdom --coverageDirectory=src/__tests__/coverage/",
+    "findTodos": "grep -r -n --color TODO src/"
   },
   "eslintConfig": {
     "extends": "react-app"

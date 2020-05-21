@@ -29,6 +29,34 @@ export async function login(email, password) {
     return loginError
   }
 }
+
+export async function register(name, email, password, passwordConfirm) {
+  if (!name || !email || !password || !passwordConfirm) return new Error('Not all registration information provided. Please make sure you have entered a username, email address, password, and confirmed your password before trying again.')
+  const url = `${process.env.REACT_APP_API_DOMAIN}/api/register`
+  try {
+    const res = await axios.post(url, { name, email, password, passwordConfirm })
+    if (res.status === 200) {
+      console.log(`apiRegister handler returned success!`)
+      console.dir(res)
+      const user = res.data
+      user.userID = res.data._id
+      user.currentlySelectedVehicle = undefined
+      user.vehicles = []
+      user.log = []
+      return { user }
+    } else {
+      console.log('Registration response received from the server but with an error and status code: '+res.status)
+      const error = new Error(res.error)
+      throw error
+    }
+  } 
+  catch(registrationError) {
+    console.log(`Error posting to ${process.env.REACT_APP_API_DOMAIN}/api/register`)
+    console.log(registrationError.response.status)
+    return registrationError
+  }
+}
+
 // Returns a User's Log and Vehicle arrays
 export async function getLogData() {
   try {
@@ -59,14 +87,14 @@ export async function updateUserAccount(userObject) {
   const vin = userObject.currentlySelectedVehicle.vin
 
   try {
-    const res = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/update/account`, { name, email, vehicleYear, vehicleMake, vehicleModel, vehicleOdometer, primary, vin })
+    const res = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/account`, { name, email, vehicleYear, vehicleMake, vehicleModel, vehicleOdometer, primary, vin })
     if (res.status === 200) return getLogData()
     // otherwise ERROR
     console.log('Response received but with status code: '+res.status)
     const error = new Error(res.error)
     throw error
   } catch(err) {
-      console.log('Error posting to /update.')
+      console.log('Error posting to /api/account.')
       console.dir(err)
       // TODO error boundary
       return alert('Error updating account. Please try again.')
@@ -81,7 +109,7 @@ export async function addNew(vehicle) {
   // try/catch axios post
 }
 
-// saveVehicleChanges, post route = /api/vehicle/update
+// saveVehicleChanges, post route = /api/vehicle
 export async function update(vehicle) {
   console.log("Updating an extant vehicle: ")
   console.dir(vehicle)
@@ -151,24 +179,23 @@ export const manufacturers = [
   "Workhorse"
 ]
 
+// BACKEND API-APP SHARED ROUTES
+  // POST
+    // /add 
+    // /add/:id 
+    // /delete/log/entry/:id
+    // /remove/photo/:filename 
+    // /account/forgot 
+    // /account/reset/:token 
 
-// API GET ROUTES
-  // /api/search              --> cleanly handled by SearchBox component
-  // /api/log                 --> not used anywhere...login and account updates return User+Vehicle...
-
-// API POST ROUTES
-// Account
-  // /api/login               --> DONE
-  // /api/logout
-  // /api/register
-  // /api/account/update
-
-// Vehicle
-  // /api/vehicle/add
-  // /api/vehicle/update
-
-// Log Entry
-  // /add
-  // /add/:id
-  // /delete/log/entry/:id
-  // /remove/photo/:filename
+// API ONLY ROUTES
+  // GET
+    // /api/search       --> cleanly handled by SearchBox component
+    // /api/log          --> not used anywhere... (login and account updates return {User+Vehicle})
+  // POST
+    // /api/login        --> DONE login func above
+    // /api/logout       --> cleanly handled by Logout component
+    // /api/register     --> DONE (TODO cleanup expectations of children wrt. new user flow e.g. need vehicle asap)
+    // /api/account  
+    // /api/vehicle/add 
+    // /api/vehicle 

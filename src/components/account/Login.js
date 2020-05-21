@@ -14,10 +14,10 @@ function Login(props) {
   const [loading, setLoading] = useState(false)
 
   const handleInputChange = event => {
-    const value = event.target.value
+    const { value, name } = event.target
     setState({
       ...state,
-      [event.target.name]: value
+      [name]: value
     })
   }
 
@@ -46,9 +46,9 @@ function Login(props) {
       <h3>Login</h3>
       <form className="padded" onSubmit={handleLogin} method="POST">
         <label htmlFor="email">Email Address</label>
-        <input type="email" name="email" placeholder="Enter email..." value={state.email} onChange={handleInputChange} />
+        <input type="email" name="email" placeholder="Enter email..." value={state.email || ''} onChange={handleInputChange} />
         <label htmlFor="password">Password</label>
-        <input type="password" name="password" placeholder="Enter password..." value={state.password} onChange={handleInputChange} />
+        <input type="password" name="password" placeholder="Enter password..." value={state.password || ''} onChange={handleInputChange} />
         <input className="button" type="submit" value="Log In →" />
       </form>
 
@@ -58,7 +58,8 @@ function Login(props) {
 }
 
 Login.propTypes = {
-  updateUserState: PropTypes.func.isRequired
+  updateUserState: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 }
 
 export default Login
