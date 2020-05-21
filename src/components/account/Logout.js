@@ -4,17 +4,17 @@ import axios from 'axios'
 
 import UserContext from '../../contexts/UserContext'
 
-const Logout = props => {
+function Logout(props) {
   const [showLogoutButton, toggleShowLogoutButton] = useState(false)
   // eslint-disable-next-line
   const {user, updateUserState} = useContext(UserContext)
 
-  function toggleConfirmLogout(event) {
+  const toggleConfirmLogout = event => {
     event.preventDefault()
     toggleShowLogoutButton(!showLogoutButton) // flip true => false => true...
   }
 
-  async function apiLogout(event) {
+  const apiLogout = async event => {
     event.preventDefault()
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/logout`)

@@ -25,10 +25,16 @@ function Login(props) {
     event.preventDefault()
     const { email, password } = state
     setLoading(true)
-    // login func already wrapped in a try/catch, will return an error if there is a failure
+    // login func already wrapped in a try/catch. returns an error in result[response] if there is a failure
     const result = await login(email, password)
-    if (!result || result.response !== undefined) return alert(`Error logging in. Please try again. Status ${result.response.status}: ${result.response.statusText}.`)
-    if (Object.keys(result.user) === 0) return alert('Server could not locate that user. Please try again.')
+    if (!result || result.response !== undefined) {
+      setLoading(false)
+      return alert(`Error logging in. Please try again. Status ${result.response.status}: ${result.response.statusText}.`)
+    }
+    if (Object.keys(result.user) === 0) {
+      setLoading(false)
+      return alert('Server could not locate that user. Please try again.')
+    }
     await props.updateUserState(result.user)
     return props.history.push('/')
   }

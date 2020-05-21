@@ -158,7 +158,7 @@ export const manufacturers = [
 
 // API POST ROUTES
 // Account
-  // /api/login               --> 
+  // /api/login               --> DONE
   // /api/logout
   // /api/register
   // /api/account/update
