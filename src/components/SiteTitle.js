@@ -7,8 +7,8 @@ import '../styles/siteTitle.css'
 
 const SiteTitle = () => {
   return (
-    <Link to='/' className='siteTitle svg__dark__fill'>
-      <ReactSVG src={Home} role="img" aria-label="Home Icon" className="svg svg__dark__fill" fallback={() => <img src={Home} alt="home icon" description="home icon" className="svg svg__dark__fill" />} /> 
+    <Link to='/' className='siteTitle'>
+      <ReactSVG src={Home} role="img" aria-label="Home Icon" className="svg" fallback={() => <img src={Home} alt="home icon" description="home icon" className="svg svg__dark__fill" />} /> 
       <h1>Vehicle Maintenance Log</h1>
     </Link>
   )

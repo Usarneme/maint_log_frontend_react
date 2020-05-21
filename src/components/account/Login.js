@@ -57,7 +57,7 @@ class Login extends Component {
         console.log('4')
         await this.props.updateUserState(this.state.user)
         console.log('5')
-        this.props.history.push('/')
+        return this.props.history.push('/')
       } else {
         console.log('Response received but with status code: '+res.status)
         this.setState({loading: false})

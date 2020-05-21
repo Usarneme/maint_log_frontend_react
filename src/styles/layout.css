@@ -3,8 +3,9 @@ html {
   box-sizing: border-box;
   --buttonBlue: #164766;
   /* --buttonBlue: #004C7D */
-  --lightBlue: rgb(8, 126, 139);
+  --lightBlue: #055861;
   --buttonTextWhite: #DDDDDD;
+  --cardMaxWidth: 866px;
 }
 
 @font-face {
@@ -58,13 +59,13 @@ body {
 
 h1, h2, h3, h4 {
   font-size: 1.5rem;
-  padding: 1rem;
+  padding: 0.85rem;
   width: 100%;
 }
 
 h1 {
-  font-size: 3rem;
-  color: var(--lightBlue);
+  font-size: 2.85rem;
+  color: var(--buttonTextWhite);
 }
 
 h2 {
@@ -73,7 +74,7 @@ h2 {
   font-size: 2rem;
 }
 
-h2, h3, h4 {
+h2, h2 *, h3, h4 {
   position: relative;
   color: var(--buttonTextWhite);
   background: var(--lightBlue);
@@ -101,7 +102,7 @@ ul {
 
 li::before {
   content: "•"; 
-  color: var(--buttonBlue);
+  color: var(--lightBlue);
   display: inline-block; 
   width: 1rem;
   margin-left: -1rem;
@@ -118,7 +119,7 @@ img, svg {
 }
 
 .padded {
-  padding: 1rem;
+  padding: 0.65rem;
 }
 
 textarea {
@@ -166,7 +167,7 @@ input[type="checkbox"] {
 }
 
 .card {
-  max-width: 666px;
+  max-width: var(--cardMaxWidth);
   position: relative;
   margin: 0.15rem auto 3rem;
   background: var(--backgroundLayerThree);
@@ -192,6 +193,7 @@ input[type="checkbox"] {
   align-content: center;
   text-decoration: none;
   justify-content: center;
+  text-transform: uppercase;
   color: var(--buttonTextWhite);
   background-color: var(--buttonBlue);
   border: 1px solid lighten(var(--buttonBlue), 50%);

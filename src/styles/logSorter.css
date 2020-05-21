@@ -1,6 +1,6 @@
 .log__sorter__container {
   display: flex;
-  max-width: 900px;
+  max-width: var(--cardMaxWidth);
   margin: 0 auto;
 }
 
