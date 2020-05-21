@@ -6,6 +6,7 @@ import UserContext from '../../contexts/UserContext'
 
 const Logout = props => {
   const [showLogoutButton, toggleShowLogoutButton] = useState(false)
+  // eslint-disable-next-line
   const {user, updateUserState} = useContext(UserContext)
 
   function toggleConfirmLogout(event) {

@@ -232,6 +232,7 @@ class LogForm extends React.Component {
                   </option>
                 }
                 { this.props.user.vehicles && this.props.user.vehicles.length > 0 &&
+                  // eslint-disable-next-line
                   this.props.user.vehicles.map(model => {
                     if (model._id !== this.props.user.currentlySelectedVehicle._id) return <option key={model._id} value={model._id}>{`${model.year} ${model.make} ${model.model}`}</option>
                 })

@@ -22,9 +22,6 @@ class SearchBox extends React.Component {
   getInfo = async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_API_DOMAIN}/api/search?q=${this.state.query}`)
-      // console.log('REACT CLIENT - api search for '+this.state.query+'. Result: ')
-      // console.log(response.data)
-
       if (response.data.length) {
         this.setState({
           results: response.data,
@@ -32,9 +29,9 @@ class SearchBox extends React.Component {
         }) 
       }
     } catch (err) {
-        // console.log('Error posting to /api/search')
+        console.log('Error posting to /api/search')
         console.dir(err)
-        alert('Error getting log data please try again')
+        alert('Error searching log data! Please try again.')
     }
   }
 
@@ -49,7 +46,7 @@ class SearchBox extends React.Component {
       if (this.state.query && this.state.query.length > 1 && Date.now() - this.state.counter > 500) {
         this.getInfo()
         this.setState({ counter: Date.now() })
-      } else {
+      } else { // wait half a second, then query
         setTimeout(() => {
           this.getInfo()
         }, 500)
@@ -65,33 +62,6 @@ class SearchBox extends React.Component {
     e.preventDefault()
     this.setState({ query: '', searching: false, results: [] })
   }
-  
-  // searchInput.addEventListener('keyup', (e) => {
-  //   // Ignore keys except up, down and enter for keyboard selection of result link
-  //   if (![38, 40, 13].includes(e.keyCode)) {
-  //     return; 
-  //   }
-  //   const activeClass = 'search__result--active';
-  //   const current = search.querySelector(`.${activeClass}`);
-  //   const items = search.querySelectorAll('.search__result');
-  //   let next;
-  //   if (e.keyCode === 40 && current) {
-  //     next = current.nextElementSibling || items[0];
-  //   } else if (e.keyCode === 40) {
-  //     next = items[0];
-  //   } else if (e.keyCode === 38 && current) {
-  //     next = current.previousElementSibling || items[items.length - 1]
-  //   } else if (e.keyCode === 38) {
-  //     next = items[items.length - 1];
-  //   } else if (e.keyCode === 13 && current.href) {
-  //     window.location = current.href;
-  //     return;
-  //   }
-  //   if (current) {
-  //     current.classList.remove(activeClass);
-  //   }
-  //   next.classList.add(activeClass);
-  // });
 
   render() {
     const buttonImg = this.state.query && this.state.query.length > 0 ? 

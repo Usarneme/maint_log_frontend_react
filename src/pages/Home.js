@@ -51,7 +51,8 @@ Home.propTypes = {
     name: PropTypes.string,
     sessionID: PropTypes.string,
     userID: PropTypes.string,
-    vehicle: PropTypes.array
+    vehicle: PropTypes.array,
+    currentlySelectedVehicle: PropTypes.object
   }),
   updateUserState: PropTypes.func.isRequired
 }

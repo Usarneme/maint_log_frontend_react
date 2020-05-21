@@ -7,6 +7,7 @@ import '../styles/guestHome.css'
 
 function GuestHome(props) {
   const {user, updateUserState} = useContext(UserContext)
+  // eslint-disable-next-line
   const [theme, changeTheme] = useState('dark')
   
   useEffect(() => {
