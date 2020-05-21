@@ -16,6 +16,7 @@
 - [ ] Registration -> 1st time Login -> Should prompt w/component on Home page to enter vehicle for new account  
 - [ ] ForgotPassword Component - hook up and test  
 - [ ] Vehicle details - images, purchase info, photos of receipts, manual pdf, etc.  
+- [ ] Teardown upon log entry, vehicle, and account deletion. IE: images, db collections, sessions/auth, cache.  
 
 ### In Progress
 
@@ -23,7 +24,7 @@
 - [ ] Unit Test All Components  
 - [ ] Unit Test All Pages  
 - [ ] Loading component - make animation  
-- [ ] Currently selected/default ehicle passing to props and components  
+- [ ] Currently selected/default vehicle passing to props and components  
 
 ### Done ✓
 

@@ -9,7 +9,7 @@ import LogSorter from '../components/log/LogSorter'
 function Log(props) {
   let log = []
   if (props.user.log && props.user.log.length > 0) log = props.user.log
-  const vehicle = props.user.currentlySelectedVehicle || props.user.vehicle[0]
+  const vehicle = props.user.currentlySelectedVehicle || props.user.vehicles[0] || {}
 
   return (
     <div className="inner">
@@ -34,9 +34,15 @@ function Log(props) {
 
 Log.propTypes = {
   user: PropTypes.shape({
+    cookies: PropTypes.string,
+    email: PropTypes.string,
     log: PropTypes.array,
-    vehicle: PropTypes.array
-  })
+    name: PropTypes.string,
+    sessionID: PropTypes.string,
+    userID: PropTypes.string,
+    vehicles: PropTypes.array,
+    currentlySelectedVehicle: PropTypes.object
+  }),
 }
 
 export default Log

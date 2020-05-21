@@ -5,6 +5,7 @@ import VLVin from './VLVin'
 import VLManual from './VLManual'
 import VLYMM from './VLYMM'
 
+import { add, update, updateUserAccount } from '../../helpers'
 import '../../styles/vehicle.css'
 
 function VehicleSettings(props) {
@@ -13,7 +14,7 @@ function VehicleSettings(props) {
   const [vinLookupShowing, showVinLookup] = useState(false)
   const [yearMakeModelLookupShowing, showYearMakeModelLookup] = useState(false)
 
-  function vehicleLookupChanger(view) {
+  const vehicleLookupChanger = view => {
     showVehicleLookups(true)
     showVinLookup(false)
     showManualLookup(false)
@@ -34,8 +35,32 @@ function VehicleSettings(props) {
     }
   }
 
-  // saveNewVehicle
-  // saveVehicleChanges
+  const saveNew = async vehicle => {
+    // ensure even optional properties are sent to the server/db
+    vehicle.make = vehicle.make || ''
+    vehicle.model = vehicle.model || ''
+    vehicle.odometer = vehicle.odometer || ''
+    vehicle.vin = vehicle.vin || ''
+    vehicle.year = vehicle.year || ''
+    vehicle.primary = vehicle.primary || false
+
+    const updates = await add(vehicle)
+    console.log(updates)
+  }
+
+  const saveVehicleChanges = async vehicle => {
+    // ensure even optional properties are sent to the server/db
+    vehicle.make = vehicle.make || ''
+    vehicle.model = vehicle.model || ''
+    vehicle.odometer = vehicle.odometer || ''
+    vehicle.vin = vehicle.vin || ''
+    vehicle.year = vehicle.year || ''
+    vehicle.primary = vehicle.primary || false
+    vehicle.id = vehicle.id || ''
+
+    const updates = await update(vehicle)
+    console.log(updates)
+  }
 
   return (
     <div className="card">
@@ -69,9 +94,9 @@ function VehicleSettings(props) {
               <button className={`lookup__button ${manualLookupShowing ? 'lookup__selected' : ''}`} onClick={() => vehicleLookupChanger('showManualLookup')}>Manually Enter</button>
             </div>
             <div className="lookupSwitcher">
-              { vinLookupShowing && <VLVin currentVehicle={props.currentlySelectedVehicle} saveVehicleChanges={props.saveVehicleChanges} /> }
-              { manualLookupShowing && <VLManual currentVehicle={props.currentlySelectedVehicle} saveVehicleChanges={props.saveVehicleChanges} /> }
-              { yearMakeModelLookupShowing && <VLYMM currentVehicle={props.currentlySelectedVehicle} saveVehicleChanges={props.saveVehicleChanges} /> }
+              { vinLookupShowing && <VLVin currentVehicle={props.currentlySelectedVehicle} saveVehicleChanges={saveVehicleChanges} /> }
+              { manualLookupShowing && <VLManual currentVehicle={props.currentlySelectedVehicle} saveVehicleChanges={saveVehicleChanges} /> }
+              { yearMakeModelLookupShowing && <VLYMM currentVehicle={props.currentlySelectedVehicle} saveVehicleChanges={saveVehicleChanges} /> }
             </div>
           </> }
           
@@ -87,8 +112,7 @@ function VehicleSettings(props) {
 
 VehicleSettings.propTypes = {
   vehicles: PropTypes.array.isRequired,
-  currentlySelectedVehicle: PropTypes.object,
-  saveVehicleChanges: PropTypes.func.isRequired
+  currentlySelectedVehicle: PropTypes.object
 }
 
 export default VehicleSettings

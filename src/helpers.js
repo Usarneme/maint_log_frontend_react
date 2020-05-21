@@ -102,11 +102,22 @@ export async function updateUserAccount(userObject) {
 }
 
 // saveNewVehicle = /api/vehicle/add
-export async function addNew(vehicle) {
+export async function add(vehicle) {
   console.log("Adding a new vehicle to user account: ")
   console.dir(vehicle)
-  return 1
   // try/catch axios post
+  try {
+    const res = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/vehicle/add`, vehicle)
+    if (res.status === 200) return res.data
+    console.log('Response received but with status code: '+res.status)
+    const error = new Error(res.error)
+    throw error
+  } catch(err) {
+    console.log('Error posting to /api/vehicle/add.')
+    console.dir(err)
+    // TODO error boundary
+    return alert('Error updating vehicle. Please try again.')
+  }
 }
 
 // saveVehicleChanges, post route = /api/vehicle
@@ -197,5 +208,5 @@ export const manufacturers = [
     // /api/logout       --> cleanly handled by Logout component
     // /api/register     --> DONE (TODO cleanup expectations of children wrt. new user flow e.g. need vehicle asap)
     // /api/account  
-    // /api/vehicle/add 
+    // /api/vehicle/add  --> IN PROGRESS
     // /api/vehicle 
