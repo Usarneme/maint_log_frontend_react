@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import Loading from '../components/Loading'
 import Logout from '../components/account/Logout'
+import AccountSettings from '../components/account/AccountSettings'
 import ThemeSwitcher from '../components/account/ThemeSwitcher'
 import VehicleSettings from '../components/vehicle/VehicleSettings'
 
@@ -16,9 +17,6 @@ class Settings extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      email: '',
-      name: '',
-      password: '',
       currentlySelectedVehicle: {},
       theme: 'dark',
       loading: true
@@ -30,8 +28,6 @@ class Settings extends Component {
     localStorage.setItem('theme', theme)
     document.documentElement.className = theme
     this.setState({ 
-      name: this.props.user.name || '',
-      email: this.props.user.email || '',
       currentlySelectedVehicle: this.props.user.currentlySelectedVehicle || {}, 
       theme, 
       loading: false 
@@ -42,10 +38,6 @@ class Settings extends Component {
     if (this.props.user !== prevProps.user) {
       this.setState({ ...this.props, loading: false })
     }
-  }
-
-  handleInputChange = event => {
-    this.setState({ [event.target.name]: event.target.value })
   }
 
   saveVehicleChanges = async vehicleData => {
@@ -76,23 +68,6 @@ class Settings extends Component {
     this.setState({ loading: false })
   }
 
-  saveAccountChanges = async (event = '') => {
-    await this.setState({ loading: true })
-    // called via form (with event) and via onChange of children components (without event)
-    if (event) event.preventDefault()
-    const userUpdates = {...this.props.user}
-    userUpdates.name = this.state.name
-    userUpdates.email = this.state.email
-    // TODO confirmation and password changing option
-    const updates = await updateUserAccount(userUpdates)
-    const updatedUser = this.props.user
-    updatedUser.log = updates.log
-    updatedUser.vehicles = updates.vehicles
-    updatedUser.currentlySelectedVehicle = this.state.currentlySelectedVehicle
-    await this.props.updateUserState(updatedUser)
-    this.setState({ loading: false })
-  }
-
   render() {
     if (this.state.loading) return <Loading message='Loading Account Details...' />
   
@@ -107,19 +82,7 @@ class Settings extends Component {
             vehicles={this.props.user.vehicles}
           />
 
-          <div className="card">
-            <h3>Account</h3>
-            <form className="padded" onSubmit={this.saveAccountChanges} method="POST">
-              <label htmlFor="name">Name</label>
-              <input type="text" name="name" placeholder={this.props.user.name ? this.props.user.name : `Enter name...`} value={this.state.name} onChange={this.handleInputChange} />
-              <label htmlFor="email">Email Address</label>
-              <input type="email" name="email" placeholder={this.props.user.email ? this.props.user.email : `Enter email...`} value={this.state.email} onChange={this.handleInputChange} />
-              {/* <label htmlFor="password">Password</label>
-              <input type="password" name="password" placeholder="Enter password..." value={this.state.password} onChange={this.handleInputChange} /> */}
-              <input className="button" type="submit" value="Update Account" />
-            </form>
-          </div>
-
+          <AccountSettings user={this.props.user} />
           <ThemeSwitcher currentTheme={this.state.theme} />
           <Logout history={this.props.history} />
         </div>
