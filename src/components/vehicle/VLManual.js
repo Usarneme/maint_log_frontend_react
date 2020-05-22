@@ -5,13 +5,12 @@ class VLManual extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      year: props.currentVehicle.year || '',
-      make: props.currentVehicle.make || '',
-      model: props.currentVehicle.model || '',
-      vin: props.currentVehicle.vin || '',
-      odometer: props.currentVehicle.odometer || '',
-      primary: props.currentVehicle.primary || false,
-      id: props.currentVehicle.id || ''
+      year: '',
+      make: '',
+      model: '',
+      vin: '',
+      odometer: '',
+      primary: false
     }
   }
 
@@ -19,9 +18,8 @@ class VLManual extends React.Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  togglePrimary = () => {
-    const bool = !this.state.primary
-    this.setState({ primary: bool })
+  togglePrimary = async () => {
+    await this.setState({ primary: !this.state.primary })
   }
 
   render() {
@@ -41,15 +39,14 @@ class VLManual extends React.Component {
           <label htmlFor="primaryCheckbox">Main Vehicle</label>
           <input type="checkbox" name="primaryCheckbox" checked={this.state.primary} onChange={this.togglePrimary} />
         </div>
-        <button className="button" onClick={() => this.props.saveVehicleChanges(this.state)}>Vehicle Info Is Correct</button>
+        <button className="button" onClick={() => this.props.saveNewVehicle(this.state)}>Add Vehicle To Account</button>
       </div>
     )
   }
 }
 
 VLManual.propTypes = {
-  currentVehicle: PropTypes.object,
-  saveVehicleChanges: PropTypes.func.isRequired
+  saveNewVehicle: PropTypes.func.isRequired
 }
 
 export default VLManual

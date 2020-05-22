@@ -7,10 +7,10 @@ class VLYMM extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      year: props.currentVehicle.year || new Date().getFullYear(),
-      make: props.currentVehicle.make ||'',
+      year: new Date().getFullYear(),
+      make: '',
       models: [],
-      model: props.currentVehicle.model || '',
+      model: '',
       showConfirmButton: false
     }
   }
@@ -90,7 +90,7 @@ class VLYMM extends React.Component {
           </select>
       </div>
       { this.state.showConfirmButton && 
-        <button className="button" onClick={() => this.props.saveVehicleChanges(this.state)}>Vehicle Info Is Correct</button>
+        <button className="button" onClick={() => this.props.saveNewVehicle(this.state)}>Add Vehicle To Account</button>
       }
     </div>
     )
@@ -98,8 +98,7 @@ class VLYMM extends React.Component {
 }
 
 VLYMM.propTypes = {
-  currentVehicle: PropTypes.object,
-  saveVehicleChanges: PropTypes.func.isRequired
+  saveNewVehicle: PropTypes.func.isRequired
 }
 
 export default VLYMM

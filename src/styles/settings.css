@@ -29,7 +29,7 @@ button.button.disconnect {
 
 .lookup__button {
   border: none;
-  border-bottom: 1px solid var(--textColorTwo);
+  border-bottom: 2px solid var(--buttonBlue);
   color: var(--textColorTwo);
   text-transform: uppercase;
   align-self: center;
@@ -42,7 +42,7 @@ button.button.disconnect {
 .lookup__selected {
   transform: scale(1.1);
   color: var(--textColorOne);
-  border-bottom: 2px solid var(--textColorOne);
+  border-bottom: 4px solid var(--lightBlue);
 }
 
 .current__vehicle__container,

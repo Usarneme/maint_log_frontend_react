@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 
 import VLVin from './VLVin'
 import VLManual from './VLManual'
 import VLYMM from './VLYMM'
+import Loading from '../Loading'
 
-import { add, update, updateUserAccount } from '../../helpers'
+import UserContext from '../../contexts/UserContext'
+import { addVehicle, updateVehicle } from '../../helpers'
 import '../../styles/vehicle.css'
 
 function VehicleSettings(props) {
@@ -13,6 +15,9 @@ function VehicleSettings(props) {
   const [manualLookupShowing, showManualLookup] = useState(true)
   const [vinLookupShowing, showVinLookup] = useState(false)
   const [yearMakeModelLookupShowing, showYearMakeModelLookup] = useState(false)
+  // eslint-disable-next-line
+  const {user, updateUserState} = useContext(UserContext)
+  const [loading, setLoading] = useState(false)
 
   const vehicleLookupChanger = view => {
     showVehicleLookups(true)
@@ -35,17 +40,26 @@ function VehicleSettings(props) {
     }
   }
 
-  const saveNew = async vehicle => {
+  const saveNewVehicle = async vehicle => {
+    setLoading(true)
     // ensure even optional properties are sent to the server/db
     vehicle.make = vehicle.make || ''
     vehicle.model = vehicle.model || ''
-    vehicle.odometer = vehicle.odometer || ''
+    vehicle.odometer = vehicle.odometer || 0
     vehicle.vin = vehicle.vin || ''
     vehicle.year = vehicle.year || ''
     vehicle.primary = vehicle.primary || false
+    // ensure unnecessary state items are not passed to the server/db
+    delete vehicle.models // from year+make+model vehicle lookup
+    delete vehicle.showConfirmButton // from year+make+model vehicle lookup
 
-    const updates = await add(vehicle)
-    console.log(updates)
+    console.log('Save New Vehicle in VehicleSettings. Adding vehicle:')
+    console.dir(vehicle)
+    const newVehicle = await addVehicle(vehicle)
+    console.log('returned to saveNewVehicle in VehicleSettings with newVehicle:')
+    console.log(newVehicle)
+    updateUserState({ ...user, ...user.vehicles.push(newVehicle) })
+    setLoading(false)
   }
 
   const saveVehicleChanges = async vehicle => {
@@ -58,9 +72,11 @@ function VehicleSettings(props) {
     vehicle.primary = vehicle.primary || false
     vehicle.id = vehicle.id || ''
 
-    const updates = await update(vehicle)
+    const updates = await updateVehicle(vehicle)
     console.log(updates)
   }
+
+  if (loading) return <Loading message="Loading Vehicle settings..." />
 
   return (
     <div className="card">
@@ -73,8 +89,8 @@ function VehicleSettings(props) {
               <span>{vehicle.make}</span>
               <span>{vehicle.model}</span>
             </div>
-            { vehicle.primary && <span className="flexy">Main <input type="checkbox" checked disabled /></span> }
-            <div className="buttons__holder">
+            <div>
+              { vehicle.primary && <span className="flexy">Main <input type="checkbox" checked disabled /></span> }
               <button className="button" onClick={() => vehicleLookupChanger('showManualLookup')} >Edit Vehicle</button>
             </div>
           </div>
@@ -94,9 +110,9 @@ function VehicleSettings(props) {
               <button className={`lookup__button ${manualLookupShowing ? 'lookup__selected' : ''}`} onClick={() => vehicleLookupChanger('showManualLookup')}>Manually Enter</button>
             </div>
             <div className="lookupSwitcher">
-              { vinLookupShowing && <VLVin currentVehicle={props.currentlySelectedVehicle} saveVehicleChanges={saveVehicleChanges} /> }
-              { manualLookupShowing && <VLManual currentVehicle={props.currentlySelectedVehicle} saveVehicleChanges={saveVehicleChanges} /> }
-              { yearMakeModelLookupShowing && <VLYMM currentVehicle={props.currentlySelectedVehicle} saveVehicleChanges={saveVehicleChanges} /> }
+              { vinLookupShowing && <VLVin currentVehicle={props.currentlySelectedVehicle || {}} saveNewVehicle={saveNewVehicle} /> }
+              { yearMakeModelLookupShowing && <VLYMM currentVehicle={props.currentlySelectedVehicle || {}} saveNewVehicle={saveNewVehicle} /> }
+              { manualLookupShowing && <VLManual currentVehicle={props.currentlySelectedVehicle || {}} saveNewVehicle={saveNewVehicle} saveVehicleChanges={saveVehicleChanges} /> }
             </div>
           </> }
           

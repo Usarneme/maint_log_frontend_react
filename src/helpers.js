@@ -102,13 +102,12 @@ export async function updateUserAccount(userObject) {
 }
 
 // saveNewVehicle = /api/vehicle/add
-export async function add(vehicle) {
+export async function addVehicle(vehicle) {
   console.log("Adding a new vehicle to user account: ")
   console.dir(vehicle)
-  // try/catch axios post
   try {
     const res = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/vehicle/add`, vehicle)
-    if (res.status === 200) return res.data
+    if (res.status === 200) return getLogData()
     console.log('Response received but with status code: '+res.status)
     const error = new Error(res.error)
     throw error
@@ -121,7 +120,7 @@ export async function add(vehicle) {
 }
 
 // saveVehicleChanges, post route = /api/vehicle
-export async function update(vehicle) {
+export async function updateVehicle(vehicle) {
   console.log("Updating an extant vehicle: ")
   console.dir(vehicle)
   return 1
