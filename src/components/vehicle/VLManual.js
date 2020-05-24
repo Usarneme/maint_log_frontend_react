@@ -8,7 +8,9 @@ function VLManual(props) {
     model: props.model || '',
     vin: props.vin || '',
     odometer: props.odometer || 0,
-    primary: props.primary || false
+    primary: props.primary || false,
+    id: props._id || '',
+    owner: props.owner || ''
   })
 
   const handleInputChange = event => {
@@ -51,6 +53,8 @@ VLManual.propTypes = {
   model: PropTypes.string,
   vin: PropTypes.string,
   odometer: PropTypes.number,
+  id: PropTypes.string,
+  owner: PropTypes.string,
   primary: PropTypes.bool,
   editing: PropTypes.bool // flag for new vehicle (blank form) or edit extant vehicle (fill form w/details)
 }

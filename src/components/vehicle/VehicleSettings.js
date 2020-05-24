@@ -7,7 +7,7 @@ import VLYMM from './VLYMM'
 import Loading from '../Loading'
 
 import UserContext from '../../contexts/UserContext'
-import { addVehicle, updateVehicle, getLogData } from '../../helpers'
+import { addVehicle, updateVehicle } from '../../helpers'
 import '../../styles/vehicle.css'
 
 function VehicleSettings(props) {
@@ -67,8 +67,8 @@ function VehicleSettings(props) {
     // console.log('Save New Vehicle in VehicleSettings. Adding vehicle:')
     // console.dir(vehicle)
     const newLogVehicleArrays = await addVehicle(vehicle)
-    console.log('returned to saveNewVehicle in VehicleSettings')
-    console.log(newLogVehicleArrays)
+    // console.log('returned to saveNewVehicle in VehicleSettings')
+    // console.log(newLogVehicleArrays)
     const newUser = {...user, log: newLogVehicleArrays.log, vehicles: newLogVehicleArrays.vehicles}
     await updateUserState({ ...newUser })
     showVehicleLookups(false)
@@ -76,7 +76,9 @@ function VehicleSettings(props) {
   }
 
   const saveVehicleChanges = async vehicle => {
-    if (!vehicle || !vehicle.id) return new Error('Unable to locate vehicle ID. Please try again.')
+    // console.log('saveVehicleChanges called from VehicleSettings component')
+    // console.log(vehicle)
+    if (!vehicle || !vehicle.id || !vehicle.owner) return new Error('Problem updating vehicle. Please try again.')
     setLoading(true)
     // ensure even optional properties are sent to the server/db
     vehicle.make = vehicle.make || ''
@@ -85,9 +87,14 @@ function VehicleSettings(props) {
     vehicle.vin = vehicle.vin || ''
     vehicle.year = vehicle.year || ''
     vehicle.primary = vehicle.primary || false
+    vehicle._id = vehicle.id
 
-    const updates = await updateVehicle(vehicle)
-    console.log(updates)
+    const newLogVehicleArrays = await updateVehicle(vehicle)
+    // console.log('sent changes to server. results: ')
+    // console.log(newLogVehicleArrays)
+    const newUser = {...user, log: newLogVehicleArrays.log, vehicles: newLogVehicleArrays.vehicles}
+    await updateUserState({ ...newUser })
+    showVehicleLookups(false)
     setLoading(false)
   }
 
