@@ -15,9 +15,8 @@
 
 .vehicle__container {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto;
   align-items: center;
-  justify-content: space-between;
 }
 
 .vehicle__data__container > span {
@@ -36,4 +35,10 @@
 .vehicleResults {
   display: flex;
   flex-direction: column;
+}
+
+.manualVehicleEntryDiv {
+  width: 100%;
+  max-width: var(--cardMaxWidth);
+  margin: 0 auto;
 }

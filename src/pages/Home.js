@@ -12,6 +12,9 @@ import LogIcon from '../images/log.svg'
 import '../styles/home.css'
 
 function Home(props) {
+  console.log('Home page rendering with props:')
+  console.dir(props)
+  
   return (
     <div className="inner">
       <div className="home__actions__container">

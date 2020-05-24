@@ -1,7 +1,9 @@
 import axios from 'axios'
 axios.defaults.withCredentials = true
 
-
+// Authenticates a user via email+password
+// Upon success: returns a User object and 
+// appends server session ID and cookie info to future requests
 export async function login(email, password) {
   if (!email || !password) return new Error('No email or password provided to Login.')
   try {
@@ -30,6 +32,8 @@ export async function login(email, password) {
   }
 }
 
+// Register a new user account
+// Returns user and session data (id, cookie) for a newly-created account
 export async function register(name, email, password, passwordConfirm) {
   if (!name || !email || !password || !passwordConfirm) return new Error('Not all registration information provided. Please make sure you have entered a username, email address, password, and confirmed your password before trying again.')
   const url = `${process.env.REACT_APP_API_DOMAIN}/api/register`
@@ -57,8 +61,10 @@ export async function register(name, email, password, passwordConfirm) {
   }
 }
 
+// Gets all log and vehicle info for the logged-in user
 // Returns a User's Log and Vehicle arrays
 export async function getLogData() {
+  console.log('Getting new log data...')
   try {
     const response = await axios.get(`${process.env.REACT_APP_API_DOMAIN}/api/log`)
     console.log('getLogData returned: ')
@@ -73,6 +79,31 @@ export async function getLogData() {
       console.dir(err)
       alert('Error getting log data please try again')
     }
+}
+
+// Save a new Vehicle and associate this with the logged-in user
+// If successful, calls getLogData and returns the updated Log/Vehicle arrays
+export async function addVehicle(vehicle) {
+  try {
+    const res = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/vehicle/add`, vehicle)
+    if (res.status === 200) return getLogData()
+    console.log('Response received but with status code: '+res.status)
+    const error = new Error(res.error)
+    throw error
+  } catch(err) {
+    console.log('Error posting to /api/vehicle/add.')
+    console.dir(err)
+    // TODO error boundary - return false
+    return alert('Error updating vehicle. Please try again.')
+  }
+}
+
+// saveVehicleChanges, post route = /api/vehicle
+export async function updateVehicle(vehicle) {
+  console.log("Updating an extant vehicle: ")
+  console.dir(vehicle)
+  return 1
+  // try/catch axios post
 }
 
 export async function updateUserAccount(userObject) {
@@ -101,43 +132,16 @@ export async function updateUserAccount(userObject) {
     }
 }
 
-// saveNewVehicle = /api/vehicle/add
-export async function addVehicle(vehicle) {
-  console.log("Adding a new vehicle to user account: ")
-  console.dir(vehicle)
-  try {
-    const res = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/vehicle/add`, vehicle)
-    if (res.status === 200) return getLogData()
-    console.log('Response received but with status code: '+res.status)
-    const error = new Error(res.error)
-    throw error
-  } catch(err) {
-    console.log('Error posting to /api/vehicle/add.')
-    console.dir(err)
-    // TODO error boundary
-    return alert('Error updating vehicle. Please try again.')
-  }
-}
-
-// saveVehicleChanges, post route = /api/vehicle
-export async function updateVehicle(vehicle) {
-  console.log("Updating an extant vehicle: ")
-  console.dir(vehicle)
-  return 1
-  // try/catch axios post
-}
-
+//
 export const manufacturers = [
   "ACG",
   "Aston Martin",
-  "Auto",
   "Blue",
   "BMW",
   "Buell",
   "Bugatti",
   "Chevrolet",
   "Chrysler",
-  "Club",
   "Coachworks",
   "Cooper",
   "Daimler",
@@ -164,7 +168,6 @@ export const manufacturers = [
   "Mercedes-Benz",
   "Mills",
   "Mitsubishi",
-  "Motorcycle",
   "NABI",
   "Navistar",
   "Nissan",
@@ -174,19 +177,16 @@ export const manufacturers = [
   "Owosso",
   "PACCAR",
   "Peterbilt",
+  "Peugot",
   "Quest",
   "Renault",
   "Rolls Royce",
   "Subaru",
   "Suzuki",
   "Tesla",
-  "TMMBC",
   "Toyota",
-  "UD",
   "Volkswagen",
-  "Volvo",
-  "Westward",
-  "Workhorse"
+  "Volvo"
 ]
 
 // BACKEND API-APP SHARED ROUTES
@@ -207,5 +207,5 @@ export const manufacturers = [
     // /api/logout       --> cleanly handled by Logout component
     // /api/register     --> DONE (TODO cleanup expectations of children wrt. new user flow e.g. need vehicle asap)
     // /api/account  
-    // /api/vehicle/add  --> IN PROGRESS
-    // /api/vehicle 
+    // /api/vehicle/add  --> DONE (TODO error boundaries)
+    // /api/vehicle      --> IN PROGRESS

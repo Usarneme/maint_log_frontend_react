@@ -30,11 +30,11 @@ class Settings extends Component {
     })
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.user !== prevProps.user) {
-      this.setState({ ...this.props, loading: false })
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.user !== prevProps.user) {
+  //     this.setState({ ...this.props, loading: false })
+  //   }
+  // }
 
   render() {
     if (this.state.loading) return <Loading message='Loading Account Details...' />
@@ -44,8 +44,10 @@ class Settings extends Component {
         <h2>Settings</h2>
         
         <div className="padded">
-          <VehicleSettings currentlySelectedVehicle={this.props.user.currentlySelectedVehicle} vehicles={this.props.user.vehicles} />
-          <AccountSettings user={this.props.user} />
+          <VehicleSettings 
+            currentlySelectedVehicle={this.props.user.currentlySelectedVehicle} 
+            vehicles={this.props.user.vehicles} />
+          <AccountSettings user={this.props.user} updateUserState={this.props.updateUserState} />
           <ThemeSwitcher currentTheme={this.state.theme} />
           <Logout history={this.props.history} />
         </div>
@@ -65,6 +67,7 @@ Settings.propTypes = {
     vehicles: PropTypes.array,
     currentlySelectedVehicle: PropTypes.object
   }),
+  updateUserState: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired
 }
 

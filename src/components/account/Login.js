@@ -36,6 +36,9 @@ function Login(props) {
       return alert('Server could not locate that user. Please try again.')
     }
     await props.updateUserState(result.user)
+    console.log('Props:')
+    console.log(props)
+    setLoading(false)
     return props.history.push('/')
   }
 

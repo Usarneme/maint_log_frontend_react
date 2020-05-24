@@ -11,12 +11,9 @@ function AccountSettings(props) {
   })
 
   const handleInputChange = event => {
-    const { value, name } = event.target
-    setState({
-      ...state,
-      [name]: value
-    })
+    setState({ ...state, [event.target.name]: event.target.value })
   }
+
 
   const saveAccountChanges = async event => {
     event.preventDefault()
@@ -61,8 +58,8 @@ AccountSettings.propTypes = {
     vehicles: PropTypes.array,
     currentlySelectedVehicle: PropTypes.object
   }),
-  updateUserState: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired
+  updateUserState: PropTypes.func.isRequired
+  // history: PropTypes.object.isRequired
 }
 
 export default AccountSettings

@@ -217,7 +217,10 @@ input.button {
 }
 
 .well {
+  width: 100%;
+  max-width: var(--cardMaxWidth);
   margin: 0;
+  margin: 0 auto;
   padding: 0.9rem;
   background: rgba(255,255,255,0.15);
 }
