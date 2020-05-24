@@ -36,10 +36,10 @@ function Login(props) {
       return alert('Server could not locate that user. Please try again.')
     }
     await props.updateUserState(result.user)
-    console.log('Props:')
-    console.log(props)
     setLoading(false)
-    return props.history.push('/')
+    console.log('Server returned user:')
+    console.log(result.user)
+    props.history.push('/')
   }
 
   if (loading) return <Loading message="Logging in..." /> 

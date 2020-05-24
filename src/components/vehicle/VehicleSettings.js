@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
+import axios from 'axios'
 
 import VLVin from './VLVin'
 import VLManual from './VLManual'
@@ -101,6 +102,24 @@ function VehicleSettings(props) {
   const deleteVehicle = async vehicleId => {
     if (!vehicleId) return new Error('Unable to locate vehicle ID. Please try again.')
     console.log('Deleting vehicle: '+vehicleId)
+    // /api/delete/vehicle/:vehicleId
+    const url = `${process.env.REACT_APP_API_DOMAIN}/api/delete/vehicle/${vehicleId}`
+    try {
+      const result = await axios.post(url)
+      console.log('got results from delete vehicle post:')
+      console.dir(result)
+      // if (result.data === null) {
+      //   console.log('Server unable to find specified photo to delete. Was it already deleted?')
+      // } else if (result.status === 200) {
+      //   // update State to remove the deleted entry
+      //   const user = this.props.user
+      //   user.log = result.data
+      //   this.props.updateUserState(user)
+      //   this.props.history.push(`/log/${this.props.log.id}/edit`)
+      // }
+    } catch(err) {
+      console.error(err)
+    }
   }
 
   if (loading) return <Loading message="Loading Vehicle settings..." />

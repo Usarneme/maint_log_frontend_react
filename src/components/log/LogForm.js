@@ -28,7 +28,7 @@ class LogForm extends React.Component {
       partsCost: '', 
       laborCost: '', 
       serviceLocation: '', 
-      photos: '', 
+      photos: [], 
       receipts: '',
       vehicle: '', // String vehicle ID associated with this log entry
       showDeleteButton: false,
@@ -41,10 +41,7 @@ class LogForm extends React.Component {
     // when a file is selected for upload...
     if (event.target.files) return this.setState({ file: event.target.files[0] })
     // otherwise track changes in form data to state
-    const { value, name } = event.target
-    this.setState({
-      [name]: value
-    })
+    this.setState({ [event.target.name]: event.target.value })
   }
 
   apiEditLog = async event => {
@@ -62,17 +59,19 @@ class LogForm extends React.Component {
     const formDatums = new FormData(document.getElementById('logForm'))
     formDatums.append("dateEntered", moment(Date.now()).format('YYYY-MM-DD'))
     formDatums.append("api", true)
-    formDatums.append("photos", this.state.photos)
+    if (this.props.log && this.props.log.photos && this.props.log.photos.length > 0) {
+      formDatums.append("photos", this.props.log.photos)
+    } else {
+      formDatums.append("photos", [])
+    }
     if (this.state.id) formDatums.append("id", this.state.id)
+    console.log('FORM DATA before posting:')
+    for (let x of formDatums) console.log(formDatums[x],x)
 
-    // for (var x of formDatums) {
-    //   console.log(x[0], x[1])
-    // }
-    // console.log('Sending log updates to back end: ')
     try {
       const result = await axios.post(url, formDatums)
-      // console.log('result received')
-      // console.log(result)
+      console.log('result received')
+      console.log(result)
       if (result.status === 200) {
         const log = result.data.fullLog
         const newLogEntry = result.data.newLogEntry
@@ -102,41 +101,53 @@ class LogForm extends React.Component {
 
   deleteLogEntry = async event => {
     event.preventDefault()
+    await this.setState({ loading: true })
     try {
       const result = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/delete/log/entry/${this.state.id}`)
       if (result.data === null) {
         console.log('Server unable to find specified log entry. Was it already deleted?')
+        await this.setState({ loading: false })
       } else if (result.status === 200) {
         // update State to remove the deleted entry
         const updatedLog = this.props.user.log.filter(entry => entry.id !== this.state.id)
         const user = this.props.user
         user.log = updatedLog
-        this.props.updateUserState(user)
+        await this.props.updateUserState(user)
         // redirect back to the log page
         this.props.history.push('/log')
       }
     } catch(err) {
       console.error(err)
+      await this.setState({ loading: false })
     }
   }
 
   deletePhoto = async event => {
     event.preventDefault()
-    // pathname has a leading slash: /api/remove/photo/name.filetype
-    // console.log('Deleting photo: '+event.target.pathname)
+    // await this.setState({ loading: true })
+    // backend DOMAIN is localhost or hosted (with no trailing slash)
+    // event.target.pathname: /delete/photo/:photo-filename (with a leading slash)
+    // backend expects: DOMAIN/delete/photo/:photo-filename
     const url = `${process.env.REACT_APP_API_DOMAIN}${event.target.pathname}`
+    // console.log('Deleting photo via: '+url)
     try {
       const result = await axios.post(url)
+      // console.log('Result from delete photo call:')
+      // console.dir(result)
       if (result.data === null) {
         console.log('Server unable to find specified photo to delete. Was it already deleted?')
+        // await this.setState({ loading: false })
       } else if (result.status === 200) {
         // update State to remove the deleted entry
         const user = this.props.user
         user.log = result.data
         this.props.updateUserState(user)
-        this.props.history.push(`/log/${this.props.log.id}/edit`)
+        this.props.history.push(`/log/${this.props.log._id}/edit`)
+        // await this.setState({ loading: false })
       }
     } catch(err) {
+      // await this.setState({ loading: false })
+      alert('Problem deleting photo. Please try again.')
       console.error(err)
     }
   }
@@ -173,7 +184,6 @@ class LogForm extends React.Component {
       partsCost: this.props.log.partsCost, 
       laborCost: this.props.log.laborCost, 
       serviceLocation: this.props.log.serviceLocation, 
-      photos: this.props.log.photos, 
       receipts: this.props.log.receipts,
       vehicle: this.props.log.vehicle, 
       currentlySelectedVehicle: this.props.user.currentlySelectedVehicle || this.props.user.vehicles[0],
@@ -187,7 +197,7 @@ class LogForm extends React.Component {
   }
 
   render() {
-    if (this.state.loading) return <Loading message="Formatting and Saving Log Data..." />
+    if (this.state.loading) return <Loading message="Formatting and Saving Log Changes..." />
 
     if (!this.props.user.currentlySelectedVehicle) {
       return (
@@ -268,13 +278,13 @@ class LogForm extends React.Component {
               <input type="number" name="odometer" min="0" value={this.state.odometer} onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
 
               <label htmlFor="file">Upload other images
-                <input type="file" name="file" accept="image/gif, image/png, image/jpeg" onChange={this.handleInputChange} onFocus={this.alignViewToElement} />
+                <input type="file" name="file" accept="image/gif, image/png, image/jpeg" onChange={this.handleInputChange} />
               </label>
 
               <input className="button submit" type="submit" value="Save Log" />
             </form>
 
-            { this.state.photos && this.state.photos.length > 0 && <PhotoEditor photos={this.state.photos} deletePhoto={this.deletePhoto} /> }
+            { this.props.log && this.props.log.photos && this.props.log.photos.length > 0 && <PhotoEditor photos={this.props.log.photos} deletePhoto={this.deletePhoto} /> }
 
             { this.state.id &&
               <>

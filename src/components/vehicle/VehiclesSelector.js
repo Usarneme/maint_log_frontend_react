@@ -16,7 +16,7 @@ function VehiclesSelector(props) {
         </div> }
         { props.vehicles && props.vehicles.length > 0 && props.vehicles.map(vehicle => {
           if (vehicle.id !== props.currentlySelectedVehicle.id) {
-            return (<div className="vehicles">
+            return (<div key={vehicle.id} className="vehicles">
               <span>{vehicle.year}</span>
               <span>{vehicle.make}</span>
               <span>{vehicle.model}</span>
