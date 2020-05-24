@@ -46,7 +46,8 @@ class Settings extends Component {
         <div className="padded">
           <VehicleSettings 
             currentlySelectedVehicle={this.props.user.currentlySelectedVehicle} 
-            vehicles={this.props.user.vehicles} />
+            vehicles={this.props.user.vehicles} 
+            history={this.props.history} />
           <AccountSettings user={this.props.user} updateUserState={this.props.updateUserState} />
           <ThemeSwitcher currentTheme={this.state.theme} />
           <Logout history={this.props.history} />

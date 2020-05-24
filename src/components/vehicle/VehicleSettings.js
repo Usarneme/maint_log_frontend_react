@@ -17,9 +17,8 @@ function VehicleSettings(props) {
   const [vinLookupShowing, showVinLookup] = useState(false)
   const [yearMakeModelLookupShowing, showYearMakeModelLookup] = useState(false)
   const [vehiclesEditing, changeVehicleEditStatus] = useState({})
-  // eslint-disable-next-line
-  const {user, updateUserState} = useContext(UserContext)
   const [loading, setLoading] = useState(false)
+  const {user, updateUserState} = useContext(UserContext)
 
   useEffect(() => {
     let transform = {}
@@ -100,29 +99,34 @@ function VehicleSettings(props) {
   }
 
   const deleteVehicle = async vehicleId => {
-    if (!vehicleId) return new Error('Unable to locate vehicle ID. Please try again.')
+    if (!vehicleId) return alert('Unable to locate vehicle ID. Please try again.')
+    setLoading(true)
     console.log('Deleting vehicle: '+vehicleId)
-    // /api/delete/vehicle/:vehicleId
+    // DOMAIN/api/delete/vehicle/:vehicleId
     const url = `${process.env.REACT_APP_API_DOMAIN}/api/delete/vehicle/${vehicleId}`
     try {
       const result = await axios.post(url)
       console.log('got results from delete vehicle post:')
       console.dir(result)
-      // if (result.data === null) {
-      //   console.log('Server unable to find specified photo to delete. Was it already deleted?')
-      // } else if (result.status === 200) {
-      //   // update State to remove the deleted entry
-      //   const user = this.props.user
-      //   user.log = result.data
-      //   this.props.updateUserState(user)
-      //   this.props.history.push(`/log/${this.props.log.id}/edit`)
-      // }
+      if (result.status === 200) {
+        // update State to remove the deleted entry
+        const newVehicleList = user.vehicles.map(vehicle => {
+          if (vehicle._id !== vehicleId) return vehicle
+        })
+        console.log('Purged deleted vehicle. New vehicle list: ')
+        console.log(newVehicleList)
+        delete user.vehicles
+        user.vehicles = [...newVehicleList]
+        await updateUserState(user)        
+        props.history.push(`/settings`)
+      }
     } catch(err) {
       console.error(err)
+      setLoading(false)
     }
   }
 
-  if (loading) return <Loading message="Loading Vehicle settings..." />
+  if (loading) return <Loading message="Loading/Updating Vehicle Settings..." />
 
   return (
     <div className="card">
@@ -185,7 +189,8 @@ function VehicleSettings(props) {
 
 VehicleSettings.propTypes = {
   vehicles: PropTypes.array.isRequired,
-  currentlySelectedVehicle: PropTypes.object
+  currentlySelectedVehicle: PropTypes.object,
+  history: PropTypes.object.isRequired
 }
 
 export default VehicleSettings
