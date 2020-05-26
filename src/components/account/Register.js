@@ -14,10 +14,9 @@ function Register(props) {
   const [loading, setLoading] = useState(false)
 
   const handleInputChange = event => {
-    const { value, name } = event.target
     setState({
       ...state,
-      [name]: value
+      [event.target.name]: event.target.value
     })
   }
 
@@ -33,12 +32,12 @@ function Register(props) {
       setLoading(false)
       return alert(`Error registering a new account. Please try again. Status ${result.response.status}: ${result.response.statusText}.`)
     }
-    if (Object.keys(result.user) === 0) {
+    if (Object.keys(result.user).length === 0) {
       setLoading(false)
       return alert('Server was unable to register you at this time. Please try again.')
     }
-    await props.updateUserState(result.user)
-    return props.history.push('/')
+    props.history.push('/')
+    return await props.updateUserState(result.user)
   }
 
   if (loading) return <Loading message="Registering New User..." />

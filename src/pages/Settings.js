@@ -50,7 +50,7 @@ class Settings extends Component {
             history={this.props.history} />
           <AccountSettings user={this.props.user} updateUserState={this.props.updateUserState} />
           <ThemeSwitcher currentTheme={this.state.theme} />
-          <Logout history={this.props.history} />
+          <Logout history={this.props.history} user={this.props.user} updateUserState={this.props.updateUserState} />
         </div>
       </div>
     )  

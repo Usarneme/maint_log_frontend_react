@@ -31,15 +31,18 @@ function Login(props) {
       setLoading(false)
       return alert(`Error logging in. Please try again. Status ${result.response.status}: ${result.response.statusText}.`)
     }
-    if (Object.keys(result.user) === 0) {
+    // SonarQube report edit. 
+    // Previously: Object.keys(result.user) === 0. 
+    // Need to add .length to the result as Object.keys returns an Array
+    if (Object.keys(result.user).length === 0) {
       setLoading(false)
       return alert('Server could not locate that user. Please try again.')
     }
-    await props.updateUserState(result.user)
-    setLoading(false)
     console.log('Server returned user:')
     console.log(result.user)
+    setLoading(false)
     props.history.push('/')
+    await props.updateUserState(result.user)
   }
 
   if (loading) return <Loading message="Logging in..." /> 

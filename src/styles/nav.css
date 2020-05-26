@@ -9,7 +9,6 @@
 }
 
 a.card.navLink {
-  background: none;
   border: none;
   box-shadow: none;
   background: var(--backgroundLayerThree);

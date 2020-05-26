@@ -1,17 +1,13 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
 
-import UserContext from '../../contexts/UserContext'
-
 function Logout(props) {
   const [showLogoutButton, toggleShowLogoutButton] = useState(false)
-  // eslint-disable-next-line
-  const {user, updateUserState} = useContext(UserContext)
 
   const toggleConfirmLogout = event => {
     event.preventDefault()
-    toggleShowLogoutButton(!showLogoutButton) // flip true => false => true...
+    toggleShowLogoutButton(!showLogoutButton) // flip true -> false -> true...
   }
 
   const apiLogout = async event => {
@@ -19,8 +15,7 @@ function Logout(props) {
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/logout`)
       if (response.status === 200) {
-        const userReset = { name: '', userID: '', sessionID: '', cookies: '', email: ''}
-        updateUserState(userReset)
+        props.updateUserState({ name: '', userID: '', sessionID: '', cookies: '', email: '', log: [], vehicles: [], currentlySelectedVehicle: ''})
         return props.history.push('/welcome')
       } else {
         const error = new Error(response.error)
@@ -42,6 +37,17 @@ function Logout(props) {
 }
 
 Logout.propTypes = {
+  user: PropTypes.shape({
+    cookies: PropTypes.string,
+    email: PropTypes.string,
+    log: PropTypes.array,
+    name: PropTypes.string,
+    sessionID: PropTypes.string,
+    userID: PropTypes.string,
+    vehicles: PropTypes.array,
+    currentlySelectedVehicle: PropTypes.object
+  }),
+  updateUserState: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired
 }
 

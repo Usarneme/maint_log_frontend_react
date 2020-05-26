@@ -128,3 +128,8 @@ yarn-debug.log*
 yarn-error.log*
 
 .vscode/
+
+# SONARQUBE Analysis Config and Results
+# Don't push to GIT anything that is generated programatically.
+sonar-project.properties
+.scannerwork/

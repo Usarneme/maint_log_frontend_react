@@ -14,7 +14,7 @@ function SingleLogEntry(props) {
   const log = props.user.log.filter(entry => entry.slug === slug)
   const { id, shortDescription, longDescription, dateStarted, dateCompleted, dateEntered, dateDue, mileageDue, name, odometer, tools, parts, partsCost, laborCost, serviceLocation, photos } = log[0]
   const vehicleID = log[0].vehicle
-  const vehicleArray = props.user.vehicles.filter(vehicle => vehicle.id === vehicleID)
+  const vehicleArray = props.user.vehicles.filter(_vehicle => _vehicle.id === vehicleID)
   const vehicle = vehicleArray[0]
 
   return (
