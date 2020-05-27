@@ -45,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "eslint-plugin-security": "^1.4.0",
     "react-test-renderer": "^16.13.1"
   },
   "jest": {

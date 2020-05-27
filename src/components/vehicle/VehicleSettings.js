@@ -28,7 +28,7 @@ function VehicleSettings(props) {
     // console.log(transform)
     // component mounting, initializing state for whether each individual vehicle is being edited or not
     if (Object.keys(vehiclesEditing).length === 0) changeVehicleEditStatus({...transform})
-  })
+  }, [props.vehicles, vehiclesEditing])
   
   const vehicleLookupChanger = view => {
     showVehicleLookups(true)
@@ -110,15 +110,13 @@ function VehicleSettings(props) {
       console.dir(result)
       if (result.status === 200) {
         // update State to remove the deleted entry
-        const newVehicleList = user.vehicles.map(vehicle => {
-          if (vehicle._id !== vehicleId) return vehicle
-        })
+        const newVehicleList = user.vehicles.filter(vehicle => vehicle._id !== vehicleId)
         console.log('Purged deleted vehicle. New vehicle list: ')
         console.log(newVehicleList)
         delete user.vehicles
         user.vehicles = [...newVehicleList]
         await updateUserState(user)        
-        props.history.push(`/settings`)
+        return props.history.push(`/settings`)
       }
     } catch(err) {
       console.error(err)
