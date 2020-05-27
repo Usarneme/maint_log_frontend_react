@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import '../styles/loading.css'
 
-const Loading = (props) => {
+function Loading(props) {
   if (!props || !props.message) return null
 
   return (

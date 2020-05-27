@@ -5,7 +5,7 @@ import { ReactSVG } from 'react-svg'
 import Home from '../images/home.svg'
 import '../styles/siteTitle.css'
 
-const SiteTitle = () => {
+function SiteTitle() {
   return (
     <Link to='/' className='siteTitle'>
       <ReactSVG src={Home} role="img" aria-label="Home Icon" className="svg" fallback={() => <img src={Home} alt="home icon" description="home icon" className="svg svg__dark__fill" />} /> 

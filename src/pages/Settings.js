@@ -23,7 +23,7 @@ function Settings(props) {
         <Logout history={props.history} user={props.user} updateUserState={props.updateUserState} />
       </div>
     </div>
-  )  
+  )
 }
 
 Settings.propTypes = {

@@ -1,10 +1,9 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import '../../styles/logSorter.css'
 
-const LogSorter = (props) => {
-  // console.log('Log Sorter...')
-
+function LogSorter(props) {
   function sortBy(method, event) {
     const arrow = event.target.childNodes[1]
     // don't sort if it doesn't exist or there are 1 or 0 log entries
@@ -93,6 +92,18 @@ const LogSorter = (props) => {
   )
 }
 
-// PROPS: updateUserState, user
+LogSorter.propTypes = {
+  user: PropTypes.shape({
+    cookies: PropTypes.string,
+    email: PropTypes.string,
+    log: PropTypes.array,
+    name: PropTypes.string,
+    sessionID: PropTypes.string,
+    userID: PropTypes.string,
+    vehicles: PropTypes.array,
+    currentlySelectedVehicle: PropTypes.object
+  }),
+  updateUserState: PropTypes.func.isRequired
+}
 
 export default LogSorter

@@ -1,6 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import '../../styles/logEntry.css'
 
@@ -33,6 +34,10 @@ function LogEntry(props) {
       </div>
     </div>
   )
+}
+
+LogEntry.propTypes = {
+  data: PropTypes.object.isRequired
 }
 
 export default LogEntry

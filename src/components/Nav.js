@@ -10,7 +10,7 @@ import Todo from '../images/todo.svg'
 
 import '../styles/nav.css'
 
-const Nav = () => {
+function Nav() {
   return (
     <nav className='nav'>
       <NavLink to='/log' exact className='card navLink' activeClassName='navLink--active'>

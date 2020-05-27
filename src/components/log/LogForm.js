@@ -303,7 +303,16 @@ class LogForm extends React.Component {
 
 LogForm.propTypes = {
   log: PropTypes.object, // optional: extant log to edit can be passed otherwise blank new log form
-  user: PropTypes.object.isRequired,
+  user: PropTypes.shape({
+    cookies: PropTypes.string,
+    email: PropTypes.string,
+    log: PropTypes.array,
+    name: PropTypes.string,
+    sessionID: PropTypes.string,
+    userID: PropTypes.string,
+    vehicles: PropTypes.array,
+    currentlySelectedVehicle: PropTypes.object
+  }),
   updateUserState: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   currentlySelectedVehicle: PropTypes.object

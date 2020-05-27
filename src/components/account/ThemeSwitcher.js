@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const ThemeSwitcher = props => {
+function ThemeSwitcher() {
   const [currentTheme, changeTheme] = useState(document.documentElement.className || 'dark')
 
   function toggleTheme(event) {
