@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
 
 const ThemeSwitcher = props => {
-  const [currentTheme, changeTheme] = useState(props.currentTheme || 'dark')
+  const [currentTheme, changeTheme] = useState(document.documentElement.className || 'dark')
 
   function toggleTheme(event) {
     event.preventDefault()
@@ -21,10 +20,6 @@ const ThemeSwitcher = props => {
       </div>
     </div>
   )
-}
-
-ThemeSwitcher.propTypes = {
-  currentTheme: PropTypes.string.isRequired
 }
 
 export default ThemeSwitcher

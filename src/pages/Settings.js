@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
-import Loading from '../components/Loading'
 import Logout from '../components/account/Logout'
 import AccountSettings from '../components/account/AccountSettings'
 import ThemeSwitcher from '../components/account/ThemeSwitcher'
@@ -9,52 +8,22 @@ import VehicleSettings from '../components/vehicle/VehicleSettings'
 
 import '../styles/settings.css'
 
-class Settings extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      currentlySelectedVehicle: {},
-      theme: 'dark',
-      loading: true
-    }
-  }
-
-  componentDidMount() {
-    let theme = localStorage.getItem('theme') || this.state.theme
-    localStorage.setItem('theme', theme)
-    document.documentElement.className = theme
-    this.setState({ 
-      currentlySelectedVehicle: this.props.user.currentlySelectedVehicle || {}, 
-      theme, 
-      loading: false 
-    })
-  }
-
-  // componentDidUpdate(prevProps) {
-  //   if (this.props.user !== prevProps.user) {
-  //     this.setState({ ...this.props, loading: false })
-  //   }
-  // }
-
-  render() {
-    if (this.state.loading) return <Loading message='Loading Account Details...' />
-  
-    return (
-      <div className="inner">
-        <h2>Settings</h2>
-        
-        <div className="padded">
-          <VehicleSettings 
-            currentlySelectedVehicle={this.props.user.currentlySelectedVehicle} 
-            vehicles={this.props.user.vehicles} 
-            history={this.props.history} />
-          <AccountSettings user={this.props.user} updateUserState={this.props.updateUserState} />
-          <ThemeSwitcher currentTheme={this.state.theme} />
-          <Logout history={this.props.history} user={this.props.user} updateUserState={this.props.updateUserState} />
-        </div>
+function Settings(props) {  
+  return (
+    <div className="inner">
+      <h2>Settings</h2>
+      
+      <div className="padded">
+        <VehicleSettings 
+          currentlySelectedVehicle={props.user.currentlySelectedVehicle} 
+          vehicles={props.user.vehicles} 
+          history={props.history} />
+        <AccountSettings user={props.user} updateUserState={props.updateUserState} />
+        <ThemeSwitcher />
+        <Logout history={props.history} user={props.user} updateUserState={props.updateUserState} />
       </div>
-    )  
-  }
+    </div>
+  )  
 }
 
 Settings.propTypes = {
