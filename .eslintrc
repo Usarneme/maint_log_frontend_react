@@ -1,6 +1,12 @@
-"plugins": [
-  "security"
-],
-"extends": [
-  "plugin:security/recommended"
-]
+{ 
+  "plugins": [
+    "security"
+  ],
+  "extends": [
+    "plugin:security/recommended"
+  ],
+  "parserOptions": { 
+    "sourceType": "module", // suppress warning on "import" as a reserved word
+    "ecmaVersion": 8 // suppress warning on unexpected token "async" 
+  } 
+}
