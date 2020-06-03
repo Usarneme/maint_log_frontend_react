@@ -19,6 +19,8 @@ function Log(props) {
     log = props.user.log.filter(logEntry => currentVehicles.includes(logEntry.vehicle))
   }
 
+  // TODO add in a Vehicle Selector component
+
   return (
     <div className="inner">
       <h2>Service History</h2>

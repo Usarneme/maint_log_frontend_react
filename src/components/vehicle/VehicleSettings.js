@@ -23,13 +23,16 @@ function VehicleSettings(props) {
   const {user, updateUserState} = useContext(UserContext)
 
   useEffect(() => {
-    let transform = {}
-    props.vehicles.forEach(vehicle => {
-      transform[vehicle._id] = false 
-    })
-    console.log(transform)
-    console.log('component mounting, initializing state for whether each individual vehicle is being edited or not')
-    if (Object.keys(vehiclesEditing).length === 0) changeVehicleEditStatus({...transform})
+    if (props.vehicles && props.vehicles.length > 0) {
+      let transform = {}
+      props.vehicles.forEach(vehicle => {
+        transform[vehicle._id] = false 
+      })
+      console.log('component mounting, initializing state for whether each individual vehicle is being edited or not') 
+      console.log(transform)
+      if (Object.keys(vehiclesEditing).length === 0) changeVehicleEditStatus({...transform})
+    }
+  // })
   }, [props.vehicles, vehiclesEditing])
   
   const vehicleLookupChanger = view => {

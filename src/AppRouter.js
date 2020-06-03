@@ -28,10 +28,10 @@ function AppRouter() {
     <Router>
       <ScrollToTop />
       <SiteTitle />
-      <Switch>
-        <UserConsumer>
-          {({ user, updateUserState }) => 
-          <div className="container">
+      <UserConsumer>
+        {({ user, updateUserState }) => 
+        <div className="container">
+          <Switch>
             <Route path="/welcome" component={GuestHome} />
             <ProtectedRoute path="/" exact={true} component={Home} />
             <ProtectedRoute path="/add" component={Add} />
@@ -41,12 +41,12 @@ function AppRouter() {
             <ProtectedRoute path="/search" component={Search} />
             <ProtectedRoute path="/settings" component={Settings} />
             <ProtectedRoute path="/todo" component={Todo} />
-            { user && user.cookies && user.cookies.length > 0 && <Nav /> }
             <Route path="*" component={NotFound} />
-          </div>
-          }
-        </UserConsumer>
-      </Switch>
+          </Switch>
+          { user && user.cookies && user.cookies.length > 0 && <Nav /> }
+        </div>
+        }
+      </UserConsumer>
     </Router>
   )
 }
