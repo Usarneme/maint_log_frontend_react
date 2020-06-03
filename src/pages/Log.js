@@ -1,41 +1,61 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-import VehicleHeader from '../components/vehicle/VehicleHeader'
+import VehiclesSelector from '../components/vehicle/VehiclesSelector'
 import LogEntry from '../components/log/LogEntry'
 import LogSorter from '../components/log/LogSorter'
 
 function Log(props) {
   // Array containing the IDs of all vehicles currently selected for view
-  // defaults to the primary vehicle, first vehicle saved to the user account, or an empty array
-  const [currentVehicles, changeCurrentVehicles] = useState(
-    props.user.currentlySelectedVehicle._id || (props.user.vehicles[0] && props.user.vehicles[0]._id) || []
-  )
+  // the currentVehicles array defaults to the primary/currentlySelected vehicle, 
+  const [currentVehicles, changeCurrentVehicles] = useState( [ props.user.currentlySelectedVehicle.id ] || [ (props.user.vehicles.length > 0 && props.user.vehicles[0].id) ] || [])
   // Array of log entries to display 
-  let log = []
-  // limit log entries based on vehicle
-  if (props.user.log && props.user.log.length > 0) {
-    log = props.user.log.filter(logEntry => currentVehicles.includes(logEntry.vehicle))
-  }
+  const [entriesShowing, changeEntriesShowing] = useState([])
 
-  // TODO add in a Vehicle Selector component
+  useEffect(() => {
+    // only show log entries for selected vehicle(s)
+    if (props.user.log && props.user.log.length > 0) {
+      const log = props.user.log.filter(logEntry => currentVehicles.includes(logEntry.vehicle))
+      changeEntriesShowing(log)
+    }
+  }, [props.user.log]) 
+
+  const changeVehicleStatus = event => {
+    const clickedOnVehicleId = event.target.name
+    console.log(clickedOnVehicleId) // the id of the vehicle
+    let vehicleUpdates = []
+    // if it is already in the list, remove it
+    if (currentVehicles.includes(clickedOnVehicleId)) {
+      console.log('current vehicles includes this vehicle ID already. Removing it.')
+      const vehicleObjects = currentVehicles.filter(vehicleId => vehicleId !== clickedOnVehicleId)
+      console.log(vehicleObjects)
+      vehicleUpdates = vehicleObjects
+    } else { // if it was not in the list, add it
+      console.log('current vehicles does not include this vehicle ID. Adding it.')
+      vehicleUpdates = currentVehicles
+      vehicleUpdates.push(clickedOnVehicleId)
+    }
+    console.log('Updating which vehicles are displayed: ')
+    console.log(vehicleUpdates)
+    changeCurrentVehicles(vehicleUpdates)
+  }
 
   return (
     <div className="inner">
       <h2>Service History</h2>
-      { log.length === 0 &&
+      { entriesShowing.length === 0 &&
         <div className="card no__log">
           <h3>No Log Entries Found!</h3>
           <Link className="button" to="/add">Add A Log Entry Now</Link>
         </div>
       }
  
-      { log.length > 0 &&
+      { entriesShowing.length > 0 &&
         <div className="padded">
-          <VehicleHeader vehicle={currentVehicles} vehicles={props.user.vehicles || []} />
+          <VehiclesSelector allVehicles={props.user.vehicles} currentVehicles={currentVehicles} changeCurrentVehicles={changeVehicleStatus} />
           <LogSorter {...props} />
-          {log && log.map(entry => <LogEntry key={entry._id} data={entry} />)}
+          {entriesShowing && entriesShowing.map(entry => <LogEntry key={entry._id} data={entry} />)}
         </div>
       }
     </div>

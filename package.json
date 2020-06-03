@@ -27,7 +27,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "cov": "npm run test -- --coverage --watchAll=false --env=jsdom --coverageDirectory=src/__tests__/coverage/",
-    "findTodos": "grep -r -n --color TODO src/"
+    "todos": "grep -r -n --color --include=*.js --exclude-dir=__tests__ TODO src/",
+    "todos_files": "grep -r -l --color --include=*.js --exclude-dir=__tests__ TODO src/"
   },
   "eslintConfig": {
     "extends": "react-app"

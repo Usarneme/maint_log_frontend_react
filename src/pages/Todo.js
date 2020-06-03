@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
-import VehicleHeader from '../components/vehicle/VehicleHeader'
+import VehiclesSelector from '../components/vehicle/VehiclesSelector'
 import LogEntry from '../components/log/LogEntry'
 import LogSorter from '../components/log/LogSorter'
 
@@ -24,7 +24,7 @@ function Todo(props) {
 
       { Object.keys(todoLog).length > 0 &&
         <div className="padded">
-          <VehicleHeader vehicle={vehicle} vehicles={props.user.vehicles || []} />
+          <VehiclesSelector vehicle={vehicle} vehicles={props.user.vehicles || []} />
           <LogSorter {...props} />
           {todoLog && todoLog.map(entry => <LogEntry key={entry._id} data={entry} />)}
         </div>

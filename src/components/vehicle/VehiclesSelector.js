@@ -1,36 +1,29 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
 function VehiclesSelector(props) {
-  const {selectedVehicle, changeSelectedVehicle} = useState({})
-
   return (
-    <div>
-      <h3>Your Vehicles: </h3>
-      <div>
-        { props.currentlySelectedVehicle && <div className="current__vehicle">
-          <strong>Current Vehicle: </strong>
-          <span>{props.currentlySelectedVehicle.year}</span>
-          <span>{props.currentlySelectedVehicle.make}</span>
-          <span>{props.currentlySelectedVehicle.model}</span>
-        </div> }
-        { props.vehicles && props.vehicles.length > 0 && props.vehicles.map(vehicle => {
-          if (vehicle.id !== props.currentlySelectedVehicle.id) {
-            return (<div key={vehicle.id} className="vehicles">
-              <span>{vehicle.year}</span>
-              <span>{vehicle.make}</span>
-              <span>{vehicle.model}</span>
-            </div>)
-          }
-        }) }
+    <div className="vehiclesSelector vehicles">
+      <div className="vehicleHeader">
+        <span>Your Vehicles: </span>
+        { (!props.allVehicles || props.allVehicles.length === 0) && <span>(none)</span> }
       </div>
+      { props.allVehicles && props.allVehicles.length > 0 && props.allVehicles.map(vehicle => {
+        return (
+          <div key={vehicle.id} className="well vehicle">
+            <p>{vehicle.year} {vehicle.make} {vehicle.model}</p>
+            <input type="checkbox" checked={props.currentVehicles.includes(vehicle.id)} name={vehicle.id} onChange={props.changeCurrentVehicles} /> 
+          </div>
+        )
+      }) }
     </div>
   )
 }
 
 VehiclesSelector.propTypes = {
-  vehicles: PropTypes.array,
-  currentlySelectedVehicle: PropTypes.object
+  allVehicles: PropTypes.array, // an array of all vehicle data { id, year, make model etc }
+  currentVehicles: PropTypes.array, // an array[] of 0+ vehicle IDs that are currently selected for viewing
+  changeCurrentVehicles: PropTypes.func // Log and Todo pages use this to render entries based on selected vehicles
 }
 
 export default VehiclesSelector
