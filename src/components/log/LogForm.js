@@ -199,7 +199,7 @@ class LogForm extends React.Component {
   render() {
     if (this.state.loading) return <Loading message="Formatting and Saving Log Changes..." />
 
-    if (!this.props.user.currentlySelectedVehicle) {
+    if (!this.props.user.currentlySelectedVehicle || Object.keys(this.props.user.currentlySelectedVehicle).length === 0) {
       return (
         <div className="inner">
           <h2>No Vehicle Associated With This Account</h2>

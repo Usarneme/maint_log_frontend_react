@@ -12,6 +12,8 @@ import { addVehicle, updateVehicle } from '../../helpers'
 import '../../styles/vehicle.css'
 
 function VehicleSettings(props) {
+  console.log('loading vehicle settings with props:')
+  console.dir(props)
   const [vehicleLookupsShowing, showVehicleLookups] = useState(false)
   const [manualLookupShowing, showManualLookup] = useState(false)
   const [vinLookupShowing, showVinLookup] = useState(false)
@@ -25,8 +27,8 @@ function VehicleSettings(props) {
     props.vehicles.forEach(vehicle => {
       transform[vehicle._id] = false 
     })
-    // console.log(transform)
-    // component mounting, initializing state for whether each individual vehicle is being edited or not
+    console.log(transform)
+    console.log('component mounting, initializing state for whether each individual vehicle is being edited or not')
     if (Object.keys(vehiclesEditing).length === 0) changeVehicleEditStatus({...transform})
   }, [props.vehicles, vehiclesEditing])
   

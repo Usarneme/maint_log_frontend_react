@@ -16,13 +16,15 @@ class App extends React.Component {
         sessionID: '', 
         cookies: '',
         email: '',
-        vehicle: [],
+        vehicles: [],
         log: [],
         currentlySelectedVehicle: {}
       }, 
       updateUserState: this.updateUserState
     }
   }
+
+  // TODO componentDidMount() { // check localStorage.getItem(login-preferences) for a stored username }
 
   updateUserState = async user => {
     // this.saveUserToLocalStorage(user)

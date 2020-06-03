@@ -200,22 +200,22 @@ export const manufacturers = [
 ]
 
 // BACKEND API-APP SHARED ROUTES
-  // POST
-    // /add 
-    // /add/:id 
-    // /delete/log/entry/:id
-    // /remove/photo/:filename 
-    // /account/forgot 
-    // /account/reset/:token 
+// POST
+  // /add 
+  // /add/:id 
+  // /delete/log/entry/:id
+  // /remove/photo/:filename 
+  // /account/forgot 
+  // /account/reset/:token 
 
 // API ONLY ROUTES
-  // GET
-    // /api/search       --> cleanly handled by SearchBox component
-    // /api/log          --> not used anywhere... (login and account updates return {User+Vehicle})
-  // POST
-    // /api/login        --> DONE login func above
-    // /api/logout       --> cleanly handled by Logout component
-    // /api/register     --> DONE (TODO cleanup expectations of children wrt. new user flow e.g. need vehicle asap)
-    // /api/account  
-    // /api/vehicle/add  --> DONE (TODO error boundaries)
-    // /api/vehicle      --> IN PROGRESS
+// GET
+  // /api/search       --> cleanly handled by SearchBox component
+  // /api/log          --> not used anywhere... (login and account updates return {User+Vehicle})
+// POST
+  // /api/logout       --> DONE - Handled by Logout component
+  // /api/login        --> DONE 
+  // /api/register     --> DONE (TODO cleanup expectations of children wrt. new user flow i.e. need vehicle asap)
+  // /api/vehicle/add  --> DONE (TODO error boundaries)
+  // /api/vehicle      --> DONE (TODO error boundaries)
+  // /api/account      --> DONE
