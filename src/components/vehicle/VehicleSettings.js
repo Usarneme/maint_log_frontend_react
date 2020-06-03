@@ -120,7 +120,8 @@ function VehicleSettings(props) {
         console.log(newVehicleList)
         delete user.vehicles
         user.vehicles = [...newVehicleList]
-        await updateUserState(user)        
+        await updateUserState(user)
+        setLoading(false)
         return props.history.push(`/settings`)
       }
     } catch(err) {
@@ -146,7 +147,7 @@ function VehicleSettings(props) {
                   <button 
                     className={vehiclesEditing[vehicle._id] ? `button warn` : `button`} 
                     onClick={() => changeVehicleEditStatus({ ...vehiclesEditing, [vehicle._id]: !vehiclesEditing[vehicle._id] }) } >
-                      { vehiclesEditing[vehicle._id] ? `Cancel Changes` : `Edit` }
+                      { vehiclesEditing[vehicle._id] ? `Close Editor Without Saving` : `Edit` }
                   </button>
                   { vehiclesEditing[vehicle._id] && 
                   <>
@@ -174,8 +175,8 @@ function VehicleSettings(props) {
               <button className={`lookup__button ${manualLookupShowing ? 'lookup__selected' : ''}`} onClick={() => vehicleLookupChanger('showManualLookup')}>Manually Enter</button>
             </div>
             <div className="lookupSwitcher">
-              { vinLookupShowing && <VLVin currentVehicle={props.currentlySelectedVehicle || {}} saveNewVehicle={saveNewVehicle} /> }
-              { yearMakeModelLookupShowing && <VLYMM currentVehicle={props.currentlySelectedVehicle || {}} saveNewVehicle={saveNewVehicle} /> }
+              { vinLookupShowing && <VLVin currentVehicle={(props.selectedVehicles && props.selectedVehicles.length > 0 && props.selectedVehicles[0]) || {}} saveNewVehicle={saveNewVehicle} /> }
+              { yearMakeModelLookupShowing && <VLYMM currentVehicle={(props.selectedVehicles && props.selectedVehicles.length > 0 && props.selectedVehicles[0]) || {}} saveNewVehicle={saveNewVehicle} /> }
               { manualLookupShowing && <VLManual saveNewVehicle={saveNewVehicle} saveVehicleChanges={saveVehicleChanges} /> }
             </div>
           </> }
@@ -192,7 +193,7 @@ function VehicleSettings(props) {
 
 VehicleSettings.propTypes = {
   vehicles: PropTypes.array.isRequired,
-  currentlySelectedVehicle: PropTypes.object,
+  selectedVehicles: PropTypes.array,
   history: PropTypes.object.isRequired
 }
 

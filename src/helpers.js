@@ -14,9 +14,9 @@ export async function login(email, password) {
       // object property "primary" is a boolean indicating if it is the default/main vehicle to display
       const primaryVehicleArray = user.vehicles.filter(car => car.primary)
       if (primaryVehicleArray.length === 0) {
-        user.currentlySelectedVehicle = user.vehicles[0] // if none is primary, display the first vehicle by default
+        user.selectedVehicles = [user.vehicles[0]] // if none is primary, display the first vehicle by default
       } else {
-        user.currentlySelectedVehicle = primaryVehicleArray[0]
+        user.selectedVehicles = primaryVehicleArray
       }
       return { user } 
     } else {
@@ -42,7 +42,7 @@ export async function register(name, email, password, passwordConfirm) {
     if (response.status === 200) {
       const user = response.data
       user.userID = response.data._id
-      user.currentlySelectedVehicle = undefined
+      user.selectedVehicles = []
       user.vehicles = []
       user.log = []
       return { user }
@@ -118,17 +118,9 @@ export async function updateVehicle(vehicle) {
 // If successful, calls getLogData and returns the updated Log/Vehicle arrays
 export async function updateUserAccount(userObject) {
   if (!userObject || Object.keys(userObject).length === 0) return null
-
   const { name, email } = userObject
-  const vehicleYear = userObject.currentlySelectedVehicle.year
-  const vehicleMake = userObject.currentlySelectedVehicle.make
-  const vehicleModel = userObject.currentlySelectedVehicle.model
-  const vehicleOdometer = userObject.currentlySelectedVehicle.odometer
-  const primary = userObject.currentlySelectedVehicle.primary.toString()
-  const vin = userObject.currentlySelectedVehicle.vin
-
   try {
-    const response = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/account`, { name, email, vehicleYear, vehicleMake, vehicleModel, vehicleOdometer, primary, vin })
+    const response = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/account`, { name, email })
     if (response.status === 200) return getLogData()
     // otherwise ERROR
     console.log('Response received but with status code: '+response.status)

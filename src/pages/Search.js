@@ -22,7 +22,8 @@ Search.propTypes = {
     name: PropTypes.string,
     sessionID: PropTypes.string,
     userID: PropTypes.string,
-    vehicle: PropTypes.array
+    vehicle: PropTypes.array,
+    selectedVehicles: PropTypes.array
   })
 }
 

@@ -15,7 +15,7 @@ function Logout(props) {
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/logout`)
       if (response.status === 200) {
-        props.updateUserState({ name: '', userID: '', sessionID: '', cookies: '', email: '', log: [], vehicles: [], currentlySelectedVehicle: ''})
+        props.updateUserState({ name: '', userID: '', sessionID: '', cookies: '', email: '', log: [], vehicles: [], selectedVehicles: []})
         return props.history.push('/welcome')
       } else {
         const error = new Error(response.error)

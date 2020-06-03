@@ -15,7 +15,7 @@ function Settings(props) {
       
       <div className="padded">
         <VehicleSettings 
-          currentlySelectedVehicle={props.user.currentlySelectedVehicle} 
+          selectedVehicles={props.user.selectedVehicles} 
           vehicles={props.user.vehicles} 
           history={props.history} />
         <AccountSettings user={props.user} updateUserState={props.updateUserState} />
@@ -35,7 +35,7 @@ Settings.propTypes = {
     sessionID: PropTypes.string,
     userID: PropTypes.string,
     vehicles: PropTypes.array,
-    currentlySelectedVehicle: PropTypes.object
+    selectedVehicles: PropTypes.array
   }),
   updateUserState: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired

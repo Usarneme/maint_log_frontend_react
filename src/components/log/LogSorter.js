@@ -101,7 +101,7 @@ LogSorter.propTypes = {
     sessionID: PropTypes.string,
     userID: PropTypes.string,
     vehicles: PropTypes.array,
-    currentlySelectedVehicle: PropTypes.object
+    selectedVehicles: PropTypes.array
   }),
   updateUserState: PropTypes.func.isRequired
 }

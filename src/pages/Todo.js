@@ -8,7 +8,8 @@ import LogSorter from '../components/log/LogSorter'
 
 function Todo(props) {
   const todoLog = props.user.log.filter(entry => entry.mileageDue !== null || entry.dateDue !== null)
-  const vehicle = props.user.currentlySelectedVehicle || props.user.vehicles[0] || {}
+  const vehicle = props.user.selectedVehicles[0] || props.user.vehicles[0] || {}
+  // TODO add vehicles selector component and filter by selection
 
   return (
     <div className="inner">
@@ -43,7 +44,7 @@ Todo.propTypes = {
     sessionID: PropTypes.string,
     userID: PropTypes.string,
     vehicles: PropTypes.array,
-    currentlySelectedVehicle: PropTypes.object
+    selectedVehicles: PropTypes.array
   }),
 }
 

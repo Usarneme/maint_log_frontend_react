@@ -27,7 +27,7 @@ function AccountSettings(props) {
     const updatedUser = props.user
     updatedUser.log = updates.log
     updatedUser.vehicles = updates.vehicles
-    updatedUser.currentlySelectedVehicle = state.currentlySelectedVehicle
+    updatedUser.selectedVehicles = state.selectedVehicles
     await props.updateUserState(updatedUser)
   }
 
@@ -56,7 +56,7 @@ AccountSettings.propTypes = {
     sessionID: PropTypes.string,
     userID: PropTypes.string,
     vehicles: PropTypes.array,
-    currentlySelectedVehicle: PropTypes.object
+    selectedVehicles: PropTypes.array
   }),
   updateUserState: PropTypes.func.isRequired
   // history: PropTypes.object.isRequired

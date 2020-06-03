@@ -186,7 +186,7 @@ class LogForm extends React.Component {
       serviceLocation: this.props.log.serviceLocation, 
       receipts: this.props.log.receipts,
       vehicle: this.props.log.vehicle, 
-      currentlySelectedVehicle: this.props.user.currentlySelectedVehicle || this.props.user.vehicles[0],
+      selectedVehicles: this.props.user.selectedVehicles || this.props.user.vehicles,
       loading: false
     })
   }
@@ -199,7 +199,7 @@ class LogForm extends React.Component {
   render() {
     if (this.state.loading) return <Loading message="Formatting and Saving Log Changes..." />
 
-    if (!this.props.user.currentlySelectedVehicle || Object.keys(this.props.user.currentlySelectedVehicle).length === 0) {
+    if (!this.props.user.selectedVehicles || Object.keys(this.props.user.selectedVehicles).length === 0) {
       return (
         <div className="inner">
           <h2>No Vehicle Associated With This Account</h2>
@@ -234,18 +234,8 @@ class LogForm extends React.Component {
                 required="required" 
                 defaultValue="Please select a vehicle..."
                 onChange={this.handleInputChange} >
-                { Object.keys(this.props.user.currentlySelectedVehicle).length > 0 &&
-                  <option 
-                    key={this.props.user.currentlySelectedVehicle._id} 
-                    value={this.props.user.currentlySelectedVehicle._id}>
-                      {`${this.props.user.currentlySelectedVehicle.year} ${this.props.user.currentlySelectedVehicle.make} ${this.props.user.currentlySelectedVehicle.model}`}
-                  </option>
-                }
                 { this.props.user.vehicles && this.props.user.vehicles.length > 0 &&
-                  // eslint-disable-next-line
-                  this.props.user.vehicles.map(model => {
-                    if (model._id !== this.props.user.currentlySelectedVehicle._id) return <option key={model._id} value={model._id}>{`${model.year} ${model.make} ${model.model}`}</option>
-                })
+                  this.props.user.vehicles.map(model => <option key={model._id} value={model._id}>{`${model.year} ${model.make} ${model.model}`}</option>)
                 }
               </select>
               <label htmlFor="dateStarted">Date Started</label>
@@ -311,11 +301,10 @@ LogForm.propTypes = {
     sessionID: PropTypes.string,
     userID: PropTypes.string,
     vehicles: PropTypes.array,
-    currentlySelectedVehicle: PropTypes.object
+    selectedVehicles: PropTypes.array
   }),
   updateUserState: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
-  currentlySelectedVehicle: PropTypes.object
+  history: PropTypes.object.isRequired
 }
 
 export default LogForm

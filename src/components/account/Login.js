@@ -34,13 +34,13 @@ function Login(props) {
     const { user } = result
     console.log('Server returned user:')
     console.log(user)
-    setLoading(false)
 
     if (Object.keys(user).length === 0) {
       return alert('Server could not locate that user. Please try again.')
     }
-    if (user.currentlySelectedVehicle === undefined || Object.keys(user.currentlySelectedVehicle).length === 0) user.currentlySelectedVehicle = {}
+    if (!user.selectedVehicles || user.selectedVehicles === undefined) user.selectedVehicles = []
     await props.updateUserState(user)
+    setLoading(false)
     console.log('2')
     return props.history.push('/')
   }

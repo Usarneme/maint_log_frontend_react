@@ -52,7 +52,7 @@ Home.propTypes = {
     sessionID: PropTypes.string,
     userID: PropTypes.string,
     vehicle: PropTypes.array,
-    currentlySelectedVehicle: PropTypes.object
+    selectedVehicles: PropTypes.array
   }),
   updateUserState: PropTypes.func.isRequired
 }

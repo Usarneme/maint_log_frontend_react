@@ -18,7 +18,7 @@ class App extends React.Component {
         email: '',
         vehicles: [],
         log: [],
-        currentlySelectedVehicle: {}
+        selectedVehicles: []
       }, 
       updateUserState: this.updateUserState
     }

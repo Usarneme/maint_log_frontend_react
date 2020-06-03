@@ -19,7 +19,8 @@ Edit.propTypes = {
     name: PropTypes.string,
     sessionID: PropTypes.string,
     userID: PropTypes.string,
-    vehicle: PropTypes.array
+    vehicles: PropTypes.array,
+    selectedVehicles: PropTypes.array
   }),
   updateUserState: PropTypes.func.isRequired
 }
