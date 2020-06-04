@@ -9,7 +9,7 @@ import LogSorter from '../components/log/LogSorter'
 function Log(props) {
   // [] Contains String IDs of all vehicles currently selected for view
   // Defaults to the currently selectedVehicle(s) ID(s), the first ID in the user's vehicles array, or an empty []
-  const [vehiclesShowing, changeVehiclesShowing] = useState([ (props.user.selectedVehicles.length > 0 && props.user.selectedVehicles[0].id) ] || [ (props.user.vehicles.length > 0 && props.user.vehicles[0].id) ] || [])
+  const [vehiclesShowing, changeVehiclesShowing] = useState([ (props.user.selectedVehicles.length > 0 && props.user.selectedVehicles[0] !== undefined && props.user.selectedVehicles[0].id) ] || [ (props.user.vehicles.length > 0 && props.user.vehicles[0].id) ] || [])
   console.log('Vehicles Showing state set:')
   console.log(vehiclesShowing)
   // [] Contains log entries that will be rendered (as that log entry's vehicle has been selected) 

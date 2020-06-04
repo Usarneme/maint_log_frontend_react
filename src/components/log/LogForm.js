@@ -186,7 +186,7 @@ class LogForm extends React.Component {
       serviceLocation: this.props.log.serviceLocation, 
       receipts: this.props.log.receipts,
       vehicle: this.props.log.vehicle, 
-      selectedVehicles: this.props.user.selectedVehicles || this.props.user.vehicles,
+      selectedVehicles: (this.props.user.selectedVehicles && this.props.user.selectedVehicles.length > 0 && this.props.user.selectedVehicles[0] !== undefined && this.props.user.selectedVehicles) || this.props.user.vehicles,
       loading: false
     })
   }
@@ -199,7 +199,7 @@ class LogForm extends React.Component {
   render() {
     if (this.state.loading) return <Loading message="Formatting and Saving Log Changes..." />
 
-    if (!this.props.user.selectedVehicles || Object.keys(this.props.user.selectedVehicles).length === 0) {
+    if (!this.props.user.vehicles || this.props.user.vehicles.length < 1 || (this.props.user.vehicles.length > 0 && this.props.user.vehicles[0] === undefined)) {
       return (
         <div className="inner">
           <h2>No Vehicle Associated With This Account</h2>
