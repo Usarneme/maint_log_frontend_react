@@ -24,7 +24,7 @@ function LogEntry(props) {
           { log.dateDue && <p>Next <span>{moment(log.dateDue).fromNow()}</span></p> }
         </div>
         <div className="log__details log__details__mileage">
-          <p>{Number(log.odometer).toLocaleString()} miles</p>
+          <p>{log.odometer && Number(log.odometer).toLocaleString()} miles</p>
           { log.mileageDue && <p>Next <span>{Number(log.mileageDue).toLocaleString()}</span></p> }
         </div>
         <div className="log__details log__details__costs">

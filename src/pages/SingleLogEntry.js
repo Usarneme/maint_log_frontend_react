@@ -33,7 +33,7 @@ function SingleLogEntry(props) {
             </div>
             <div>
               <strong>Vehicle: </strong>
-              <span>{vehicle.year} {vehicle.make} {vehicle.model} {` at `} {Number(odometer).toLocaleString()} {` miles`}</span>
+              <span>{vehicle.year} {vehicle.make} {vehicle.model} {` at `} {odometer && Number(odometer).toLocaleString()} {` miles`}</span>
             </div>
           </div>
           <div>
@@ -54,7 +54,7 @@ function SingleLogEntry(props) {
             {(mileageDue || dateDue) && 
             <>
               <strong>Service is Due Next: </strong>
-              <span>{mileageDue > 0 ? `At ${Number(mileageDue).toLocaleString()} miles. ` : "[unset] miles. "} {dateDue && "On"} {moment(dateDue).format("MMM Do YYYY")}</span>
+              <span>{mileageDue > 0 ? `At ${Number(mileageDue).toLocaleString()} miles. ` : "[unset] miles. "} {dateDue && "On " && moment(dateDue).format("MMM Do YYYY")}</span>
             </>
             }
           </div>
@@ -71,11 +71,11 @@ function SingleLogEntry(props) {
           <div>
             <div>
               <strong>Parts Cost: </strong>
-              <span>${partsCost.toLocaleString()}</span>            
+              <span>${partsCost && partsCost.toLocaleString()}</span>            
             </div>
             <div>
               <strong>Labor Cost: </strong>
-              <span>${laborCost.toLocaleString()}</span>
+              <span>${laborCost && laborCost.toLocaleString()}</span>
             
             </div>
           </div>
