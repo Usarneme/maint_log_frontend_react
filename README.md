@@ -30,6 +30,7 @@ Maintenance Log Backend Project at: https://github.com/Usarneme/maint_log/
 - Export and/or Share Metrics/Charts
 - Notifications of upcoming services based on odometer and/or date
 - Share and compare your service entries with other users - become a social tool for DIY mechanics
+- Full List of [Todos](https://github.com/Usarneme/maint_log_frontend_react/blob/master/TODO.md "Maintenance Log Todo Simple Kanban")
 
 #### Built With
 ##### Backend

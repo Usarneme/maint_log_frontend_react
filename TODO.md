@@ -6,17 +6,16 @@
 
 - [ ] Image tagging, indexed for search  
 - [ ] Notifications SW  
-- [ ] Odometer image to number? Overengineered?  
 - [ ] Odometer entry notification - whenever wifi disconnects? Cron job? Interval?  
 - [ ] Email service & API url+key  
 - [ ] HTML email build and style  
 - [ ] HTML and fallback text email tests  
 - [ ] Service Manual image to text file, user/client corrections, text file to upcoming/todo Log entries  
 - [ ] Integration Test all components  
-- [ ] Registration -> 1st time Login -> Should prompt w/component on Home page to enter vehicle for new account  
 - [ ] ForgotPassword Component - hook up and test  
 - [ ] Vehicle details - images, purchase info, photos of receipts, manual pdf, etc.  
 - [ ] Teardown upon log entry, vehicle, and account deletion. IE: images, db collections, sessions/auth, cache.  
+- [ ] More useful form validation error handling.  
 
 ### In Progress
 
@@ -24,10 +23,11 @@
 - [ ] Unit Test All Components  
 - [ ] Unit Test All Pages  
 - [ ] Loading component - make animation  
-- [ ] Currently selected/default vehicle passing to props and components  
 
 ### Done ✓
 
+- [x] Registration -> 1st time Login -> Should prompt w/component on Home page to enter vehicle for new account  
+- [x] Currently selected/default vehicle passing to props and components  
 - [x] Why is userContext setting default value for user.vehicle to a string instead of empty [] array? --causing PropTypes warnings  
 - [x] Image gallery  
 - [x] Registration -> 1st time Login -> Settings fails, find out why and fix  
