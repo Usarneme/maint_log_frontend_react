@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
+import { useHistory } from 'react-router-dom'
 
 import VLVin from './VLVin'
 import VLManual from './VLManual'
@@ -14,6 +15,7 @@ import '../../styles/vehicle.css'
 function VehicleSettings(props) {
   console.log('loading vehicle settings with props:')
   console.dir(props)
+  const history = useHistory()
   const [vehicleLookupsShowing, showVehicleLookups] = useState(false)
   const [manualLookupShowing, showManualLookup] = useState(false)
   const [vinLookupShowing, showVinLookup] = useState(false)
@@ -122,7 +124,7 @@ function VehicleSettings(props) {
         user.vehicles = [...newVehicleList]
         await updateUserState(user)
         setLoading(false)
-        return props.history.push(`/settings`)
+        return history.push(`/settings`)
       }
     } catch(err) {
       console.error(err)
@@ -193,8 +195,7 @@ function VehicleSettings(props) {
 
 VehicleSettings.propTypes = {
   vehicles: PropTypes.array.isRequired,
-  selectedVehicles: PropTypes.array,
-  history: PropTypes.object.isRequired
+  selectedVehicles: PropTypes.array
 }
 
 export default VehicleSettings

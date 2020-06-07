@@ -97,7 +97,6 @@ function SingleLogEntry(props) {
 }
 
 SingleLogEntry.propTypes = {
-  history: PropTypes.object.isRequired,
   user: PropTypes.shape({
     cookies: PropTypes.string,
     email: PropTypes.string,

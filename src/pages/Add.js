@@ -1,13 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import LogForm from '../components/log/LogForm'
+import { useHistory } from 'react-router-dom'
 
 function Add(props) {
-  return <LogForm {...props} />
+  const history = useHistory()
+  return <LogForm {...props} history={history} />
 }
 
 Add.propTypes = {
-  history: PropTypes.object.isRequired,
   user: PropTypes.shape({
     cookies: PropTypes.string,
     email: PropTypes.string,

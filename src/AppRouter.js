@@ -32,16 +32,36 @@ function AppRouter() {
         {({ user, updateUserState }) => 
         <div className="container">
           <Switch>
-            <Route path="/welcome" component={GuestHome} />
-            <ProtectedRoute path="/" exact={true} component={Home} />
-            <ProtectedRoute path="/add" component={Add} />
-            <ProtectedRoute path="/log" exact component={Log} />
-            <ProtectedRoute path="/log/:id/edit" exact component={Edit} />
-            <ProtectedRoute path="/log/:slug" exact component={SingleLogEntry} />
-            <ProtectedRoute path="/search" component={Search} />
-            <ProtectedRoute path="/settings" component={Settings} />
-            <ProtectedRoute path="/todo" component={Todo} />
-            <Route path="*" component={NotFound} />
+            <Route path="/welcome">
+              <GuestHome />
+            </Route>
+            <ProtectedRoute path="/add">
+              <Add user={user} updateUserState={updateUserState} />
+            </ProtectedRoute>
+            <ProtectedRoute path="/log" exact>
+              <Log user={user} updateUserState={updateUserState} />
+            </ProtectedRoute>
+            <ProtectedRoute path="/log/:id/edit" exact>
+              <Edit user={user} updateUserState={updateUserState} />
+            </ProtectedRoute>
+            <ProtectedRoute path="/log/:slug" exact>
+              <SingleLogEntry user={user} updateUserState={updateUserState} />
+            </ProtectedRoute>
+            <ProtectedRoute path="/search">
+              <Search user={user} updateUserState={updateUserState} />
+            </ProtectedRoute>
+            <ProtectedRoute path="/settings">
+              <Settings user={user} updateUserState={updateUserState} />
+            </ProtectedRoute>
+            <ProtectedRoute path="/todo">
+              <Todo user={user} updateUserState={updateUserState} />
+            </ProtectedRoute>
+            <ProtectedRoute path="/" exact={true}>
+              <Home user={user} updateUserState={updateUserState} />
+            </ProtectedRoute>
+            <Route path="*">
+              <NotFound />
+            </Route>
           </Switch>
           { user && user.cookies && user.cookies.length > 0 && <Nav /> }
         </div>

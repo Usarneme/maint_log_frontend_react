@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useHistory } from 'react-router-dom'
 
 import Logout from '../components/account/Logout'
 import AccountSettings from '../components/account/AccountSettings'
@@ -9,6 +10,8 @@ import VehicleSettings from '../components/vehicle/VehicleSettings'
 import '../styles/settings.css'
 
 function Settings(props) {  
+  const history = useHistory()
+
   return (
     <div className="inner">
       <h2>Settings</h2>
@@ -17,10 +20,10 @@ function Settings(props) {
         <VehicleSettings 
           selectedVehicles={props.user.selectedVehicles} 
           vehicles={props.user.vehicles} 
-          history={props.history} />
+          history={history} />
         <AccountSettings user={props.user} updateUserState={props.updateUserState} />
         <ThemeSwitcher />
-        <Logout history={props.history} user={props.user} updateUserState={props.updateUserState} />
+        <Logout history={history} user={props.user} updateUserState={props.updateUserState} />
       </div>
     </div>
   )
@@ -37,8 +40,7 @@ Settings.propTypes = {
     vehicles: PropTypes.array,
     selectedVehicles: PropTypes.array
   }),
-  updateUserState: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired
+  updateUserState: PropTypes.func.isRequired
 }
 
 export default Settings

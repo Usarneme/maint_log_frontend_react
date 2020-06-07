@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import { useHistory } from 'react-router-dom'
 
 import ForgotPassword from './ForgotPassword'
 import Loading from '../Loading'
@@ -7,6 +8,7 @@ import { login } from '../../helpers'
 import '../../styles/login.css'
 
 function Login(props) {
+  const history = useHistory()
   const [state, setState] = useState({
     email: '',
     password: ''
@@ -42,7 +44,7 @@ function Login(props) {
     await props.updateUserState(user)
     setLoading(false)
     console.log('2')
-    return props.history.push('/')
+    return history.push('/')
   }
 
   if (loading) return <Loading message="Logging in..." /> 
@@ -64,8 +66,7 @@ function Login(props) {
 }
 
 Login.propTypes = {
-  updateUserState: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired
+  updateUserState: PropTypes.func.isRequired
 }
 
 export default Login

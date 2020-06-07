@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
+import { useHistory } from 'react-router-dom'
 
 function Logout(props) {
+  const history = useHistory()
   const [showLogoutButton, toggleShowLogoutButton] = useState(false)
 
   const toggleConfirmLogout = event => {
@@ -16,7 +18,7 @@ function Logout(props) {
       const response = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/logout`)
       if (response.status === 200) {
         props.updateUserState({ name: '', userID: '', sessionID: '', cookies: '', email: '', log: [], vehicles: [], selectedVehicles: []})
-        return props.history.push('/welcome')
+        return history.push('/welcome')
       } else {
         const error = new Error(response.error)
         throw error
@@ -37,8 +39,7 @@ function Logout(props) {
 }
 
 Logout.propTypes = {
-  updateUserState: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired
+  updateUserState: PropTypes.func.isRequired
 }
 
 export default Logout

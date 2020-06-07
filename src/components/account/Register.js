@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import { useHistory } from 'react-router-dom'
 
 import { register } from '../../helpers'
 import Loading from '../Loading'
 
 function Register(props) {
+  const history = useHistory()
+
   const [state, setState] = useState({
     name: '',
     email: '',
@@ -36,8 +39,8 @@ function Register(props) {
       setLoading(false)
       return alert('Server was unable to register you at this time. Please try again.')
     }
-    props.history.push('/')
-    return await props.updateUserState(result.user)
+    await props.updateUserState(result.user)
+    history.push('/')
   }
 
   if (loading) return <Loading message="Registering New User..." />
@@ -61,8 +64,7 @@ function Register(props) {
 }
 
 Register.propTypes = {
-  updateUserState: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired
+  updateUserState: PropTypes.func.isRequired
 }
 
 export default Register
