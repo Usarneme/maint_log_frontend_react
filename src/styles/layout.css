@@ -215,10 +215,11 @@ input.button {
 .well {
   width: 100%;
   max-width: var(--cardMaxWidth);
-  margin: 0;
-  margin: 0 auto;
+  margin: 0 auto 0.5rem auto;
   padding: 0.9rem;
-  background: rgba(255,255,255,0.15);
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  border: 2px solid var(--lightBlue);  
 }
 
 .no__log,

@@ -43,11 +43,11 @@ function Login(props) {
     if (!user.selectedVehicles || user.selectedVehicles === undefined) user.selectedVehicles = []
     await props.updateUserState(user)
     setLoading(false)
-    console.log('2')
+    console.log('Loading set to false in Login component. Pushing history to /')
     return history.push('/')
   }
 
-  if (loading) return <Loading message="Logging in..." /> 
+  if (loading) return <Loading message="Logging in..." messages={["Logging in..."] } /> 
 
   return (
     <div className="card">
