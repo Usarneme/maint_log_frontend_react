@@ -1,13 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import '../../styles/vehicle.css'
 
 function VehiclesSelector(props) {
   console.log('Vehicle selector component with props: ')
   console.dir(props)
   return (
-    <div className="vehiclesSelector vehicles">
-      <div className="vehicleHeader">
-        <span>Your Vehicles: </span>
+    <div className="card vehicles__selector vehicles">
+      <div>
+        <h4 className="flexy vehicles__selector__header">
+          <span>Your Vehicles</span> 
+          <span>Selected for View</span>
+        </h4>
       </div>
       { (!props.allVehicles || props.allVehicles.length === 0) && <span>(none)</span> }
       { props.allVehicles && props.allVehicles.length > 0 && props.allVehicles.map(vehicle => {

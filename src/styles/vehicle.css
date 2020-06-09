@@ -5,6 +5,16 @@
   flex-direction: column;
 }
 
+h4.vehicles__selector__header {
+  justify-content: space-between;
+}
+
+h4.vehicles__selector__header > span {
+  /* span children used as header fields: TITLE, SELECTED, ETC. */
+  /* should inherit their color from the H4 rather than the span selector */
+  color: inherit;
+}
+
 .vehicle__details__update {
   margin: 1px;
   padding: 4px;
@@ -15,12 +25,11 @@
 
 .vehicle__container {
   display: grid;
-  grid-template-columns: auto;
+  /* 190px for the year+make+model, rest for the Edit button (and when actively editing, the Edit Vehicle card) */
+  grid-template-columns: 190px auto;
   align-items: center;
-}
-
-.vehicle__data__container > span {
-  padding-left: 5px;
+  margin: 0.5rem;
+  background: var(--backgroundLayerTwo);
 }
 
 .checkboxes__container {

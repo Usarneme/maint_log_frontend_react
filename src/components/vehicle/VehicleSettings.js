@@ -137,33 +137,29 @@ function VehicleSettings(props) {
   return (
     <div className="card">
       <h3>{`Vehicle${(props.vehicles && props.vehicles.length) > 1 ? "s": ""}`}</h3>
+      <div>
       { (props.vehicles && props.vehicles.length > 0) && props.vehicles.map(vehicle => {
           return (
             <div key={vehicle._id} className={`${vehicle.primary ? 'vehicle__container padded primary' : 'vehicle__container padded'}`} >
-              <div className="well vehicle__data__container">
-                <span>{vehicle.year}</span>
-                <span>{vehicle.make}</span>
-                <span>{vehicle.model}</span>
-                { vehicle.primary && <span className="flexy">Main <input type="checkbox" checked disabled /></span> }
-                <div>
-                  <button 
-                    className={vehiclesEditing[vehicle._id] ? `button warn` : `button`} 
-                    onClick={() => changeVehicleEditStatus({ ...vehiclesEditing, [vehicle._id]: !vehiclesEditing[vehicle._id] }) } >
-                      { vehiclesEditing[vehicle._id] ? `Close Editor Without Saving` : `Edit` }
-                  </button>
-                  { vehiclesEditing[vehicle._id] && 
-                  <>
-                    <VLManual {...vehicle} saveNewVehicle={saveNewVehicle} saveVehicleChanges={saveVehicleChanges} editing={true} /> 
-                    <button className="button delete delete__vehicle" onClick={() => deleteVehicle(vehicle._id)}>Permanently Delete Vehicle</button>
-                  </>
-                  }
-                </div>
+              <h5>{vehicle.year}&nbsp;{vehicle.make}&nbsp;{vehicle.model}</h5>
+              <div>
+                <button 
+                  className={vehiclesEditing[vehicle._id] ? `button warn` : `button`} 
+                  onClick={() => changeVehicleEditStatus({ ...vehiclesEditing, [vehicle._id]: !vehiclesEditing[vehicle._id] }) } >
+                    { vehiclesEditing[vehicle._id] ? `Close Editor Without Saving` : `Edit` }
+                </button>
+                { vehiclesEditing[vehicle._id] && 
+                <>
+                  <VLManual {...vehicle} saveNewVehicle={saveNewVehicle} saveVehicleChanges={saveVehicleChanges} editing={true} /> 
+                  <button className="button delete delete__vehicle" onClick={() => deleteVehicle(vehicle._id)}>Permanently Delete Vehicle</button>
+                </>
+                }
               </div>
             </div>
           )
         }) 
       }
-      
+      </div>
       <div className="add__vehicle__container padded">
         { vehicleLookupsShowing && 
           <>

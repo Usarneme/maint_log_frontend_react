@@ -2,8 +2,7 @@ html {
   font-size: 10px;
   box-sizing: border-box;
   --buttonBlue: #164766;
-  /* --buttonBlue: #004C7D */
-  --lightBlue: #055861;
+  --lightBlue: #077077;
   --buttonTextWhite: #DDDDDD;
   --cardMaxWidth: 866px;
 }
@@ -24,18 +23,18 @@ html {
 }
 
 .dark {
-  --backgroundLayerOne: #121212;
-  --backgroundLayerTwo: rgba(255,255,255,0.16);
-  --backgroundLayerThree: rgba(0,0,0,0.7);
+  --backgroundLayerOne: #0B0B0B;
+  --backgroundLayerTwo: #141414;
+  --backgroundLayerThree: #2C2C2C;
   --backgroundLayerFour: #898989;
   --textColorOne: #A9A9A9;
   --textColorTwo: #BCBCBC;
 }
 
 .light {
-  --backgroundLayerOne: #CDCDCD;
-  --backgroundLayerTwo: rgba(0,0,0,0.16);
-  --backgroundLayerThree: rgba(255,255,255,0.5);
+  --backgroundLayerOne: #BCBCBC;
+  --backgroundLayerTwo: rgba(0,0,0,0.25);
+  --backgroundLayerThree: #E1E1E1;
   --backgroundLayerFour: #999999;
   --textColorOne: #414141;
   --textColorTwo: #262626;
@@ -195,10 +194,6 @@ input[type="checkbox"] {
   border: 1px solid lighten(var(--textColorOne), 50%);
 }
 
-.button * {
-  color: var(--buttonTextWhite);
-}
-
 .button:hover,
 .button:focus {
   box-shadow: 0px 0px 4px var(--lightBlue);
@@ -219,7 +214,7 @@ input.button {
   padding: 0.9rem;
   display: grid;
   grid-template-columns: 3fr 1fr;
-  border: 2px solid var(--lightBlue);  
+  /* border: 2px solid var(--lightBlue);   */
 }
 
 .no__log,

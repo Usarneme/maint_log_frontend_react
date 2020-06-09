@@ -28,7 +28,6 @@
 
 .card.home__actions > p {
   flex-grow: 1;
-  color: var(--lightBlue);
 }
 
 .card.home__actions:focus,
