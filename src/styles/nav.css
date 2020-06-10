@@ -23,6 +23,7 @@ a.card.navLink * {
 }
 
 a.card.navLink:hover,
+a.card.navLink:focus,
 a.card.navLink--active {
   /* background: linear-gradient(90deg, var(--buttonBlue) 20%, var(--lightBlue) 80%) fixed; */
   background: var(--lightBlue);

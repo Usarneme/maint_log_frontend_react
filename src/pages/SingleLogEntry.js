@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import { ReactSVG } from 'react-svg'
@@ -10,7 +10,7 @@ import EditPencil from '../images/editPencil.svg'
 import '../styles/singleLogEntry.css'
 
 function SingleLogEntry(props) {
-  const { slug } = props.match.params
+  const { slug } = useParams()
   const log = props.user.log.filter(entry => entry.slug === slug)
   const { id, shortDescription, longDescription, dateStarted, dateCompleted, dateEntered, dateDue, mileageDue, name, odometer, tools, parts, partsCost, laborCost, serviceLocation, photos } = log[0]
   const vehicleID = log[0].vehicle
@@ -20,7 +20,7 @@ function SingleLogEntry(props) {
   return (
     <div className="inner">
       <div className="card">
-        <h3>{name.length > 120 ? `${name.substring(0,120)}...` : name}</h3>
+        <h2>{name.length > 120 ? `${name.substring(0,120)}...` : name}</h2>
         <div className="padded single__details">
           <div>
             <div>
@@ -86,7 +86,7 @@ function SingleLogEntry(props) {
 
           <Link className="button editPencil" to={`/log/${id}/edit`}>
             <ReactSVG src={EditPencil} role="img" aria-label="Edit Pencil Icon" fallback={() => <img src={EditPencil} alt="edit pencil icon" description="edit pencil icon" className="svg" />} /> 
-            <p>Edit</p>
+            <h5>Edit</h5>
           </Link>
 
         { photos && photos.length > 0 && <PhotoEditor photos={photos} editingBlocked={true} /> }

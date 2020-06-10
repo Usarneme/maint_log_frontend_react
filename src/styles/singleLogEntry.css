@@ -29,7 +29,9 @@
 
 .editPencil > div {
   position: absolute;
-  left: 25px;
+  left: 15px;
+  /* The bottom of the pencil svg is emptier so it looks off-center vertically when actually centered */
+  padding-top: 5px;
 }
 
 .photos__div {
