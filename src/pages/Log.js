@@ -8,36 +8,39 @@ import LogSorter from '../components/log/LogSorter'
 
 function Log(props) {
   // [] Contains String IDs of all vehicles currently selected for view
-  const [vehiclesShowing, changeVehiclesShowing] = useState()
+  const [vehiclesShowing, changeVehiclesShowing] = useState([])
   // [] Contains log entries that will be rendered (as that log entry's vehicle has been selected) 
-  const [entriesShowing, changeEntriesShowing] = useState()
+  const [entriesShowing, changeEntriesShowing] = useState([])
 
-  // initial mount, setup data for rendering
+  // at initial mount, setup data for rendering
   useEffect(() => {
-    console.log('Setting up Log page with vehicles and log entries.')
-    console.log(`Props.user.selectedVehicles:`)
-    console.log(props.user.selectedVehicles)
-    console.log(`Props.user.vehicles:`)
-    console.log(props.user.vehicles)
-    // Defaults to the currently selectedVehicle(s) ID(s), the first ID in the user's vehicles array, or an empty []
+    // Defaults to the currently selectedVehicle(s) ID(s) if any, OR
+    // Defaults to all ID(s) in the user's vehicles array
     const veh = []
-    if (props.user.selectedVehicles.length > 0 && props.user.selectedVehicles[0] !== undefined) { 
-      veh.push(props.user.selectedVehicles[0].id)
-    } else if (props.user.vehicles.length > 0 && props.user.vehicles[0] !== undefined) {
-      veh.push(props.user.vehicles[0].id)
+    if (props.user.selectedVehicles.length > 0) { 
+      props.user.selectedVehicles.forEach(vehicle => {
+        if (vehicle !== undefined && vehicle.id) veh.push(vehicle.id)
+      })
+    } else if (props.user.vehicles.length > 0) {
+      props.user.vehicles.forEach(vehicle => {
+        if (vehicle !== undefined && vehicle.id) veh.push(vehicle.id)
+      })
     }
-    console.log('Found initial vehicle showing ID(s): ')
+    console.log('Found initial vehicleShowing ID(s): ')
     console.log(veh)
-    changeVehiclesShowing(veh)
-    console.log('After setup. Vehicles: ')
-    console.log(vehiclesShowing)
-    const ent = props.user.log.filter(logEntry => vehiclesShowing.includes(logEntry.vehicle))
+    changeVehiclesShowing([...veh])
+
+    const ent = props.user.log.filter(logEntry => veh.includes(logEntry.vehicle))
     console.log('Found initial entries showing: ')
     console.log(ent)
     changeEntriesShowing(ent)
     console.log('After setup. Entries: ')
     console.log(entriesShowing)
-  }, []) // empty array tells React to only run this once on initial componentMount, not at every change in deps/props
+  }, []) // empty [] only runs this at initial startup, prevents infinite re-render loop
+
+  console.log('(After useEffect) Vehicles and Logs: ')
+  console.log(vehiclesShowing)
+  console.log(entriesShowing)
 
   const changeVehicleStatus = event => {
     const clickedOnVehicleId = event.target.name
@@ -46,9 +49,7 @@ function Log(props) {
     // if it is already in the list, remove it
     if (vehiclesShowing.includes(clickedOnVehicleId)) {
       console.log('current vehicles includes this vehicle ID already. Removing it.')
-      const vehicleObjects = vehiclesShowing.filter(vehicleId => vehicleId !== clickedOnVehicleId)
-      // console.log(vehicleObjects)
-      vehicleUpdates = vehicleObjects
+      vehicleUpdates = vehiclesShowing.filter(vehicleId => vehicleId !== clickedOnVehicleId)
     } else { // if it was not in the list, add it
       console.log('current vehicles does not include this vehicle ID. Adding it.')
       vehicleUpdates = vehiclesShowing
@@ -61,26 +62,28 @@ function Log(props) {
     console.log(vehiclesShowing)
 
     console.log('Log entries updates queued: ')
-    const logUpdates = props.user.log.filter(logEntry => vehiclesShowing.includes(logEntry.vehicle))
+    const logUpdates = props.user.log.filter(logEntry => vehicleUpdates.includes(logEntry.vehicle))
     console.log(logUpdates)
     changeEntriesShowing(logUpdates)
     console.log('Updated which log entries are displayed: ')
     console.log(entriesShowing)
-    }
+  }
 
   return (
     <div className="inner">
       <h2>Service History</h2>
+      <VehiclesSelector allVehicles={props.user.vehicles} vehiclesShowing={vehiclesShowing} changeVehiclesShowing={changeVehicleStatus} />
       { entriesShowing.length === 0 &&
         <div className="card no__log">
           <h3>No Log Entries Found!</h3>
+          <div>
+            <p className="padded">No log entries for the vehicles selected. Please select more vehicles or add a new entry.</p>
+          </div>
           <Link className="button" to="/add">Add A Log Entry Now</Link>
         </div>
       }
- 
       { entriesShowing.length > 0 &&
         <div className="padded">
-          <VehiclesSelector allVehicles={props.user.vehicles} vehiclesShowing={vehiclesShowing} changeVehiclesShowing={changeVehicleStatus} />
           <LogSorter {...props} />
           {entriesShowing && entriesShowing.map(entry => <LogEntry key={entry._id} data={entry} />)}
         </div>

@@ -20,6 +20,8 @@ function VehicleSettings(props) {
   const [manualLookupShowing, showManualLookup] = useState(false)
   const [vinLookupShowing, showVinLookup] = useState(false)
   const [yearMakeModelLookupShowing, showYearMakeModelLookup] = useState(false)
+  // dictionary of shape { vehicleID : Boolean } for if that vehicle ID is being edited currently
+  // this controls whether the edit vehicle (VLManual component) is loaded for that vehicle 
   const [vehiclesEditing, changeVehicleEditStatus] = useState({})
   const [loading, setLoading] = useState(false)
   const {user, updateUserState} = useContext(UserContext)
@@ -34,7 +36,6 @@ function VehicleSettings(props) {
       console.log(transform)
       if (Object.keys(vehiclesEditing).length === 0) changeVehicleEditStatus({...transform})
     }
-  // })
   }, [props.vehicles, vehiclesEditing])
   
   const vehicleLookupChanger = view => {
@@ -96,6 +97,8 @@ function VehicleSettings(props) {
     vehicle.primary = vehicle.primary || false
     vehicle._id = vehicle.id
 
+    // set state to no longer be editing this vehicle after saving updates
+    changeVehicleEditStatus({ ...vehiclesEditing, [vehicle._id]: !vehiclesEditing[vehicle._id] })
     const newLogVehicleArrays = await updateVehicle(vehicle)
     // console.log('sent changes to server. results: ')
     // console.log(newLogVehicleArrays)
@@ -141,8 +144,8 @@ function VehicleSettings(props) {
       { (props.vehicles && props.vehicles.length > 0) && props.vehicles.map(vehicle => {
           return (
             <div key={vehicle._id} className={`${vehicle.primary ? 'vehicle__container padded primary' : 'vehicle__container padded'}`} >
-              <h5>{vehicle.year}&nbsp;{vehicle.make}&nbsp;{vehicle.model}</h5>
-              <div>
+              <h4>{vehicle.year}&nbsp;{vehicle.make}&nbsp;{vehicle.model}</h4>
+              <div className="card vehicle__editor">
                 <button 
                   className={vehiclesEditing[vehicle._id] ? `button warn` : `button`} 
                   onClick={() => changeVehicleEditStatus({ ...vehiclesEditing, [vehicle._id]: !vehiclesEditing[vehicle._id] }) } >
