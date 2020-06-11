@@ -1,20 +1,22 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import UserContext from '../contexts/UserContext'
 import Login from '../components/account/Login'
 import Register from '../components/account/Register'
+import ThemeSwitcher from '../components/account/ThemeSwitcher'
 
 import '../styles/guestHome.css'
 
 function GuestHome(props) {
   const {user, updateUserState} = useContext(UserContext)
-  // eslint-disable-next-line
-  const [theme, changeTheme] = useState('dark')
   
   useEffect(() => {
     const preferredTheme = localStorage.getItem('theme') || 'dark'
+    // const savedUser = JSON.parse(localStorage.getItem('maint_log_user'))
+    // pass the saved data to the Login component
+    // if (savedUser !== null) { 
+    // }
     document.documentElement.className = preferredTheme
-    changeTheme(preferredTheme)
-  }, [])
+  }, []) // empty [] will cause this to only run once on initial render
 
   return (
     <div className="inner">
@@ -32,6 +34,7 @@ function GuestHome(props) {
         <Login user={user} updateUserState={updateUserState} history={props.history} />
         <p><strong>New user? </strong>Register an account & start tracking your vehicle maintenance.</p>
         <Register user={user} updateUserState={updateUserState} history={props.history} />
+        <ThemeSwitcher />
       </div> 
     </div>
   )
